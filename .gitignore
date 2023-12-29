@@ -1,0 +1,11 @@
+.cmake
+**/CMakeFiles
+.so
+Makefile
+.log
+**/bin
+.o
+CMakeCache.txt
+
+
+

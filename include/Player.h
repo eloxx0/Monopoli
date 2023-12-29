@@ -1,6 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <string>
+#include <iostream>
+#include "GameTable.h"
+#include "Casella.h"
+
 //Giocatore generico. Ogni giocatore possiede un saldo iniziale
 //fissato a 100 fiorini.
 //Ogni giocatore può tirare un dado e comprare determinate caselle
@@ -16,13 +21,26 @@
 //all'interno della casella. Il secondo caso potrebbe risultare meno
 //complesso poichè per identificare a chi appartiene una determinata 
 //casella basta andare a guardare nella casella stessa
-
+//
+//
+//CAPIRE COME GESTIRE L'ACCESSO AL TABELLONE: poichè il giocatore deve avere accesso diretto
+//alle caselle tramite la sua posizione definita, che indica la casella corrispondente 
+//nell'array che forma il tabellone
 
 //non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
+
+//variabile statica che serve per tenere il conto dei giocatori inizializzati.
+//Ad ogni giocatore viene associato un numero identificativo univoco in base
+//a quanti giocatori sono già presenti nella partita
+static int num_player = 0;
+
 class Player{
 
-    private:
+    //protected in modo che le classi derivate ereditino i dati membro
+    protected:
 
+        //puntatore alla tabella di gioco associata al giocatore
+        GameTable* table_p;
 
         //saldo iniziale di 100 fiorini per ogni giocatore
         int balance = 100;
@@ -41,12 +59,14 @@ class Player{
         //assegnata una pedina? 
         int player;
 
+
     public:
 
+
         //ogni giocatore viene assegnata/può scegliere una pedina identificativa
-        enum Pawns{
-            dog = 1, hat, shoe, train, ship, car
-        };
+        /* enum Pawns{ */
+        /*     dog = 1, hat, shoe, train, ship, car */
+        /* }; */
 
         //disabilita copia e costruttore di copia per la classe Player: ogni volta in cui si
         //prova a copiare oggetti Player viene lanciato un errore in compilazione
@@ -66,11 +86,11 @@ class Player{
 
         //indica quantità da aggiungere o sottrarre al bilancio totale
         //(positivo se da aggiungere, negativo se da togliere)
-        void change_balance(int bal){
+        void add_balance(int bal){
             balance += bal;
         }
 
-        int show_position() const{
+        int get_position() const{
             return position;
         }
 
@@ -78,31 +98,46 @@ class Player{
             position = pos;
         }
 
-        void set_player(int num){
-            player = num;
+        int get_player(){
+            return player;
         }
 
-        //ha senso ritornare bool? o semplicemente stampare l'esito
-        
         //tenta di comprare la casella in cui si trova attualmente il giocatore, 
         //verificando che il bilancio sia adeguato.
-        //ritorna true se l'acquisto è andato a buon fine, false altrimenti;
         //l'esito varia se il giocatore è umano o robot
-        virtual bool buy_slot() = 0;
+        virtual void buy_slot() = 0;
 
         //tenta di comprare una casa nella casella attuale. Operazione possibile
-        //solo se la casella è già di proprietà del giocatore. Ritorna true 
-        //se l'acquisto è andato a buon fine(se il credito è adeguato), false altrimenti.
-        virtual bool buy_house() = 0;
+        //solo se la casella è già di proprietà del giocatore.
+        virtual void buy_house() = 0;
 
         //tenta di comprare un albergo nella casella attuale. Operazione possibile
         //solo se la casella è già di proprietà del giocatore e contiene una casa. 
-        //Ritorna true se l'acquisto è andato a buon fine(se il credito è adeguato),
-        //false altrimenti.
-        virtual bool buy_hotel() = 0;
+        virtual void buy_hotel() = 0;
+
+
+        //metodo che fa lanciare il dado al giocatore e lo fa avanzare di posizione nel tabellone.
+        //Se passa per il via ritira 20 fiorini
+        void advance();
+
+        //stampa le informazioni principali del player: nome giocatore(in base alla pedina
+        //e/o numero identificativo) e posizione (in coordinate sul tabellone)
+        //
+        //Ha senso come metodo interno alla classe????
+        void print_player();
+
+        //la stampa delle proprietà(caselle che contengono case/alberghi, lista
+        //delle proprietà possedute da ogni giocatore) deve essere gestita nel
+        //tabellone poichè le informazioni necessarie sono salvate li
 
 
 };
+//restituisce una stringa che contiene la posizione IN COORDINATE!
+//forse meglio gestirla nel tabellone?
+//le coordinate sono definite con colonne che vanno da 1 a 8 e 
+//righe che vanno da A ad H
+std::string string_pos(int pos);
+
 
 //funzione che restituisce il numero ottenuto dalla somma del lancio di due dadi, generato
 //casualmente
