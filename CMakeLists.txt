@@ -21,7 +21,7 @@ add_library(Casella INTERFACE include/Casella.h)
 add_library(Gametable INTERFACE include/GameTable.h)
 
 ##SHARED crea una libreria dinamica condivisa
-add_library(Play SHARED src/Player.cpp src/HumanPlayer.cpp src/RobotPlayer.cpp src/GameTable.cpp)
+add_library(Play SHARED src/Player.cpp src/HumanPlayer.cpp src/RobotPlayer.cpp src/GameTable.cpp src/Casella.cpp)
 
 ##imposto come directory di runtime la cartella bin
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)

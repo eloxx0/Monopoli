@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <random>
+#include <chrono>
 #include "GameTable.h"
 #include "Casella.h"
 
@@ -23,9 +25,8 @@
 //casella basta andare a guardare nella casella stessa
 //
 //
-//CAPIRE COME GESTIRE L'ACCESSO AL TABELLONE: poichè il giocatore deve avere accesso diretto
-//alle caselle tramite la sua posizione definita, che indica la casella corrispondente 
-//nell'array che forma il tabellone
+//il giocatore deve avere accesso diretto alle caselle del tabellone tramite la sua posizione definita,
+//che indica la casella corrispondente nell'array che forma il tabellone
 
 //non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
 
@@ -62,17 +63,9 @@ class Player{
 
     public:
 
-
-        //ogni giocatore viene assegnata/può scegliere una pedina identificativa
-        /* enum Pawns{ */
-        /*     dog = 1, hat, shoe, train, ship, car */
-        /* }; */
-
         //disabilita copia e costruttore di copia per la classe Player: ogni volta in cui si
         //prova a copiare oggetti Player viene lanciato un errore in compilazione
         //impedisce che l'oggetto venga costruito di default da una classe derivata
-        
-        //necessario anche se non viene allocata dinamicamente?
 
         Player(const Player&) = delete;
 
@@ -86,7 +79,7 @@ class Player{
 
         //indica quantità da aggiungere o sottrarre al bilancio totale
         //(positivo se da aggiungere, negativo se da togliere)
-        void add_balance(int bal){
+        void edit_balance(int bal){
             balance += bal;
         }
 
@@ -123,7 +116,7 @@ class Player{
         //stampa le informazioni principali del player: nome giocatore(in base alla pedina
         //e/o numero identificativo) e posizione (in coordinate sul tabellone)
         //
-        //Ha senso come metodo interno alla classe????
+        //Ha senso come metodo interno alla classe?
         void print_player();
 
         //la stampa delle proprietà(caselle che contengono case/alberghi, lista

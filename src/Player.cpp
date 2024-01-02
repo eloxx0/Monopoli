@@ -1,6 +1,4 @@
 #include "../include/Player.h"
-#include <random>
-#include <chrono>
 
 //il tabellone è formato da 28 caselle disposte come ai lati di un quadrato 8x8
 //la prima e ultima riga possiedono 8 caselle ciascuna, tutte quelle in mezzo ne possiedono 2

@@ -11,14 +11,14 @@ class HumanPlayer : public Player{
     public:
         //costruttore del giocatore umano. Gli deve essere passato il puntatore al primo
         //elemento della tabella da gioco
-        HumanPlayer(GameTable* p);
+        HumanPlayer(GameTable* p_game);
 
         //implementazione dei metodi virtuali della classe Player
-        void buy_slot();
+        void buy_slot() override;
 
-        void buy_house();
+        void buy_house() override;
 
-        void buy_hotel();
+        void buy_hotel() override;
 
 };
 
