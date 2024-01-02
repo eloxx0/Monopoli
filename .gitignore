@@ -5,6 +5,7 @@ Makefile
 .log
 **/bin
 .o
+.json
 CMakeCache.txt
 
 
