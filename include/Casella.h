@@ -1,6 +1,5 @@
 #ifndef CASELLA
 #define CASELLA
-//#include "Player.h"
 #include <iostream>
 
 class Casella{
@@ -8,19 +7,33 @@ class Casella{
     private:
     
     char status; 
-    int propriety;
-    //secondo me sono da definire come dei bool, come fossero uno switch
+    Player* player;
+    int number_player;
+    //definire come dei bool, come fossero uno switch
     bool house;
     bool hotel;
     
     public:
 
     Casella(); //costruttore di default, casella settata come vuota
-    //definire getter lusso/eco/standard tramite status?
+    //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-    int get_propriety(void){    //ritorna numero player casella oppure 0 se non la possiede nessuno, dovrei avere accesso a player?
-        return propriety;
+    Player* get_propriety(void){    //ritorna puntatore a player
+        return &player;
+    }
+    
+    int get_number(void) const{       //???
+        return number_player;
+    }
+    
+    char get_status(void) const{
+        return status;
+    }
+    
+    void set_status(char x){
+        if(x!='L' || x!='E' || x!='S')  std::cout<<"Casella settata non valida"<<std::endl;
+        else    status=x;
     }
     
     void set_house(bool x){
@@ -38,8 +51,10 @@ class Casella{
     
     bool get_hotel() const{
         return hotel;
-    }  
+    }    
 
 };
+
+std::ostream& operator<<(std::ostream& out, const Casella& x);
 
 #endif // CASELLA
