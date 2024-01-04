@@ -1,3 +1,3 @@
 #include "../include/Casella.h"
 
-Casella::Casella():Lusso{false}, Standard{false}, Economica{false}, house{false}, hotel{false}{}
+Casella::Casella():propriety{0}, house{false}, hotel{false}{}
