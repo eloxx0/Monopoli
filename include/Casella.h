@@ -19,7 +19,7 @@ class Casella{
     //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-    Player* get_propriety(void){    //ritorna puntatore a player
+    Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
         return &player;
     }
     
@@ -32,8 +32,7 @@ class Casella{
     }
     
     void set_status(char x){
-        if(x!='L' || x!='E' || x!='S')  std::cout<<"Casella settata non valida"<<std::endl;
-        else    status=x;
+        status=x;
     }
     
     void set_house(bool x){
