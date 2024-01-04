@@ -1,11 +1,11 @@
-.cmake
+*.cmake
 **/CMakeFiles
-.so
+*.so
 Makefile
-.log
+*.log
 **/bin
-.o
-.json
+*.o
+*.json
 CMakeCache.txt
 
 
