@@ -8,7 +8,7 @@ class Casella{
     private:
     
     char status; 
-    Player* player;
+    //Player* player; da definire
     int number_player;
     //definire come dei bool, come fossero uno switch
     bool house;
@@ -20,11 +20,11 @@ class Casella{
     //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-    Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
+   /* Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
         return player;
-    }
+    }*/
     
-    int get_number(void) const{       //???
+    int get_number(void) const{       //??? devo avere accesso a player
         return number_player;
     }
     
