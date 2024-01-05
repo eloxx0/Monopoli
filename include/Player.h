@@ -3,8 +3,6 @@
 
 #include <string>
 #include <iostream>
-#include <random>
-#include <chrono>
 #include "GameTable.h"
 #include "Casella.h"
 
