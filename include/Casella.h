@@ -1,6 +1,7 @@
 #ifndef CASELLA
 #define CASELLA
 #include <iostream>
+/* #include "../include/Player.h" */
 
 class Casella{
 
@@ -20,7 +21,7 @@ class Casella{
     //setter e getter
     
     Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
-        return &player;
+        return player;
     }
     
     int get_number(void) const{       //???

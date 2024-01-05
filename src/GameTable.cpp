@@ -1,8 +1,5 @@
 #include "../include/GameTable.h"
 
-GameTable::GameTable(){
-    this-> table=genTable();
-}
 
 Casella* genTable()
 {
@@ -43,3 +40,6 @@ Casella* genTable()
     return table;
 }
 
+GameTable::GameTable(){
+    this-> table=genTable();
+}

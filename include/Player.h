@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "GameTable.h"
-#include "Casella.h"
+/* #include "Casella.h" */
 
 //Giocatore generico. Ogni giocatore possiede un saldo iniziale
 //fissato a 100 fiorini.
