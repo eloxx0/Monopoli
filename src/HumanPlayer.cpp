@@ -20,7 +20,7 @@ void HumanPlayer::buy_slot(){
     }
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
-    if(temp -> number_player() == 0){
+    if(can_buy(temp)){
         temp -> set_propriety(this);
         int cost = temp -> get_cost();
         edit_balance(-cost);
@@ -39,8 +39,11 @@ bool HumanPlayer::can_buy(Casella* temp){
 
     if(temp -> get_cost() > balance) return false;
 
-    if(temp -> number_player() != 0 || temp -> number_player() != player) return false;
+    if(temp -> number_player() == 0 || temp -> number_player() == player){
+        std::cout << "true\n";
+        return true;
+    }
 
-    return true;
+    return false;
 }
 

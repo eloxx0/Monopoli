@@ -25,6 +25,7 @@ void RobotPlayer::buy_slot(){
     //per evitare che la possibilità sia minore del 25% chiamo la funzione buy house prima di can_buy()
     if(temp -> number_player() == player){
         //richiama il metodo per comprare una casa se possibile
+        std::cout << "provo a comprare una casa\n";
         buy_house();
         return;
     }

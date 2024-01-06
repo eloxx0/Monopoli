@@ -9,6 +9,7 @@ int main(){
     RobotPlayer g(&game);
     h.advance();
     h.buy_slot();
+    g.edit_balance(-95);
     g.advance();
     g.buy_slot();
     std::cout << "h posizione " << h.get_position() << " " << h.show_balance() << "\n";

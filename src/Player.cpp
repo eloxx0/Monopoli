@@ -27,10 +27,10 @@ void Player::advance(){
     if(temp -> number_player() != player && temp -> number_player() !=0){
         std::cout << "casella già posseduta da altri! Impossibile da comprare."
             << " Necessario pagare il pernottamento\n";
-        int price = 14;
+        int price = 20;
         if(price > balance){
             std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
-                << "giocatore " << player << " eliminato\n";
+                << " Giocatore " << player << " eliminato\n";
             //azzera tutte le variabili del giocatore
             player = 0;
             balance = 0;
