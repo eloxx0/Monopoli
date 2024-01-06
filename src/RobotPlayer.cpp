@@ -36,13 +36,16 @@ void RobotPlayer::buy_slot(){
     /*     table_p = nullptr; */
     /* } */
     /* //probabilità del 25% di acquistare il terreno */
-    /* else if(can_buy()){ */
-    /*     temp -> set_giocatore(player); */
-    /*     std::cout << "terreno acquistato!\n"; */
-    /* } */
-    /* else{ */
-    /*     std::cout << "non succede nulla\n"; */
-    /* } */
+    if(can_buy()){
+        temp -> set_propriety(this);
+        temp -> set_number_p(player);
+        int cost = temp -> get_cost();
+        edit_balance(-cost);
+        std::cout << "terreno acquistato!\n";
+    }
+    else{
+        std::cout << "non succede nulla\n";
+    }
 }
 
 bool can_buy(){

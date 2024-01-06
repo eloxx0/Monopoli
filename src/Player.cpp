@@ -19,10 +19,12 @@ void Player::advance(){
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 1
         new_pos = new_pos % 27;
     }
+    set_position(new_pos);
+
     Casella* temp = &(table_p -> table[position]);
     //se il player arriva sulla casella di un altro giocatore, gli paga il pernottamento. Se
     //non ha abbastanza soldi per pagare il pernottamento, viene eliminato
-    if(temp -> get_number_p() != player){
+    if(temp -> get_number_p() != player && temp -> get_number_p() !=0){
         std::cout << "casella già posseduta da altri! Impossibile da comprare."
             << " Necessario pagare il pernottamento\n";
         int price = 14;
@@ -39,7 +41,6 @@ void Player::advance(){
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
     }
-    set_position(new_pos);
 
 }
 
@@ -49,7 +50,7 @@ void Player::print_player(){
 
 int throw_dice(){
     //imposta come seed del generatore randomico il tempo attuale
-    std::srand(std::time(0));
+    std::srand(std::time(nullptr) + rand());
     int a = 1 + (std::rand() % 6);
     int b = 1 + (std::rand() % 6);
     return a+b;

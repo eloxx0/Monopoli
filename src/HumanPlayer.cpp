@@ -21,15 +21,11 @@ void HumanPlayer::buy_slot(){
     Casella* temp = &(table_p -> table[position]);
     if(temp -> get_number_p() == 0){
         temp -> set_number_p(player);
+        temp -> set_propriety(this);
         int cost = temp -> get_cost();
         edit_balance(-cost);
         std::cout << "terreno acquistato!\n";
     }
-    //se la casella è già posseduta, rimuove i soldi del pernottamento e li aggiunge al giocatore proprietario
-
-
-
-
 
 }
 

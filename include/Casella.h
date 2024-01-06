@@ -10,7 +10,7 @@ class Casella{
     char status; 
     Player* player;
     int number_player;
-    int cost;
+    int cost = 20;
     //definire come dei bool, come fossero uno switch
     bool house;
     bool hotel;
@@ -39,7 +39,6 @@ class Casella{
 
     void set_number_p(int a){
         number_player = a;
-        return;
     }
     
     char get_status() const{
