@@ -7,6 +7,6 @@ Makefile
 *.o
 *.json
 CMakeCache.txt
-
+*.cmake
 
 
