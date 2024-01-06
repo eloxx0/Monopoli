@@ -11,9 +11,12 @@ class GameTable{
     //Costruttore
     GameTable();
     Casella table[28];
+    void printTable();
     
     
 };
+
+
 
 
 #endif //GAMETABLE_H
