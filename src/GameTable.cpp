@@ -1,9 +1,10 @@
 #include "../include/GameTable.h"
+#include "../include/Casella.h"
 
 
-Casella* genTable()
+void genTable(Casella table[28])
 {
-    Casella table[28];
+    /* Casella table[28]; */
     int countE{0}, countS{0}, countL{0}, i{0};
     std::srand(std::time(0));
     while(i<28)
@@ -37,9 +38,9 @@ Casella* genTable()
 
     }
 
-    return table;
+    /* return table; */
 }
 
 GameTable::GameTable(){
-    this-> table=genTable();
+    genTable(table);
 }

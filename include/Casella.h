@@ -1,15 +1,16 @@
 #ifndef CASELLA
 #define CASELLA
 #include <iostream>
-/* #include "../include/Player.h" */
+class Player;
 
 class Casella{
 
     private:
     
     char status; 
-    //Player* player; da definire
+    Player* player;
     int number_player;
+    int cost;
     //definire come dei bool, come fossero uno switch
     bool house;
     bool hotel;
@@ -20,15 +21,28 @@ class Casella{
     //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-   /* Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
+    Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
         return player;
-    }*/
-    
-    int get_number(void) const{       //??? devo avere accesso a player
-        return number_player;
+    }
+
+    void set_propriety(Player* p){
+        player = p;
+    }
+
+    int get_cost() const{
+        return cost;
     }
     
-    char get_status(void) const{
+    int get_number() const{
+        return number_player;
+    }
+
+    void set_number(int a){
+        number_player = a;
+        return;
+    }
+    
+    char get_status() const{
         return status;
     }
     

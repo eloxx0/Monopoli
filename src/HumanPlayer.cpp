@@ -1,4 +1,5 @@
 #include "../include/HumanPlayer.h"
+#include "../include/Casella.h"
 
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
@@ -35,11 +36,13 @@ void HumanPlayer::buy_slot(){
     /*     table_p = nullptr; */
     /*     position = 0; */
     /* } */
-    /* else{ */
-    /*     std::cout << "casella già posseduta da altri! Impossibile da comprare." */
-    /*         << " Necessario pagare il pernottamento\n"; */
-    /*     edit_balance(-(temp -> get_cost())); */
-    /* } */
+    if(true){
+        std::cout << "casella già posseduta da altri! Impossibile da comprare."
+            << " Necessario pagare il pernottamento\n";
+        int cost = temp -> get_cost();
+        edit_balance(-cost);
+        temp -> get_propriety() -> edit_balance(cost);
+    }
 
 
 

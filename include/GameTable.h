@@ -10,7 +10,7 @@ class GameTable{
     public:
     //Costruttore
     GameTable();
-    Casella* table;
+    Casella table[28];
     
     
 };

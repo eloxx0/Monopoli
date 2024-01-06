@@ -1,4 +1,5 @@
 #include "../include/RobotPlayer.h"
+#include "../include/Casella.h"
 
 RobotPlayer::RobotPlayer(GameTable* p_game){
     //numero identificativo del player definito in base al numero di giocatori attuali
@@ -39,9 +40,9 @@ void RobotPlayer::buy_slot(){
     /*     temp -> set_giocatore(player); */
     /*     std::cout << "terreno acquistato!\n"; */
     /* } */
-    else{
-        std::cout << "non succede nulla\n";
-    }
+    /* else{ */
+    /*     std::cout << "non succede nulla\n"; */
+    /* } */
 }
 
 bool can_buy(){

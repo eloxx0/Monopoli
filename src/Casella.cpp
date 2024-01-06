@@ -1,6 +1,7 @@
 #include "../include/Casella.h"
+#include "../include/Player.h"
 
-Casella::Casella():status{0},/* player{nullptr}, */house{false}, hotel{false}{}
+Casella::Casella():status{0}, player{nullptr}, house{false}, hotel{false}{}
 
 
 std::ostream& operator<<(std::ostream& out, const Casella& x){

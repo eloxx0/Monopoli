@@ -4,7 +4,11 @@
 #include <string>
 #include <iostream>
 #include "GameTable.h"
-/* #include "Casella.h" */
+
+//definisco la classe Casella nel .h per fare in modo che le diverse classi siano in grado di operare
+//l'una sull'altra. In questo modo mi basta includere il .h nel cpp per evitare problemi
+//di inclusione ricorsiva
+class Casella;
 
 //Giocatore generico. Ogni giocatore possiede un saldo iniziale
 //fissato a 100 fiorini.
@@ -113,14 +117,7 @@ class Player{
 
         //stampa le informazioni principali del player: nome giocatore(in base alla pedina
         //e/o numero identificativo) e posizione (in coordinate sul tabellone)
-        //
-        //Ha senso come metodo interno alla classe?
         void print_player();
-
-        //la stampa delle proprietà(caselle che contengono case/alberghi, lista
-        //delle proprietà possedute da ogni giocatore) deve essere gestita nel
-        //tabellone poichè le informazioni necessarie sono salvate li
-
 
 };
 //restituisce una stringa che contiene la posizione IN COORDINATE!
