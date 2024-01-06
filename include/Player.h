@@ -32,10 +32,6 @@ class Casella;
 
 //non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
 
-//variabile statica che serve per tenere il conto dei giocatori inizializzati.
-//Ad ogni giocatore viene associato un numero identificativo univoco in base
-//a quanti giocatori sono già presenti nella partita
-static int num_player = 0;
 
 class Player{
 
@@ -64,6 +60,10 @@ class Player{
 
 
     public:
+        //variabile statica che serve per tenere il conto dei giocatori inizializzati.
+        //Ad ogni giocatore viene associato un numero identificativo univoco in base
+        //a quanti giocatori sono già presenti nella partita
+        static int num_player;
 
         //disabilita copia e costruttore di copia per la classe Player: ogni volta in cui si
         //prova a copiare oggetti Player viene lanciato un errore in compilazione

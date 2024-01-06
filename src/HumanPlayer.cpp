@@ -19,30 +19,14 @@ void HumanPlayer::buy_slot(){
     }
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
-    //se la casella è già posseduta, rimuove i soldi del pernottamento
-    /* if(temp -> get_giocatore() == 0){ */
-    /*     temp -> set_giocatore(player); */
-    /*     std::cout << "terreno acquistato!\n"; */
-    /* } */
-    /* else if(temp -> get_giocatore() == player){ */
-    /*     std::cout << "casella già posseduta! Valutare se possibile comprare una casa o un hotel\n"; */
-    /* } */
-    /* else if(temp -> get_cost() > balance){ */
-    /*     std::cout << "impossibile comprare casella: saldo troppo basso!" */
-    /*         << "giocatore " << player << " eliminato\n"; */
-    /*     //azzera tutte le variabili del giocatore */
-    /*     player = 0; */
-    /*     balance = 0; */
-    /*     table_p = nullptr; */
-    /*     position = 0; */
-    /* } */
-    if(true){
-        std::cout << "casella già posseduta da altri! Impossibile da comprare."
-            << " Necessario pagare il pernottamento\n";
+    if(temp -> get_number_p() == 0){
+        temp -> set_number_p(player);
         int cost = temp -> get_cost();
         edit_balance(-cost);
-        temp -> get_propriety() -> edit_balance(cost);
+        std::cout << "terreno acquistato!\n";
     }
+    //se la casella è già posseduta, rimuove i soldi del pernottamento e li aggiunge al giocatore proprietario
+
 
 
 

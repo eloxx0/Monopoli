@@ -33,11 +33,11 @@ class Casella{
         return cost;
     }
     
-    int get_number() const{
+    int get_number_p() const{
         return number_player;
     }
 
-    void set_number(int a){
+    void set_number_p(int a){
         number_player = a;
         return;
     }
