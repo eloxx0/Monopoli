@@ -13,11 +13,12 @@ class RobotPlayer : public Player{
         void buy_house() override;
 
         void buy_hotel() override;
+        
+        //metodo che restituisce true con una probabilità del 25% se è possibile comprare un 
+        //terreno, una casa o un albergo
+        bool can_buy(Casella* temp) override;
 
 };
 
-//metodo che restituisce true con una probabilità del 25% se è possibile comprare un 
-//terreno, una casa o un albergo
-bool can_buy();
 
 #endif //ROBOTPLAYER_H

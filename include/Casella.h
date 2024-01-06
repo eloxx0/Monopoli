@@ -9,7 +9,7 @@ class Casella{
     
     char status; 
     Player* player;
-    int number_player;
+    /* int number_player; */
     int cost = 20;
     //definire come dei bool, come fossero uno switch
     bool house;
@@ -21,7 +21,7 @@ class Casella{
     //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-    Player* get_propriety(void){    //ritorna puntatore a player compilatore non riconosce il tipo player
+    Player* get_propriety(){    //ritorna puntatore a player compilatore non riconosce il tipo player
         return player;
     }
 
@@ -32,14 +32,17 @@ class Casella{
     int get_cost() const{
         return cost;
     }
-    
-    int get_number_p() const{
-        return number_player;
-    }
 
-    void set_number_p(int a){
-        number_player = a;
-    }
+    //ritorna il numero del giocatore che possiede la casella
+    int number_player();
+    
+    /* int get_number_p() const{ */
+    /*     return number_player; */
+    /* } */
+
+    /* void set_number_p(int a){ */
+    /*     number_player = a; */
+    /* } */
     
     char get_status() const{
         return status;

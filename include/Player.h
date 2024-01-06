@@ -109,15 +109,23 @@ class Player{
         //tenta di comprare un albergo nella casella attuale. Operazione possibile
         //solo se la casella è già di proprietà del giocatore e contiene una casa. 
         virtual void buy_hotel() = 0;
+        
+        //ritorna true se è possibile comprare la casella da parte del giocatore, false altrimenti. 
+        //Nel caso del robot, dopo aver verificato che sia possibile acquistare la casella, restituisce
+        //true nel 25% dei casi
+        virtual bool can_buy(Casella* temp) = 0;
 
 
         //metodo che fa lanciare il dado al giocatore e lo fa avanzare di posizione nel tabellone.
-        //Se passa per il via ritira 20 fiorini
+        //Se passa per il via ritira 20 fiorini, mentre se si ferma sulla casella di proprietà
+        //di un altro giocatore gli paga il pernottamento. Se il giocatore non ha abbastanza soldi
+        //per pagare viene eliminato
         void advance();
 
         //stampa le informazioni principali del player: nome giocatore(in base alla pedina
         //e/o numero identificativo) e posizione (in coordinate sul tabellone)
         void print_player();
+
 
 };
 //restituisce una stringa che contiene la posizione IN COORDINATE!

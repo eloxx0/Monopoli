@@ -20,6 +20,8 @@ class HumanPlayer : public Player{
 
         void buy_hotel() override;
 
+        bool can_buy(Casella* temp) override;
+
 };
 
 #endif //HUMANPLAYER_H

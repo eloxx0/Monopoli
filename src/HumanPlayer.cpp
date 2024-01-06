@@ -11,6 +11,7 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
 
 }
 
+//il caso in cui bisogna pagare il pernottamento viene gestito in automatico dal metodo advance
 void HumanPlayer::buy_slot(){
     //se il giocatore si trova in una casella angolare non è possibile fare nulla
     if(position % 7 == 0){
@@ -19,8 +20,7 @@ void HumanPlayer::buy_slot(){
     }
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
-    if(temp -> get_number_p() == 0){
-        temp -> set_number_p(player);
+    if(temp -> number_player() == 0){
         temp -> set_propriety(this);
         int cost = temp -> get_cost();
         edit_balance(-cost);
@@ -33,5 +33,14 @@ void HumanPlayer::buy_house(){
 }
 
 void HumanPlayer::buy_hotel(){
+}
+
+bool HumanPlayer::can_buy(Casella* temp){
+
+    if(temp -> get_cost() > balance) return false;
+
+    if(temp -> number_player() != 0 || temp -> number_player() != player) return false;
+
+    return true;
 }
 
