@@ -20,28 +20,28 @@ int Casella::get_cost(){
     
         if(get_belongings()==0){
         
-            std::cout<< "Prezzo per acquistare il terreno: "<<std::endl;
+            //Prezzo per acquistare il terreno
             return 20;
         
         }
         
         else if(get_belongings()==1){
         
-            std::cout<<"Prezzo per acquistare una casa: "<<std::endl;
+            //Prezzo per acquistare una casa
             return 10;
         
         }
         
         else if(get_belongings()==2){
         
-            std::cout<<"Prezzo per miglioramento ad albergo: "<<std::endl;
+            //Prezzo per miglioramento ad albergo
             return 10;
             
         }        
         
         else if(get_belongings()==3){
         
-            std::cout<<"Non si può ulteriormente comprare"<<std::endl;
+            //Non si può ulteriormente comprare
             return 0;
         
         }
@@ -52,28 +52,28 @@ int Casella::get_cost(){
     
         if(get_belongings()==0){
         
-            std::cout<< "Prezzo per acquistare il terreno: "<<std::endl;
+            //Prezzo per acquistare il terreno
             return 10;
         
         }
         
         else if(get_belongings()==1){
         
-            std::cout<<"Prezzo per acquistare una casa: "<<std::endl;
+            //Prezzo per acquistare una casa
             return 5;
         
         }
         
         else if(get_belongings()==2){
         
-            std::cout<<"Prezzo per miglioramento ad albergo: "<<std::endl;
+            //Prezzo per miglioramento ad albergo
             return 5;
             
         }        
         
         else if(get_belongings()==3){
         
-            std::cout<<"Non si può ulteriormente comprare"<<std::endl;
+            //Non si può ulteriormente comprare
             return 0;
         
         }
@@ -84,28 +84,28 @@ int Casella::get_cost(){
     
         if(get_belongings()==0){
         
-            std::cout<< "Prezzo per acquistare il terreno: "<<std::endl;
+            //Prezzo per acquistare il terreno
             return 6;
         
         }
         
         else if(get_belongings()==1){
         
-            std::cout<<"Prezzo per acquistare una casa: "<<std::endl;
+            //Prezzo per acquistare una casa
             return 3;
         
         }
         
         else if(get_belongings()==2){
         
-            std::cout<<"Prezzo per miglioramento ad albergo: "<<std::endl;
+            //Prezzo per miglioramento ad albergo
             return 3;
             
         }        
         
         else if(get_belongings()==3){
         
-            std::cout<<"Non si può ulteriormente comprare"<<std::endl;
+            //Non si può ulteriormente comprare
             return 0;
         
         }
