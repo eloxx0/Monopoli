@@ -18,6 +18,8 @@ class RobotPlayer : public Player{
         //terreno, una casa o un albergo
         bool can_buy(Casella* temp) override;
 
+        void auto_turn();
+
 };
 
 
