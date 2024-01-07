@@ -112,12 +112,11 @@ class Player{
         virtual void buy_hotel() = 0;
         
         //ritorna true se è possibile comprare la casella da parte del giocatore, false altrimenti. 
-        //Nel caso del robot, dopo aver verificato che sia possibile acquistare la casella, restituisce
-        //true nel 25% dei casi
         virtual bool can_buy(Casella* temp) = 0;
 
         //paga al giocatore che possiede la casella su cui si trova il giocatore chiamante
-        //il pernottamento: Ritorna true se è stato pagato il pernottamento, false altrimenti
+        //il pernottamento: Ritorna true se è stato pagato il pernottamento, o eliminato il giocatore,
+        //false altrimenti
         bool pay_player();
 
         //metodo che fa lanciare il dado al giocatore e lo fa avanzare di posizione nel tabellone.

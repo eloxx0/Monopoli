@@ -2,11 +2,6 @@
 
 int Player::num_player = 0;
 
-//il tabellone è formato da 28 caselle disposte come ai lati di un quadrato 8x8
-//la prima e ultima riga possiedono 8 caselle ciascuna, tutte quelle in mezzo ne possiedono 2
-std::string string_pos(int pos){
-    return 0;
-}
 
 void Player::advance(){
     int a = throw_dice();
@@ -37,6 +32,9 @@ bool Player::pay_player(){
             balance = 0;
             table_p = nullptr;
             position = 0;
+            //viene decrementata la variabile che indica il numero di player: quando il 
+            //numero di player scende sotto il 2, il giocatore rimasto ha vinto
+            Player::num_player--;
             return true;
         }
         edit_balance(-price);
@@ -44,10 +42,6 @@ bool Player::pay_player(){
         return true;
     }
     return false;
-}
-
-void Player::print_player(){
-    std::cout << "Giocatore " << player << " nella casella " << string_pos(position);
 }
 
 int throw_dice(){

@@ -1,7 +1,7 @@
 #include "../include/RobotPlayer.h"
 #include "../include/Casella.h"
 
-/* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata di buy_slot
+/* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn()
  * quando il giocatore si trova sopra ad una casella*/
 
 RobotPlayer::RobotPlayer(GameTable* p_game){
@@ -26,11 +26,8 @@ bool RobotPlayer::can_buy(Casella* temp){
 
     //il metodo pay_player ritorna true se è stato pagato il pernottamento ad un altro giocatore,
     //che vuol dire che la casella non è acquistabile. 
-    return !pay_player();
+    if(temp -> number_player() != player && temp -> number_player() != 0) return false;
     
-    // se il giocatore non ha abbastanza soldi per pagare il pernottamento,
-    // viene eliminato
-
     //se il numero random è minore di 25 posso comprare il terreno/casa/albergo
     std::srand(std::time(0));
 
@@ -39,15 +36,47 @@ bool RobotPlayer::can_buy(Casella* temp){
     return probability;
 }
 
+void RobotPlayer::auto_turn(){
 
-void RobotPlayer::buy_slot(){
+    advance();
     
-    //impossibile comprare la casella se è angolare oppure la partenza
+    //Se il giocatore arriva sulla partenza oppure su una casella angolare, il turno termina
     if(position % 7 == 0 && position == 0){
 
         std::cout << "non posso fare nulla!\n";
         return;
     }
+
+    //tenta di pagare il giocatore se la casella è già posseduta da qualcuno:
+    //la variabile viene settata a true se il pagamento è andato a buon fine o il giocatore
+    //è stato eliminato. In questo caso il turno termina
+    bool esito_pagamento = pay_player();
+
+    //se non è stato pagato il pernottamento, o se il giocatore è stato eliminato, viene chiamata la
+    //funzione buy slot();
+    if(!esito_pagamento){
+        //puntatore alla casella in cui si trova il giocatore
+        Casella* temp = &(table_p -> table[position]);
+        //se la casella non è di proprietà di nessuno
+        if(temp -> number_player() == 0){
+
+            buy_slot();
+        }
+        else if(temp -> number_player() == player){
+
+            buy_house();
+        }
+        else if(temp -> get_house()){
+
+            buy_hotel();
+        }
+    }
+
+}
+
+
+void RobotPlayer::buy_slot(){
+    
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
 
