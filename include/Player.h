@@ -93,6 +93,7 @@ class Player{
             position = pos;
         }
 
+        //ritorna il numero identificativo del player
         int get_player(){
             return player;
         }
@@ -115,11 +116,12 @@ class Player{
         //true nel 25% dei casi
         virtual bool can_buy(Casella* temp) = 0;
 
+        //paga al giocatore che possiede la casella su cui si trova il giocatore chiamante
+        //il pernottamento: Ritorna true se è stato pagato il pernottamento, false altrimenti
+        bool pay_player();
 
         //metodo che fa lanciare il dado al giocatore e lo fa avanzare di posizione nel tabellone.
-        //Se passa per il via ritira 20 fiorini, mentre se si ferma sulla casella di proprietà
-        //di un altro giocatore gli paga il pernottamento. Se il giocatore non ha abbastanza soldi
-        //per pagare viene eliminato
+        //Se passa per il via ritira 20 fiorini
         void advance();
 
         //stampa le informazioni principali del player: nome giocatore(in base alla pedina

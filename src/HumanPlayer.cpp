@@ -1,6 +1,9 @@
 #include "../include/HumanPlayer.h"
 #include "../include/Casella.h"
 
+/* Poichè le mosse di HumanPlayer vengono decise dal giocatore umano, i metodi vengono
+ * chiamati dal main solo dopo aver verificato il can_buy() */
+
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
     //numero identificativo del player definito in base al numero di giocatori attuali

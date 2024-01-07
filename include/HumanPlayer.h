@@ -20,6 +20,8 @@ class HumanPlayer : public Player{
 
         void buy_hotel() override;
 
+        //metodo che restituisce true se il giocatore può comprare la casella
+        //passata come parametro, false altrimenti
         bool can_buy(Casella* temp) override;
 
 };

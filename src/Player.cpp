@@ -20,14 +20,15 @@ void Player::advance(){
         new_pos = new_pos % 27;
     }
     set_position(new_pos);
+}
 
+bool Player::pay_player(){
     Casella* temp = &(table_p -> table[position]);
-    //se il player arriva sulla casella di un altro giocatore, gli paga il pernottamento. Se
-    //non ha abbastanza soldi per pagare il pernottamento, viene eliminato
+
+    //controlla che la casella sia di proprietà di un altro player, altrimenti non è
+    //necessario pagare nulla
     if(temp -> number_player() != player && temp -> number_player() !=0){
-        std::cout << "casella già posseduta da altri! Impossibile da comprare."
-            << " Necessario pagare il pernottamento\n";
-        int price = 20;
+        int price = temp -> get_price();
         if(price > balance){
             std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
                 << " Giocatore " << player << " eliminato\n";
@@ -36,12 +37,13 @@ void Player::advance(){
             balance = 0;
             table_p = nullptr;
             position = 0;
-            return;
+            return true;
         }
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
+        return true;
     }
-
+    return false;
 }
 
 void Player::print_player(){

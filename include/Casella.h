@@ -9,8 +9,7 @@ class Casella{
     
     char status; 
     Player* player;
-    /* int number_player; */
-    int cost = 20;
+    /* int cost = 20; */
     //definire come dei bool, come fossero uno switch
     bool house;
     bool hotel;
@@ -29,20 +28,14 @@ class Casella{
         player = p;
     }
 
-    int get_cost() const{
-        return cost;
-    }
+    //ritorna il costo della casella da comprare
+    int get_cost();
+
+    //ritorna il costo del pernottamento se la casella presenta una casa o un albergo
+    int get_price();
 
     //ritorna il numero del giocatore che possiede la casella
     int number_player();
-    
-    /* int get_number_p() const{ */
-    /*     return number_player; */
-    /* } */
-
-    /* void set_number_p(int a){ */
-    /*     number_player = a; */
-    /* } */
     
     char get_status() const{
         return status;

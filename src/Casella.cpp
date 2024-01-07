@@ -12,6 +12,14 @@ int Casella::number_player(){
     return 0;
 }
 
+int get_cost(){
+    return 1;
+}
+
+int get_price(){
+    return 4;
+}
+
 std::ostream& operator<<(std::ostream& out, const Casella& x){
 
     return out<<x.get_status()<<x.get_house()<<x.get_hotel()<<" | "<<std::endl;    
