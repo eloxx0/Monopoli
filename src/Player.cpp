@@ -8,11 +8,15 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(20);
+        edit_balance(1);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 1
         new_pos = new_pos % 27;
     }
+    /* std::cout << "Giocatore " << player << " arriva in indice " << new_pos << std::endl; */
     set_position(new_pos);
+    //setta la nuova posizione del giocatore nell'array del tabellone che gestisce le posizioni
+    table_p -> set_player_pos(player, position);
+
 }
 
 bool Player::pay_player(){
@@ -28,13 +32,15 @@ bool Player::pay_player(){
             //azzera tutte le variabili del giocatore
             player = 0;
             balance = 0;
-            table_p = nullptr;
-            position = 0;
+            table_p -> set_player_pos(player, -1);
+            //posizione settata a -1, numero invalido, per indicare che il giocatore è fuori gioco
+            position = -1;
             //viene decrementata la variabile che indica il numero di player: quando il 
             //numero di player scende sotto il 2, il giocatore rimasto ha vinto
             num_player--;
             return true;
         }
+        std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
         return true;

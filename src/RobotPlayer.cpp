@@ -1,7 +1,7 @@
 #include "../include/RobotPlayer.h"
 
 /* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn()
- * quando il giocatore si trova sopra ad una casella*/
+* quando il giocatore si trova sopra ad una casella*/
 
 RobotPlayer::RobotPlayer(GameTable* p_game){
 
@@ -14,7 +14,6 @@ RobotPlayer::RobotPlayer(GameTable* p_game){
 
 }
 
-
 //nel can_buy viene gestito in automatico il caso in cui è necessario pagare il pernottamento ad 
 //un altro giocatore, poichè le variabili da controllare sono sempre le stesse
 bool RobotPlayer::can_buy(Casella* temp){
@@ -25,10 +24,10 @@ bool RobotPlayer::can_buy(Casella* temp){
 
     //il metodo pay_player ritorna true se è stato pagato il pernottamento ad un altro giocatore,
     //che vuol dire che la casella non è acquistabile. 
-    if(temp -> number_player() != player && temp -> number_player() != 0) return false;
+    if(temp -> number_player() != player && temp -> get_belongings() != 0) return false;
     
     //se il numero random è minore di 25 posso comprare il terreno/casa/albergo
-    std::srand(std::time(0));
+    std::srand(std::time(0) + rand());
 
     bool probability = (std::rand() % 100) < 25;
 
@@ -57,15 +56,16 @@ void RobotPlayer::auto_turn(){
         //puntatore alla casella in cui si trova il giocatore
         Casella* temp = &(table_p -> table[position]);
         //se la casella non è di proprietà di nessuno
-        if(temp -> number_player() == 0){
+        if(temp -> get_belongings() == 0){
 
             buy_slot();
         }
-        else if(temp -> number_player() == player){
+        //se la casella è di proprietà del player
+        else if(temp -> number_player() == player && temp -> get_belongings() == 1){
 
             buy_house();
         }
-        else if(temp -> get_house()){
+        else if(temp -> number_player() == player && temp -> get_belongings() == 2){
 
             buy_hotel();
         }
@@ -79,18 +79,13 @@ void RobotPlayer::buy_slot(){
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
 
-    /* //per evitare che la possibilità sia minore del 25% chiamo la funzione buy house prima di can_buy() */
-    /* if(temp -> number_player() == player){ */
-    /*     //richiama il metodo per comprare una casa se possibile */
-    /*     std::cout << "provo a comprare una casa\n"; */
-    /*     buy_house(); */
-    /*     return; */
-    /* } */
-
     //probabilità del 25% di acquistare il terreno
-    if(can_buy(temp)){
+    /* if(can_buy(temp) && temp -> number_player() == 0){ */
+    if(can_buy(temp) && temp -> get_belongings() == 0){
 
         temp -> set_propriety(this);
+        //setta a 1 la variabile belongings che indica che il terreno è di proprietà di qualcuno
+        temp -> set_belongings(1);
         int cost = temp -> get_cost();
 
         edit_balance(-cost);
@@ -102,22 +97,16 @@ void RobotPlayer::buy_slot(){
     }
 }
 
-
 //funzione richiamata dalla funzione buy slot nel caso in cui lo slot è già in possesso del giocatore
 void RobotPlayer::buy_house(){
 
     Casella* temp = &(table_p -> table[position]);
 
-    /* if(temp -> get_house()){ */
-    /*     std::cout << "Provo a comprare un hotel\n"; */
-    /*     buy_hotel(); */
-    /*     return; */
-    /* } */
-
     //controllo sul balance e sulla probabilità
-    if(can_buy(temp)){
+    if(can_buy(temp) && temp -> number_player() == player){
 
-        temp -> set_house(true);
+        //setta a 2 la variabile belongings che indica che sul terreno c'è una casa
+        temp -> set_belongings(2);
         int cost = temp -> get_cost();
         edit_balance(-cost);
         std::cout << "casa acquistata!\n";
@@ -132,16 +121,9 @@ void RobotPlayer::buy_hotel(){
 
     Casella* temp = &(table_p -> table[position]);
 
-    /* if(temp -> get_hotel()){ */
+    if(can_buy(temp) && temp -> get_belongings() == 2){
 
-    /*     std::cout << "hotel già acquistato! Non posso fare nulla\n"; */
-    /*     return; */
-    /* } */
-
-    if(can_buy(temp)){
-
-        temp -> set_house(false);
-        temp -> set_hotel(true);
+        temp -> set_belongings(3);
 
         int cost = temp -> get_cost();
 

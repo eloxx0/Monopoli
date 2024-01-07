@@ -91,7 +91,7 @@ std::string GameTable::isPlayer(int pos)
 
 std::string GameTable::isBuilt(int pos)
 {
-    if(table[pos].get_hotel()) return "^";
-    else if(table[pos].get_house()) return "*";
+    if(table[pos].get_belongings() == 3) return "^";
+    else if(table[pos].get_belongings() == 2) return "*";
     return "";
 }
