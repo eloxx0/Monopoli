@@ -8,7 +8,7 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(1);
+        edit_balance(20);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 1
         new_pos = new_pos % 27;
     }

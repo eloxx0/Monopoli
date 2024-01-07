@@ -1,7 +1,7 @@
 #include "../include/HumanPlayer.h"
 
 /* Poichè le mosse di HumanPlayer vengono decise dal giocatore umano, i metodi vengono
- * chiamati dal main solo dopo aver verificato il can_buy() */
+* chiamati dal main solo dopo aver verificato il can_buy() */
 
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
