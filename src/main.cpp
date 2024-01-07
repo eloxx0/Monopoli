@@ -18,4 +18,5 @@ int main(){
     std::cout << "g: "<< g.get_player() << "\n";
     std::cout << "soldi g " << g.show_balance() << "\n";
     std::cout << "soldi h " << h.show_balance() << "\n";
+    game.printTable();
 }
