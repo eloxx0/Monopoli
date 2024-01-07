@@ -1,5 +1,4 @@
 #include "../include/RobotPlayer.h"
-/* #include "../include/Casella.h" */
 
 /* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn()
  * quando il giocatore si trova sopra ad una casella*/
@@ -80,13 +79,13 @@ void RobotPlayer::buy_slot(){
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
 
-    //per evitare che la possibilità sia minore del 25% chiamo la funzione buy house prima di can_buy()
-    if(temp -> number_player() == player){
-        //richiama il metodo per comprare una casa se possibile
-        std::cout << "provo a comprare una casa\n";
-        buy_house();
-        return;
-    }
+    /* //per evitare che la possibilità sia minore del 25% chiamo la funzione buy house prima di can_buy() */
+    /* if(temp -> number_player() == player){ */
+    /*     //richiama il metodo per comprare una casa se possibile */
+    /*     std::cout << "provo a comprare una casa\n"; */
+    /*     buy_house(); */
+    /*     return; */
+    /* } */
 
     //probabilità del 25% di acquistare il terreno
     if(can_buy(temp)){
@@ -109,11 +108,11 @@ void RobotPlayer::buy_house(){
 
     Casella* temp = &(table_p -> table[position]);
 
-    if(temp -> get_house()){
-        std::cout << "Provo a comprare un hotel\n";
-        buy_hotel();
-        return;
-    }
+    /* if(temp -> get_house()){ */
+    /*     std::cout << "Provo a comprare un hotel\n"; */
+    /*     buy_hotel(); */
+    /*     return; */
+    /* } */
 
     //controllo sul balance e sulla probabilità
     if(can_buy(temp)){
@@ -133,11 +132,11 @@ void RobotPlayer::buy_hotel(){
 
     Casella* temp = &(table_p -> table[position]);
 
-    if(temp -> get_hotel()){
+    /* if(temp -> get_hotel()){ */
 
-        std::cout << "hotel già acquistato! Non posso fare nulla\n";
-        return;
-    }
+    /*     std::cout << "hotel già acquistato! Non posso fare nulla\n"; */
+    /*     return; */
+    /* } */
 
     if(can_buy(temp)){
 

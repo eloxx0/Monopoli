@@ -1,7 +1,5 @@
 #include "../include/Player.h"
-#include "../include/Casella.h"
-
-int Player::num_player = 0;
+/* #include "../include/Casella.h" */
 
 void Player::advance(){
     int a = throw_dice();
@@ -34,7 +32,7 @@ bool Player::pay_player(){
             position = 0;
             //viene decrementata la variabile che indica il numero di player: quando il 
             //numero di player scende sotto il 2, il giocatore rimasto ha vinto
-            Player::num_player--;
+            num_player--;
             return true;
         }
         edit_balance(-price);
