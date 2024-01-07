@@ -1,18 +1,21 @@
 #ifndef CASELLA
 #define CASELLA
 #include <iostream>
+
+
+//definisco la classe Casella nel .h per fare in modo che le diverse classi siano in grado di operare
+//l'una sull'altra. In questo modo mi basta includere il .h nel cpp per evitare problemi
+//di inclusione ricorsiva
+
 class Player;
 
 class Casella{
 
     private:
     
-    char status; 
-    Player* player;
-    /* int cost = 20; */
-    //definire come dei bool, come fossero uno switch
-    bool house;
-    bool hotel;
+    char status; //caratteristica casella se eco/standard/vuota/lusso
+    Player* player;   
+    int belongings; // possedimenti da parte del player, 0 se terreno, 1 presenza di una casa, 2 presenza di un albergo
     
     public:
 
@@ -20,7 +23,7 @@ class Casella{
     //definire getter/setter lusso/eco/standard tramite status
     //setter e getter
     
-    Player* get_propriety(){    //ritorna puntatore a player compilatore non riconosce il tipo player
+    Player* get_propriety(){    //ritorna puntatore a player 
         return player;
     }
 
@@ -37,7 +40,7 @@ class Casella{
     //ritorna il numero del giocatore che possiede la casella
     int number_player();
     
-    char get_status() const{
+    char get_status() const{    //getter status
         return status;
     }
     
@@ -45,22 +48,14 @@ class Casella{
         status=x;
     }
     
-    void set_house(bool x){
-        house=x;
+    void set_belongings(int x){ //check operazione
+        if(0<=x && x<=2) belongings=x;
+        else std::cout<<"Impossibile effettuare l'operazione"<<std::endl;
     }
     
-    void set_hotel(bool x){ //piccolo check per questa operazione
-        if(house) hotel=x;
-        else std::cout<<"Impossibile effettuare questa operazione"<<std::endl;
-    }
-    
-    bool get_house() const{
-        return house;
-    }
-    
-    bool get_hotel() const{
-        return hotel;
-    }    
+    int get_belongings() const{ //getter possedimenti
+        return belongings;
+    }  
 
 };
 
