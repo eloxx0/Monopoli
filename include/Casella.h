@@ -15,7 +15,7 @@ class Casella{
     
     char status; //caratteristica casella se eco/standard/vuota/lusso
     Player* player;   
-    int belongings; // possedimenti da parte del player, 0 se terreno, 1 presenza di una casa, 2 presenza di un albergo
+    int belongings; // possedimenti da parte del player, 1 se terreno, 2 presenza di una casa, 3 presenza di un albergo, 0 se per quella determinata casella il player non possiede nulla
     
     public:
 
@@ -49,7 +49,7 @@ class Casella{
     }
     
     void set_belongings(int x){ //check operazione
-        if(0<=x && x<=2) belongings=x;
+        if(0<=x && x<=3) belongings=x;
         else std::cout<<"Impossibile effettuare l'operazione"<<std::endl;
     }
     
