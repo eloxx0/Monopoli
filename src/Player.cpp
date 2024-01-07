@@ -1,4 +1,5 @@
 #include "../include/Player.h"
+#include "../include/Casella.h"
 
 int Player::num_player = 0;
 
