@@ -10,7 +10,7 @@ void genTable(Casella *table)
     while(i<28)
     {
         int rnd_status=1+rand()%3;
-        if(i%7==0) 
+        if(i==7 || i==20 || i==27) 
         {
             table[i].set_status(' ');
             i++;
@@ -33,7 +33,7 @@ void genTable(Casella *table)
             i++;
             countS++;
         }
-    
+
     }
 
 }
@@ -46,42 +46,33 @@ GameTable::GameTable(){
 void GameTable::printTable(){
     std::string space_holder="|                  |";
     std::string line;
-    /*for(int j=0; j<9;j++) //Linee
+    int t=27; //Variabile ausiliaria per gestire l'indice dell'array
+    for(int j=0; j<9;j++) //Linee
     {
-        if(j>0)line+=char(j+64);
+        if(j>0)line+=char(j+64); //Carattere ad inzio riga
+
+        if(j==0 || j==1 || j==8)
+        {
         for(int i=0; i<8; i++) //Colonne
         {
-            if(j==0) line+=" "+std::to_string(i+1);
-            else if(j==1 || j==8){
-               // line+='|'+table[i].get_status()+'|';
-               line += std::to_string((j-1)*7+i);
+            if(j==0) line+="  "+std::to_string(i+1); //Riga di numeri
+            else if(j==1 || j==8)
+            {               
+               line+="|"+std::string(1, table[t].get_status())+"|"; //Riga con il centro pieno
+               t--;
             }
-            /*else{
-                line+= '|'+ table[(j-1)*7+i].get_status()+'|';
-                line+= space_holder + table[(j-1)*7+i++].get_status()+'|';
-            }
-
+        
         }
+        }
+        else //Riga con il centro vuoto
+        {
+            line+="|"+std::string(1, table[t].get_status())+space_holder;
+            t--;
+            line+=std::string(1,table[t].get_status())+"|";
+            t--;
+        } 
         std::cout<<line<<std::endl;
         line.clear();
-    }*/
-
-    int i{0}, j{0};
-    while(i+j<44){
-        if(j==0)
-        {
-            line+=" "+std::to_string(i+1);
-            i++;
-        }
-        line+=char(j+63); //Lettera ad inizio riga;
-        if(j==1 || j==8){
-        line+='|'+table[i].get_status()+'|';
-        i++;
-        }
-
-        std::cout<<line<<std::endl;
-
-    }
-   
+    }   
     
 }
