@@ -12,25 +12,25 @@ int main(){
         if(h.get_player() != 0){
             h.auto_turn();
         }
-        if(h.get_player() != 0){
+        if(g.get_player() != 0){
             g.auto_turn();
         }
-        if(h.get_player() != 0){
+        if(s.get_player() != 0){
             s.auto_turn();
         }
-        if(h.get_player() != 0){
+        if(a.get_player() != 0){
             a.auto_turn();
         }
         if(h.get_player() != 0){
             std::cout << "soldi h " << h.show_balance() << "\n";
         }
-        if(h.get_player() != 0){
+        if(g.get_player() != 0){
             std::cout << "soldi g " << g.show_balance() << "\n";
         }
-        if(h.get_player() != 0){
+        if(s.get_player() != 0){
             std::cout << "soldi s " << s.show_balance() << "\n";
         }
-        if(h.get_player() != 0){
+        if(a.get_player() != 0){
             std::cout << "soldi a " << a.show_balance() << "\n";
         }
         game.printTable();
