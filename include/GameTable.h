@@ -12,7 +12,7 @@ class GameTable{
     GameTable();
     Casella table[28];
     void printTable();
-    Player* playerID[4];
+    int player_pos[4];
     
 };
 
