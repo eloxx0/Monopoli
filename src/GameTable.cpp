@@ -84,7 +84,7 @@ std::string GameTable::isPlayer(int pos)
     std::string p="";
     for(int i=0; i<4; i++)
     {
-        if(player_pos[i]==pos) p+=std::to_string(i);
+        if(player_pos[i]==pos) p+=std::to_string(i+1);
     }
     return p;
 }
