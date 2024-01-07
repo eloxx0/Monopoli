@@ -3,7 +3,6 @@
 
 int Player::num_player = 0;
 
-
 void Player::advance(){
     int a = throw_dice();
     std::cout << "Giocatore " << player << " avanza di " << a << " posizioni!" << std::endl;

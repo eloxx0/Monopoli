@@ -1,5 +1,5 @@
 #include "../include/HumanPlayer.h"
-#include "../include/Casella.h"
+/* #include "../include/Casella.h" */
 
 /* Poichè le mosse di HumanPlayer vengono decise dal giocatore umano, i metodi vengono
  * chiamati dal main solo dopo aver verificato il can_buy() */
@@ -24,6 +24,7 @@ void HumanPlayer::buy_slot(){
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
     if(can_buy(temp)){
+
         temp -> set_propriety(this);
         int cost = temp -> get_cost();
         edit_balance(-cost);

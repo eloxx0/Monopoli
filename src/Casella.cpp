@@ -12,11 +12,11 @@ int Casella::number_player(){
     return 0;
 }
 
-int get_cost(){
+int Casella::get_cost(){
     return 1;
 }
 
-int get_price(){
+int Casella::get_price(){
     return 4;
 }
 

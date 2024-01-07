@@ -1,5 +1,5 @@
 #include "../include/RobotPlayer.h"
-#include "../include/Casella.h"
+/* #include "../include/Casella.h" */
 
 /* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn()
  * quando il giocatore si trova sopra ad una casella*/
