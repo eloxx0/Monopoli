@@ -68,13 +68,18 @@ void GameTable::printTable(){
 
     int i{0}, j{0};
     while(i+j<44){
-        if(j>0)line+=char(j+64);    //Lettera ad inizio riga
-        else
+        if(j==0)
         {
             line+=" "+std::to_string(i+1);
             i++;
-        } ;
+        }
+        line+=char(j+63); //Lettera ad inizio riga;
+        if(j==1 || j==8){
+        line+='|'+table[i].get_status()+'|';
+        i++;
+        }
 
+        std::cout<<line<<std::endl;
 
     }
    
