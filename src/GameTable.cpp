@@ -46,20 +46,37 @@ GameTable::GameTable(){
 void GameTable::printTable(){
     std::string space_holder="|                  |";
     std::string line;
-    int i=0;
-    while(i<28)
+    /*for(int j=0; j<9;j++) //Linee
     {
-        line += char(i+65);
-        if(i<8 || i>22)
+        if(j>0)line+=char(j+64);
+        for(int i=0; i<8; i++) //Colonne
         {
-            line+='|'+table[i].get_status()+'|';
+            if(j==0) line+=" "+std::to_string(i+1);
+            else if(j==1 || j==8){
+               // line+='|'+table[i].get_status()+'|';
+               line += std::to_string((j-1)*7+i);
+            }
+            /*else{
+                line+= '|'+ table[(j-1)*7+i].get_status()+'|';
+                line+= space_holder + table[(j-1)*7+i++].get_status()+'|';
+            }
+
         }
-        else if(i>=8)
+        std::cout<<line<<std::endl;
+        line.clear();
+    }*/
+
+    int i{0}, j{0};
+    while(i+j<44){
+        if(j>0)line+=char(j+64);    //Lettera ad inizio riga
+        else
         {
-            line+='|'+table[i].get_status();
-            line+=space_holder+table[++i].get_status();    
-        }
-        line="";
-        i++;
+            line+=" "+std::to_string(i+1);
+            i++;
+        } ;
+
+
     }
+   
+    
 }
