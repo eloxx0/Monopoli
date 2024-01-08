@@ -140,6 +140,18 @@ int Casella::get_price(){
     return 0;
 }
 
+int Casella::player_buyable(int player){
+
+    if(get_belongings() == 0) return 1;
+    
+    else if(number_player() == player && get_belongings() == 1) return 2;
+
+    else if(number_player() == player && get_belongings() == 2) return 3;
+
+    else return 0;
+
+}
+
 std::ostream& operator<<(std::ostream& out, const Casella& x){
 
     return out<<x.get_status()<<x.get_belongings()<<" | "<<std::endl;    

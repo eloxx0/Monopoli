@@ -1,7 +1,8 @@
 #include "../include/RobotPlayer.h"
 
-/* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn()
-* quando il giocatore si trova sopra ad una casella*/
+/* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn(),
+* oppure si può chiamare uno ad uno i metodi per comprare separatamente quando il giocatore
+* si trova sopra ad una casella*/
 
 RobotPlayer::RobotPlayer(GameTable* p_game){
 
@@ -15,18 +16,14 @@ RobotPlayer::RobotPlayer(GameTable* p_game){
 
 }
 
-//nel can_buy viene gestito in automatico il caso in cui è necessario pagare il pernottamento ad 
-//un altro giocatore, poichè le variabili da controllare sono sempre le stesse
+//non è necessario controllare che la casella sia di proprietà del giocatore perchè quando il metodo viene
+//richiamato dagli altri metodi il controllo è già stato fatto
 bool RobotPlayer::can_buy(Casella* temp){
 
     //se il terreno è già in possesso di qualcuno oppure se il costo è maggiore del saldo disponibile,
     //non è possibile comprare la casella
     if(temp -> get_cost() > balance) return false;
 
-    //il metodo pay_player ritorna true se è stato pagato il pernottamento ad un altro giocatore,
-    //che vuol dire che la casella non è acquistabile. 
-    if(temp -> number_player() != player && temp -> get_belongings() != 0) return false;
-    
     //se il numero random è minore di 25 posso comprare il terreno/casa/albergo
     std::srand(std::time(0) + rand());
 
@@ -56,17 +53,18 @@ void RobotPlayer::auto_turn(){
     if(!esito_pagamento){
         //puntatore alla casella in cui si trova il giocatore
         Casella* temp = &(table_p -> table[position]);
-        //se la casella non è di proprietà di nessuno
-        if(temp -> get_belongings() == 0){
+
+        //se il giocatore può comprare il terreno
+        if(temp -> player_buyable(player) == 1){
 
             buy_slot();
         }
-        //se la casella è di proprietà del player
-        else if(temp -> number_player() == player && temp -> get_belongings() == 1){
+        //se il player può comprare una casa
+        else if(temp -> player_buyable(player) == 2){
 
             buy_house();
         }
-        else if(temp -> number_player() == player && temp -> get_belongings() == 2){
+        else if(temp -> player_buyable(player) == 3){
 
             buy_hotel();
         }
@@ -81,16 +79,16 @@ void RobotPlayer::buy_slot(){
     Casella* temp = &(table_p -> table[position]);
 
     //probabilità del 25% di acquistare il terreno
-    /* if(can_buy(temp) && temp -> number_player() == 0){ */
-    if(can_buy(temp) && temp -> get_belongings() == 0){
+    if(temp -> player_buyable(player) == 1 && can_buy(temp)){
 
         temp -> set_propriety(this);
         //setta a 1 la variabile belongings che indica che il terreno è di proprietà di qualcuno
-        temp -> set_belongings(1);
         int cost = temp -> get_cost();
+        temp -> set_belongings(1);
 
         edit_balance(-cost);
         std::cout << "terreno acquistato!\n";
+        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
 
@@ -104,13 +102,14 @@ void RobotPlayer::buy_house(){
     Casella* temp = &(table_p -> table[position]);
 
     //controllo sul balance e sulla probabilità
-    if(can_buy(temp) && temp -> number_player() == player){
+    if(temp -> player_buyable(player) == 2 && can_buy(temp)){
 
+        int cost = temp -> get_cost();
         //setta a 2 la variabile belongings che indica che sul terreno c'è una casa
         temp -> set_belongings(2);
-        int cost = temp -> get_cost();
         edit_balance(-cost);
         std::cout << "casa acquistata!\n";
+        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
 
@@ -122,15 +121,16 @@ void RobotPlayer::buy_hotel(){
 
     Casella* temp = &(table_p -> table[position]);
 
-    if(can_buy(temp) && temp -> get_belongings() == 2){
-
-        temp -> set_belongings(3);
+    if(temp -> player_buyable(player) == 3 && can_buy(temp)){
 
         int cost = temp -> get_cost();
+        temp -> set_belongings(3);
+
 
         edit_balance(-cost);
 
         std::cout << "hotel acquistato!\n";
+        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
         std::cout << "non succede nulla\n";

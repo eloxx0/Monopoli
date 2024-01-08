@@ -9,8 +9,7 @@ class HumanPlayer : public Player{
     //i dati membro vengono ereditati direttamente dalla classe di base Player
     
     public:
-        //costruttore del giocatore umano. Gli deve essere passato il puntatore al primo
-        //elemento della tabella da gioco
+        //costruttore del giocatore umano. Gli deve essere passato il puntatore al tabellone di gioco
         HumanPlayer(GameTable* p_game);
 
         //implementazione dei metodi virtuali della classe Player
@@ -20,9 +19,8 @@ class HumanPlayer : public Player{
 
         void buy_hotel() override;
 
-        //metodo che restituisce true se il giocatore può comprare la casella
-        //passata come parametro, false altrimenti
-        bool can_buy(Casella* temp) override;
+        //funzione che compra in automatico il possedimento su cui si trova il giocatore se possibile
+        void buy();
 
 };
 

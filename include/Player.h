@@ -112,9 +112,6 @@ class Player{
         //solo se la casella è già di proprietà del giocatore e contiene una casa. 
         virtual void buy_hotel() = 0;
         
-        //ritorna true se è possibile comprare la casella da parte del giocatore, false altrimenti. 
-        virtual bool can_buy(Casella* temp) = 0;
-
         //paga al giocatore che possiede la casella su cui si trova il giocatore chiamante
         //il pernottamento: Ritorna true se è stato pagato il pernottamento, o eliminato il giocatore,
         //false altrimenti
@@ -124,18 +121,12 @@ class Player{
         //Se passa per il via ritira 20 fiorini
         void advance();
 
-        //stampa le informazioni principali del player: nome giocatore(in base alla pedina
-        //e/o numero identificativo) e posizione (in coordinate sul tabellone)
-        void print_player();
+        /* //stampa le informazioni principali del player: nome giocatore(in base alla pedina */
+        /* //e/o numero identificativo) e posizione (in coordinate sul tabellone) */
+        /* void print_player(); */
 
 
 };
-//restituisce una stringa che contiene la posizione IN COORDINATE!
-//forse meglio gestirla nel tabellone?
-//le coordinate sono definite con colonne che vanno da 1 a 8 e 
-//righe che vanno da A ad H
-std::string string_pos(int pos);
-
 
 //funzione che restituisce il numero ottenuto dalla somma del lancio di due dadi, generato
 //casualmente

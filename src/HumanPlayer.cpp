@@ -1,7 +1,8 @@
 #include "../include/HumanPlayer.h"
 
-/* Poichè le mosse di HumanPlayer vengono decise dal giocatore umano, i metodi vengono
-* chiamati dal main solo dopo aver verificato il can_buy() */
+/* Per gestire il turno del giocatore umano è possibile chiamare la funzione buy() che compra in automatico il 
+* possedimento o la casa o l'albergo se possibile, oppure utilizzare separatamente le funzioni di acquisto 
+* in base al volere del giocatore*/
 
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
@@ -13,40 +14,78 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
 
 }
 
-//il caso in cui bisogna pagare il pernottamento viene gestito in automatico dal metodo advance
-void HumanPlayer::buy_slot(){
+void HumanPlayer::buy(){
+
+    Casella* temp = &(table_p -> table[position]);
+    
     //se il giocatore si trova in una casella angolare non è possibile fare nulla
-    if(position % 7 == 0){
+    if(position % 7 == 0 && position == 0){
         std::cout << "non posso fare nulla!\n";
         return;
     }
-    //accede alla casella su cui si trova attualmente il giocatore sulla tabella
-    Casella* temp = &(table_p -> table[position]);
-    if(can_buy(temp)){
+    if(temp -> player_buyable(player) == 1){
+        buy_slot();
+    }
+    else if(temp -> player_buyable(player) == 2){
+        buy_house();
+    }
+    else if(temp -> player_buyable(player) == 3){
+        buy_hotel();
+    }
+    else{
+        std::cout << "impossibile comprare\n";
+    }
+}
 
-        temp -> set_propriety(this);
+void HumanPlayer::buy_slot(){
+    Casella* temp = &(table_p -> table[position]);
+
+    if(temp -> player_buyable(player) == 1){
+
         int cost = temp -> get_cost();
+        temp -> set_propriety(this);
+        temp -> set_belongings(1);
+
         edit_balance(-cost);
         std::cout << "terreno acquistato!\n";
     }
+    else{
 
+        std::cout << "non succede nulla\n";
+    }
 }
 
 void HumanPlayer::buy_house(){
+    Casella* temp = &(table_p -> table[position]);
+
+    if(temp -> player_buyable(player) == 2){
+
+        int cost = temp -> get_cost();
+        temp -> set_belongings(2);
+        edit_balance(-cost);
+        std::cout << "casa acquistata!\n";
+    }
+    else{
+
+        std::cout << "non succede nulla\n";
+    }
+
 }
 
 void HumanPlayer::buy_hotel(){
-}
+    Casella* temp = &(table_p -> table[position]);
 
-bool HumanPlayer::can_buy(Casella* temp){
+    if(temp -> player_buyable(player) == 3){
 
-    if(temp -> get_cost() > balance) return false;
+        int cost = temp -> get_cost();
+        temp -> set_belongings(3);
+        edit_balance(-cost);
+        std::cout << "hotel acquistato!\n";
+    }
+    else{
 
-    if(temp -> number_player() == 0 || temp -> number_player() == player){
-        std::cout << "true\n";
-        return true;
+        std::cout << "non succede nulla\n";
     }
 
-    return false;
 }
 

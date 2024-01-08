@@ -57,6 +57,11 @@ class Casella{
         return belongings;
     }  
 
+    //ritorna 0 se il terreno non è comprabile dal giocatore(o perchè presenta già un hotel
+    //oppure perchè presenta ) con il numero identificativo passato per parametro,
+    //1 se è comprabile, 2 se è possibile comprare una casa, 3 se è possibile comprare un hotel
+    int player_buyable(int player);
+
 };
 
 std::ostream& operator<<(std::ostream& out, const Casella& x);
