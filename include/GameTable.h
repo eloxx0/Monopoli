@@ -16,6 +16,7 @@ class GameTable{
     Casella table[28];
     void printTable();
 
+    //gli viene passato per parametro il numero IDENTIFICATIVO DEL PLAYER e la posizione in cui si trova attualmente
     void set_player_pos(int i, int pos)     //Da inserire boundary check
     {
         player_pos[i - 1]=pos;
