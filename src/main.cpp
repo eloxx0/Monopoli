@@ -12,6 +12,7 @@ int main(){
     RobotPlayer g(&game);
     RobotPlayer s(&game);
     RobotPlayer a(&game);
+    game.printTable();
     int i = 0;
     while(i < 15){
         if(h.get_player() != 0){

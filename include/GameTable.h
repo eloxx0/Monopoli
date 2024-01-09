@@ -18,7 +18,7 @@ class GameTable{
 
     void set_player_pos(int i, int pos)     //Da inserire boundary check
     {
-        player_pos[i]=pos;
+        player_pos[i - 1]=pos;
     }
     
 };

@@ -1,5 +1,4 @@
 #include "../include/Player.h"
-/* #include "../include/Casella.h" */
 
 void Player::advance(){
     int a = throw_dice();

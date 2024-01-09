@@ -46,6 +46,9 @@ void genTable(Casella *table)
 
 GameTable::GameTable(){
     genTable(table);
+    for(int i = 0; i < 4; i++){
+        player_pos[i] = 0;
+    }
 }
 
 
