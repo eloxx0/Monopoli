@@ -8,7 +8,7 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(0);
+        edit_balance(20);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }
@@ -50,7 +50,6 @@ bool Player::pay_player(){
             temp -> get_propriety() -> edit_balance(price);
             
             //settato il puntatore nella casella che possiede a nullptr
-            /* temp -> set_propriety(nullptr); */
             player = 0;
 
             //viene decrementata la variabile che indica il numero di player: quando il 
