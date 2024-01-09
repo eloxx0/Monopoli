@@ -87,9 +87,9 @@ void GameTable::printTable(){
             space_holder="                         ";
             line+=" |"+print_casella(table[k])+isPlayer(t)+"|";
             k--;
-            if(isPlayer(t).size()>0)
+            if(isPlayer(t).size()>0 || isBuilt(t).size()>0) //Da modificare ma funziona
             {
-                space_holder.resize(space_holder.size()-isPlayer(t).size());
+                space_holder.resize(space_holder.size()-isPlayer(t).size()-isBuilt(t).size());
                 space_holder.shrink_to_fit();
                 //std::cout<<space_holder.size();
             } 
