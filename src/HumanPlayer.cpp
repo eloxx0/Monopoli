@@ -11,7 +11,6 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
     player = ++num_player;
     //setta la variabile puntatore alla tabella di gioco, necessario per accedere alle caselle
     table_p = p_game;
-    /* table_p -> set_player_pos(player, 0); */
 
 }
 

@@ -1,10 +1,9 @@
 #include "HumanPlayer.cpp"
 #include "RobotPlayer.cpp"
-#include <algorithm>
 
 //array che mantiene l'ordine dei giocatori: i numeri scritti all'interno rappresentano
 //l'identificativo dei giocatori nell'ordine in cui devono procedere a giocare
-int ordine_giocatori[4];
+std::vector<int> ordine_giocatori;
 
 int main(){
     GameTable game;
@@ -14,7 +13,7 @@ int main(){
     RobotPlayer a(&game);
     game.printTable();
     int i = 0;
-    while(i < 15){
+    while(i < 150){
         if(h.get_player() != 0){
             h.auto_turn();
         }
@@ -42,16 +41,7 @@ int main(){
         game.printTable();
         i++;
     }
-    /* h.advance(); */
-    /* h.buy_slot(); */
-    /* g.edit_balance(-95); */
-    /* g.advance(); */
-    /* g.buy_slot(); */
-    /* std::cout << "h posizione " << h.get_position() << " " << h.show_balance() << "\n"; */
-    /* std::cout << "g posizione " << g.get_position() << " " << g.show_balance() << "\n"; */
-    /* std::cout << "h: "<< h.get_player() << "\n"; */
-    /* std::cout << "g: "<< g.get_player() << "\n"; */
-    /* std::cout << "soldi g " << g.show_balance() << "\n"; */
-    /* std::cout << "soldi h " << h.show_balance() << "\n"; */
+
+    int count = 0;
     game.printTable();
 }

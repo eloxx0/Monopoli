@@ -137,7 +137,9 @@ std::string GameTable::isPlayer(int pos)
     std::string p="";
     for(int i=0; i<4; i++)
     {
-        if(player_pos[i]==pos) p+=std::to_string(i+1);
+        //controlla anche che il giocatore non sia stato eliminato, cioè quando la sua posizione
+        //viene settata a -1
+        if(player_pos[i]==pos && player_pos[i] != -1) p+=std::to_string(i+1);
     }
     return p;
 }

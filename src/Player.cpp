@@ -8,7 +8,7 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(20);
+        edit_balance(0);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }
@@ -29,12 +29,30 @@ bool Player::pay_player(){
         if(price > balance){
             std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
                 << " Giocatore " << player << " eliminato\n";
-            //azzera tutte le variabili del giocatore
-            player = 0;
-            balance = 0;
+            
+            //posizione nella tabella settata a -1 in modo che il valore non valido indichi al tabellone che il 
+            //giocatore è stato eliminato
             table_p -> set_player_pos(player, -1);
-            //posizione settata a -1, numero invalido, per indicare che il giocatore è fuori gioco
-            position = -1;
+
+            //vado a controllare tutte le proprietà del player e le setto a 0
+            for(int i =0 ; i < 28; i++){
+
+                if(table_p -> table[i].number_player() == player){
+
+                    table_p -> table[i].set_propriety(nullptr);
+                }
+            }
+
+            //paga tutti i soldi rimanenti all'altro giocatore
+            price = balance;
+            std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
+            edit_balance(-price);
+            temp -> get_propriety() -> edit_balance(price);
+            
+            //settato il puntatore nella casella che possiede a nullptr
+            /* temp -> set_propriety(nullptr); */
+            player = 0;
+
             //viene decrementata la variabile che indica il numero di player: quando il 
             //numero di player scende sotto il 2, il giocatore rimasto ha vinto
             num_player--;
@@ -43,6 +61,12 @@ bool Player::pay_player(){
         std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
+        return true;
+    }
+    //Se il terreno non è di proprietà del player ma non ha nè una casa nè un albergo
+    else if(temp -> number_player() != player && temp -> number_player() != 0 && temp -> get_belongings() == 1){
+        std::cout << "il terreno è di proprietà di " << temp -> number_player() << ". Non devo pagare nulla\n";
+        //ritorna true poichè il terreno è già di qualcuno, ma non è necessario effettuare il pagamento al giocatore
         return true;
     }
     return false;
