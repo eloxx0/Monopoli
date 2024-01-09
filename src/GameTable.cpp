@@ -10,7 +10,7 @@ void genTable(Casella *table)
     while(i<28)
     {
         int rnd_status=1 + std::rand() / ((RAND_MAX + 1u) / 3);
-        if(i==7 || i==20 || i==27) 
+        if(i%7==0) 
         {
             table[i].set_status(' ');
             i++;
@@ -36,11 +36,12 @@ void genTable(Casella *table)
 
     }
 
-  /*  i=0;
+    /*i=0;
     while(i<28){
         std::cout<<i<<table[i].get_status()<<" ";
         i++;
-    }*/
+    }
+    std::cout<<"\n";*/
 
 }
 
@@ -54,10 +55,51 @@ GameTable::GameTable(){
 
 void GameTable::printTable(){
 
-    std::string space_holder="|                          |";
+    std::string space_holder;
     std::string line;
-    int t=27; //Variabile ausiliaria per gestire l'indice dell'array
-    for(int j=0; j<9;j++) //Linee
+
+
+    int t{0}, k{13}; //Variabile ausiliaria per gestire l'indice dell'array
+
+    for(int j=0; j<9;j++)
+    {
+        if(j>0)line+=char(j+64);
+        if(j==0) line+="   1   2   3   4   5   6   7   8";
+        else if(j==1)
+        {
+            t=14;
+            for(int i=0; i<8;i++)
+            {
+                line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
+                t++;
+            }
+        }
+        else if(j==8)
+        {
+            t=7;
+            for(int i=0; i<8; i++)
+            {
+                line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
+                t--;
+            }
+        }
+        else{
+            space_holder="                         ";
+            line+=" |"+std::string(1,table[k].get_status())+isPlayer(t)+"|";
+            k--;
+            if(isPlayer(t).size()>0)
+            {
+                space_holder.resize(space_holder.size()-isPlayer(t).size());
+                space_holder.shrink_to_fit();
+                //std::cout<<space_holder.size();
+            } 
+            line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|";
+            t++;
+        } 
+        std::cout<<line<<std::endl;
+        line.clear();
+    }
+    /*for(int j=0; j<9;j++) //Linee
     {
         if(j>0)line+=char(j+64); //Carattere ad inzio riga
 
@@ -71,14 +113,22 @@ void GameTable::printTable(){
         }
         else //Riga con il centro vuoto
         {
-            line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+space_holder;
+            space_holder="                         ";
+            line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
+            if(isPlayer(t).size()>0)
+            {
+                space_holder.resize(space_holder.size()-isPlayer(t).size());
+                space_holder.shrink_to_fit();
+                //std::cout<<space_holder.size();
+            } 
             t--;
-            line+=std::string(1,table[t].get_status())+isPlayer(t)+"|";
+            line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|";
             t--;
         } 
         std::cout<<line<<std::endl;
         line.clear();
-    }   
+        space_holder.clear();
+    } */
     
 }
 
