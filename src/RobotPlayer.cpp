@@ -67,6 +67,9 @@ void RobotPlayer::auto_turn(){
 
             buy_hotel();
         }
+        else{
+            std::cout << "non posso acquistare nè pagare\n";
+        }
     }
 
 }
@@ -87,7 +90,6 @@ void RobotPlayer::buy_slot(){
 
         edit_balance(-cost);
         std::cout << "terreno acquistato!\n";
-        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
 
@@ -108,7 +110,6 @@ void RobotPlayer::buy_house(){
         temp -> set_belongings(2);
         edit_balance(-cost);
         std::cout << "casa acquistata!\n";
-        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
 
@@ -129,7 +130,6 @@ void RobotPlayer::buy_hotel(){
         edit_balance(-cost);
 
         std::cout << "hotel acquistato!\n";
-        std::cout << "nuovo bilancio: "<< show_balance() << "\n";
     }
     else{
         std::cout << "non succede nulla\n";

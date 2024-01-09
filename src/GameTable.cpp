@@ -77,8 +77,9 @@ void GameTable::printTable(){
             /* t--; */
             line+=" |"+ print_casella(table[t])+isPlayer(t)+space_holder;
             t--;
-            line+=print_casella(table[t])+isPlayer(t)+"|";
+            line+= print_casella(table[t])+isPlayer(t)+"|";
             t--;
+
         } 
         std::cout<<line<<std::endl;
         line.clear();

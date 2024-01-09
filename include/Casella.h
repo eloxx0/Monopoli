@@ -28,7 +28,9 @@ class Casella{
     }
 
     void set_propriety(Player* p){
-        if(p == nullptr) set_belongings(0);
+        if(p == nullptr){
+            set_belongings(0);
+        }
         player = p;
     }
 
@@ -50,7 +52,7 @@ class Casella{
     }
     
     void set_belongings(int x){ //check operazione
-        if(0<=x && x<=3) belongings=x;
+        if(x >=0 && x<4) belongings=x;
         else std::cout<<"Impossibile effettuare l'operazione"<<std::endl;
     }
     
