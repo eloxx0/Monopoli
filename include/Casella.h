@@ -14,7 +14,7 @@ class Casella{
     private:
     
     char status; //caratteristica casella se eco/standard/vuota/lusso
-    Player* player;   
+    Player* player;
     int belongings; // possedimenti da parte del player, 1 se terreno, 2 presenza di una casa, 3 presenza di un albergo, 0 se per quella determinata casella il player non possiede nulla
     
     public:
@@ -28,6 +28,7 @@ class Casella{
     }
 
     void set_propriety(Player* p){
+        if(p == nullptr) set_belongings(0);
         player = p;
     }
 
@@ -63,6 +64,8 @@ class Casella{
     int player_buyable(int player);
 
 };
+
+std::string print_casella(Casella& c);
 
 std::ostream& operator<<(std::ostream& out, const Casella& x);
 

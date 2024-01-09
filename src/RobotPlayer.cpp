@@ -12,7 +12,6 @@ RobotPlayer::RobotPlayer(GameTable* p_game){
 
     //puntatore alla tabella di gioco, necessario per accedere alle caselle
     table_p = p_game;
-    /* table_p -> set_player_pos(player, 0); */
 
 }
 
