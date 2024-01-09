@@ -93,7 +93,8 @@ void GameTable::printTable(){
                 space_holder.shrink_to_fit();
                 //std::cout<<space_holder.size();
             } 
-            line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|";
+            /* line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|"; */
+            line+=space_holder+"|"+print_casella(table[t])+isPlayer(t)+"|";
             t++;
         } 
         std::cout<<line<<std::endl;
