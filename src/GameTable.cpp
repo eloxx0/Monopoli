@@ -70,7 +70,7 @@ void GameTable::printTable(){
             t=14;
             for(int i=0; i<8;i++)
             {
-                line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
+                line+=" |"+print_casella(table[t])+isPlayer(t)+"|";
                 t++;
             }
         }
@@ -79,13 +79,13 @@ void GameTable::printTable(){
             t=7;
             for(int i=0; i<8; i++)
             {
-                line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
+                line+=" |"+print_casella(table[t])+isPlayer(t)+"|";
                 t--;
             }
         }
         else{
             space_holder="                         ";
-            line+=" |"+std::string(1,table[k].get_status())+isPlayer(t)+"|";
+            line+=" |"+print_casella(table[k])+isPlayer(t)+"|";
             k--;
             if(isPlayer(t).size()>0)
             {

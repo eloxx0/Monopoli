@@ -157,3 +157,11 @@ std::ostream& operator<<(std::ostream& out, const Casella& x){
     return out<<x.get_status()<<x.get_belongings()<<" | "<<std::endl;    
     
 }
+
+std::string print_casella(Casella& c){
+    std::string poss;
+    if(c.get_belongings() == 2) poss = "*";
+    else if(c.get_belongings() == 3) poss = "^";
+    return std::string(1, c.get_status()) + poss;
+
+}
