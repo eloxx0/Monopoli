@@ -152,12 +152,6 @@ int Casella::player_buyable(int player){
 
 }
 
-std::ostream& operator<<(std::ostream& out, const Casella& x){
-
-    return out<<x.get_status()<<x.get_belongings()<<" | "<<std::endl;    
-    
-}
-
 std::string print_casella(Casella& c){
     std::string poss;
     if(c.get_belongings() == 2) poss = "*";
