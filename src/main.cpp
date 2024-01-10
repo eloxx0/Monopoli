@@ -125,10 +125,7 @@ int main(int argc, char* argv[]){
             else if(ordine_giocatori[i] == c.get_player()) in_order.push_back(&c);
             else if(ordine_giocatori[i] == d.get_player()) in_order.push_back(&d);
         }
-       /* for(int i = 0; i < ordine_giocatori.size(); i++){
-            std::cout << "ordine player rimasti " << in_order[i] << "\n";
-        }*/
-
+       
 
         while(turns < 70 && Player::num_player != 1){
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
