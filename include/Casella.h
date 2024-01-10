@@ -69,7 +69,4 @@ class Casella{
 
 std::string print_casella(Casella& c);
 
-std::ostream& operator<<(std::ostream& out, const Casella& x);
-std::string print_casella(Casella& c);
-
 #endif // CASELLA
