@@ -1,5 +1,7 @@
 #include "../include/Player.h"
 
+int Player::num_player = 0;
+
 void Player::advance(){
     int a = throw_dice();
     std::cout << "Giocatore " << player << " avanza di " << a << " posizioni!" << std::endl;
@@ -8,7 +10,7 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(20);
+        edit_balance(0);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }
@@ -30,31 +32,13 @@ bool Player::pay_player(){
             std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
                 << " Giocatore " << player << " eliminato\n";
             
-            //posizione nella tabella settata a -1 in modo che il valore non valido indichi al tabellone che il 
-            //giocatore è stato eliminato
-            table_p -> set_player_pos(player, -1);
-
-            //vado a controllare tutte le proprietà del player e le setto a 0
-            for(int i =0 ; i < 28; i++){
-
-                if(table_p -> table[i].number_player() == player){
-
-                    table_p -> table[i].set_propriety(nullptr);
-                }
-            }
-
             //paga tutti i soldi rimanenti all'altro giocatore
             price = balance;
             std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
             edit_balance(-price);
             temp -> get_propriety() -> edit_balance(price);
             
-            //settato il puntatore nella casella che possiede a nullptr
-            player = 0;
-
-            //viene decrementata la variabile che indica il numero di player: quando il 
-            //numero di player scende sotto il 2, il giocatore rimasto ha vinto
-            num_player--;
+            delete_player();
             return true;
         }
         std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
@@ -69,6 +53,30 @@ bool Player::pay_player(){
         return true;
     }
     return false;
+}
+
+void Player::delete_player(){
+
+            //posizione nella tabella settata a -1 in modo che il valore non valido indichi al tabellone che il 
+            //giocatore è stato eliminato
+            table_p -> set_player_pos(player, -1);
+
+            //vado a controllare tutte le proprietà del player e le setto a 0
+            for(int i =0 ; i < 28; i++){
+
+                if(table_p -> table[i].number_player() == player){
+
+                    table_p -> table[i].set_propriety(nullptr);
+                }
+            }
+
+            //settato il puntatore nella casella che possiede a nullptr
+            player = 0;
+
+            //viene decrementata la variabile che indica il numero di player: quando il 
+            //numero di player scende sotto il 2, il giocatore rimasto ha vinto
+            Player::num_player--;
+
 }
 
 int throw_dice(){

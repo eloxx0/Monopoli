@@ -19,7 +19,7 @@ class HumanPlayer : public Player{
 
         void buy_hotel() override;
 
-        //funzione che compra in automatico il possedimento su cui si trova il giocatore se possibile
+        //funzione che compra in automatico il possedimento(terreno, casa o hotel) su cui si trova il giocatore se possibile
         void buy();
 
 };

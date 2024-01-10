@@ -32,10 +32,6 @@ class Casella;
 
 //non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
 
-//variabile statica che serve per tenere il conto dei giocatori inizializzati.
-//Ad ogni giocatore viene associato un numero identificativo univoco in base
-//a quanti giocatori sono già presenti nella partita.
-static int num_player = 0;
 
 
 class Player{
@@ -63,8 +59,16 @@ class Player{
         //assegnata una pedina? 
         int player;
 
+        //funzione chiamata quando un player viene eliminato da una determinata partita
+        void delete_player();
+
 
     public:
+        
+        //variabile statica che serve per tenere il conto dei giocatori inizializzati.
+        //Ad ogni giocatore viene associato un numero identificativo univoco in base
+        //a quanti giocatori sono già presenti nella partita.
+        static int num_player;
 
         //disabilita copia e costruttore di copia per la classe Player: ogni volta in cui si
         //prova a copiare oggetti Player viene lanciato un errore in compilazione
@@ -120,10 +124,6 @@ class Player{
         //metodo che fa lanciare il dado al giocatore e lo fa avanzare di posizione nel tabellone.
         //Se passa per il via ritira 20 fiorini
         void advance();
-
-        /* //stampa le informazioni principali del player: nome giocatore(in base alla pedina */
-        /* //e/o numero identificativo) e posizione (in coordinate sul tabellone) */
-        /* void print_player(); */
 
 
 };
