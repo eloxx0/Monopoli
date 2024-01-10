@@ -22,10 +22,9 @@ class GameTable{
         player_pos[i - 1]=pos;
     }
     
+    std::string print_legenda(int player);
+    
 };
-
-
-
 
 
 
