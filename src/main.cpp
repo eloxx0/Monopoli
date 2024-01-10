@@ -1,5 +1,6 @@
 #include "HumanPlayer.cpp"
 #include "RobotPlayer.cpp"
+#include <fstream> //per il file log per array di char
 
 //array che mantiene l'ordine dei giocatori: i numeri scritti all'interno rappresentano
 //l'identificativo dei giocatori nell'ordine in cui devono procedere a giocare
