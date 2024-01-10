@@ -151,3 +151,22 @@ std::string GameTable::isBuilt(int pos)
     else if(table[pos].get_belongings() == 2) return "*";
     return "";
 }
+
+//stampa i possedimenti del player tramite il numero identificativo del player
+
+std::string GameTable::print_legenda(int player){
+
+
+std::string s="";
+
+    for(int i=0; i<28; i++){
+    
+        if(table[i].get_belongings()==2) s+=" possiede una casa nella casella "+ table[i]+", ";
+        else if(table[i].get_belongings()==3) s+= " possiede un'albergo nella casella "+ table[i]+", ";
+    //sistemare
+    }
+    
+std::string x="Il giocatore "+ player + s;  
+  
+    return x;
+}
