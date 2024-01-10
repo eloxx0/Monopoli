@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
     GameTable game;
 
     if(command.compare("computer") == 0){
-
+    
         RobotPlayer a(&game);
         RobotPlayer b(&game);
         RobotPlayer c(&game);
@@ -113,7 +113,9 @@ int main(int argc, char* argv[]){
 
         std::cout << "ordine dei giocatori: ";
         for(int i = 0; i < ordine_giocatori.size(); i++){
-            std::cout << ordine_giocatori[i] << ", ";
+            std::cout << ordine_giocatori[i];
+            if(i!=ordine_giocatori.size()-1) std::cout<<", ";
+            else    std::cout<<std::endl;
         }
 
         std::vector<RobotPlayer*> in_order;
@@ -123,9 +125,9 @@ int main(int argc, char* argv[]){
             else if(ordine_giocatori[i] == c.get_player()) in_order.push_back(&c);
             else if(ordine_giocatori[i] == d.get_player()) in_order.push_back(&d);
         }
-        for(int i = 0; i < ordine_giocatori.size(); i++){
+       /* for(int i = 0; i < ordine_giocatori.size(); i++){
             std::cout << "ordine player rimasti " << in_order[i] << "\n";
-        }
+        }*/
 
 
         while(turns < 70 && Player::num_player != 1){
