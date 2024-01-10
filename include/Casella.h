@@ -56,7 +56,7 @@ class Casella{
         else std::cout<<"Impossibile effettuare l'operazione"<<std::endl;
     }
     
-    int get_belongings() const{ //getter possedimenti
+    int get_belongings() const{ //getter possedimenti per il giocatore rispetto ad una casella
         return belongings;
     }  
 
