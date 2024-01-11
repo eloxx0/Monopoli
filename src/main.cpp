@@ -170,8 +170,7 @@ int main(int argc, char* argv[]){
         RobotPlayer b(&game);
         RobotPlayer c(&game);
         RobotPlayer d(&game);
-        
-        bool done= false;
+
         
         //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
         std::string request;
@@ -204,9 +203,7 @@ int main(int argc, char* argv[]){
         std::cin>>r3;
         if(r3.compare("S")==0){}
         else if(r3.compare("N")==0){}// continua il gioco
-        
-    	
-        
+               
     }
 
     game.printTable();
