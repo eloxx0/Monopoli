@@ -172,5 +172,9 @@ int main(int argc, char* argv[]){
     }
 
     game.printTable();
+    game.print_legenda(1);
+    game.print_legenda(2);
+    game.print_legenda(3);
+    game.print_legenda(4);
     /* game.printTable(); */
 }
