@@ -4,6 +4,7 @@
 #include "Casella.h"
 #include <random>
 #include <chrono>
+#include <fstream> //per il file log per array di char
 
 class GameTable{
     //Salva la posizione (int) del player. Il player viene riconosciuto tramite l'indice della posizione: la posizione del P1 viene salvata in [0], P2 in [1]...
@@ -23,7 +24,8 @@ class GameTable{
     }
     
     std::string print_legenda(int player);
-    
+    std::string conversion_table();//che argomento?
+    void gen_filelog(); //generare file log
 };
 
 
