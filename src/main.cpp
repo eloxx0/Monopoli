@@ -175,5 +175,6 @@ int main(int argc, char* argv[]){
     game.print_legenda(2);
     game.print_legenda(3);
     game.print_legenda(4);
+    fout.close();   //chiusura stream file di log
     /* game.printTable(); */
 }
