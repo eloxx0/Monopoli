@@ -171,10 +171,11 @@ int main(int argc, char* argv[]){
         RobotPlayer c(&game);
         RobotPlayer d(&game);
 
+        int a_pos= a.get_position();
         
         //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
         //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
-        if(game[i].player_buyable(a.get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
+        if(game.table[a_pos].player_buyable(a.get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
         
             std::string request;
             std::cin>>request;
@@ -193,7 +194,7 @@ int main(int argc, char* argv[]){
         
         }
         
-        else if(game[i].player_buyable(a.get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
+        else if(game.table[a_pos].player_buyable(a.get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
             //se il giocatore si trova in una casella angolare non è possibile fare nulla
             if(a.get_position() % 7 == 0 && a.get_position() == 0){
                  std::cout << "non posso fare nulla!\n";
@@ -230,7 +231,7 @@ int main(int argc, char* argv[]){
             }
         }
         
-        else if(game[i].player_buyable(a.get_player())==2){ //si può comprare la casa
+        else if(game.table[a_pos].player_buyable(a.get_player())==2){ //si può comprare la casa
         
             std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì e N per no";
             std::string r1;
@@ -262,7 +263,7 @@ int main(int argc, char* argv[]){
         
         }
         
-        else if(game[i].player_buyable(a.get_player())==3){ //si può comprare l'albergo
+        else if(game.table[a_pos].player_buyable(a.get_player())==3){ //si può comprare l'albergo
         
            std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì e N per no";
             std::string r1;
