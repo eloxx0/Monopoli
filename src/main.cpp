@@ -165,11 +165,48 @@ int main(int argc, char* argv[]){
         }
     }
     else{
-
+//GESTIONE 1 UTENTE 3 COMPUTER
         HumanPlayer a(&game);
         RobotPlayer b(&game);
         RobotPlayer c(&game);
         RobotPlayer d(&game);
+        
+        bool done= false;
+        
+        //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
+        std::string request;
+        std::cin>>request;
+    	std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+    	if(request.compare("show")==0){
+    	    game.printTable();  //visualizzare il tabellone
+    	    a.show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    	    b.show_balance();
+    	    c.show_balance();
+    	    d.show_balance();  
+    	    game.print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
+    	    game.print_legenda(2);
+    	    game.print_legenda(3);
+    	    game.print_legenda(4);  
+    	}
+        
+    	std::cout<< "Desidera comprare questa casella? Rispondere S per sì e N per no";
+        std::string r1;
+        std::cin>>r1;
+        if(r1.compare("S")==0){}
+        else if(r1.compare("N")==0){}// continua il gioco
+        std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì e N per no";
+        std::string r2;
+        std::cin>>r2;
+        if(r2.compare("S")==0){}
+        else if(r2.compare("N")==0){}// continua il gioco
+        std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì e N per no";
+        std::string r3;
+        std::cin>>r3;
+        if(r3.compare("S")==0){}
+        else if(r3.compare("N")==0){}// continua il gioco
+        
+    	
+        
     }
 
     game.printTable();
@@ -178,25 +215,6 @@ int main(int argc, char* argv[]){
     game.print_legenda(3);
     game.print_legenda(4);
     
-    //GESTIONE 1 UTENTE 3 COMPUTER//come implementare comando show se string???????? e qui char
-    if(command.compare("human") == 0){
-    
-        bool done= false;
-    
-        while(!done){
-    	std::cout<< "Inserire il comando da eseguire:\n -Premere \n -Q per chiudere l'esecuzione del programma" << std::endl; 
-        char request;
-        std::cin>>request;
-    	switch(request){
-    		
-    			
-            case 'q':
-    		case 'Q':{}
-        default:   std::cout<<"Hai inserito un comando non valido"<<std::endl;
-        
-         }
-        }
-    }
-    fout.close();   //chiusura stream file di log
+    //std::ofstream fout.close();   //chiusura stream file di log problemi compilazione
     /* game.printTable(); */
 }
