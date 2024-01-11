@@ -79,6 +79,8 @@ int main(int argc, char* argv[]){
 
     GameTable game;
 
+    //GESTIONE 4 COMPUTER
+
     if(command.compare("computer") == 0){
     
         RobotPlayer a(&game);
@@ -175,6 +177,26 @@ int main(int argc, char* argv[]){
     game.print_legenda(2);
     game.print_legenda(3);
     game.print_legenda(4);
+    
+    //GESTIONE 1 UTENTE 3 COMPUTER//come implementare comando show se string???????? e qui char
+    if(command.compare("human") == 0){
+    
+        bool done= false;
+    
+        while(!done){
+    	std::cout<< "Inserire il comando da eseguire:\n -Premere \n -Q per chiudere l'esecuzione del programma" << std::endl; 
+        char request;
+        std::cin>>request;
+    	switch(request){
+    		
+    			
+            case 'q':
+    		case 'Q':{}
+        default:   std::cout<<"Hai inserito un comando non valido"<<std::endl;
+        
+         }
+        }
+    }
     fout.close();   //chiusura stream file di log
     /* game.printTable(); */
 }
