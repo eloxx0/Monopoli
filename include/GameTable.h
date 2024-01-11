@@ -25,9 +25,10 @@ class GameTable{
     
     std::string print_legenda(int player);
     std::string conversion_table();//che argomento?
-    void gen_filelog(); //generare file log
+   
 };
 
+void gen_filelog(); //generare file log
 
 
 #endif //GAMETABLE_H
