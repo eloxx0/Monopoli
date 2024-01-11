@@ -170,4 +170,11 @@ std::string x="Il giocatore "+ player + s;
     return x;
 }
 
-char GameTable::conversion_table(//che argomento metto)
+char GameTable::conversion_table() //che argomento metto converte in coordinate 
+
+//creare un file log
+void Gametable::gen_filelog(){
+
+    
+
+}
