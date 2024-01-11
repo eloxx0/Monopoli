@@ -1,6 +1,5 @@
 #include "HumanPlayer.cpp"
 #include "RobotPlayer.cpp"
-#include <fstream> //per il file log per array di char
 #include <bits/stdc++.h>
 #include <algorithm>
 
