@@ -47,6 +47,7 @@ void genTable(Casella *table)
 
 GameTable::GameTable(){
     genTable(table);
+    gen_filelog();
     for(int i = 0; i < 4; i++){
         player_pos[i] = 0;
     }
@@ -153,7 +154,7 @@ std::string GameTable::isBuilt(int pos)
 }
 
 //stampa i possedimenti del player tramite il numero identificativo del player
-
+//FINIRE QUESTI METODI
 std::string GameTable::print_legenda(int player){
 
 std::string s="";
@@ -170,11 +171,11 @@ std::string x="Il giocatore "+ player + s;
     return x;
 }
 
-char GameTable::conversion_table() //che argomento metto converte in coordinate 
+std::string GameTable::conversion_table(){} //che argomento metto converte in coordinate 
 
 //creare un file log
 void Gametable::gen_filelog(){
 
-    
+    ofstream("Log.txt"); //generazione file
 
 }
