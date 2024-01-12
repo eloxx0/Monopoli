@@ -8,5 +8,5 @@ Makefile
 *.json
 CMakeCache.txt
 *.cmake
-
+*.txt
 

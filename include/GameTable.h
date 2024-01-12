@@ -24,7 +24,7 @@ class GameTable{
     }
     
     std::string print_legenda(int player);
-    std::string conversion_table();//che argomento?
+    std::string conversion_table(int i);//che argomento?
    
 };
 
