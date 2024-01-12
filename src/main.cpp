@@ -87,7 +87,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
     int a_pos = a -> get_position();
 
     //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
-    if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
+    if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //usare buyable, devo passare l'int del giocatore, uso get_player
         std::cout << "Non posso fare nulla in questo turno.\n";
         std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
         std::string request;
@@ -97,7 +97,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
         }
         std::cout <<"turno terminato\n";
     }
-    else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
+    else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno
         //se il giocatore si trova in una casella angolare non è possibile fare nulla
         if(a->get_position() % 7 == 0 || a->get_position() == 0){
             std::cout << "non posso fare nulla!\n";
@@ -225,7 +225,6 @@ std::vector<int> winner(Player* a, Player* b, Player* c, Player* d){
 
 
 
-
 int main(int argc, char* argv[]){
 
     if(argc != 2){
@@ -332,7 +331,7 @@ int main(int argc, char* argv[]){
 
         while(turns < 20 && Player::num_player != 1){
 
-            //viene reimpostat a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
+            //viene reimpostato a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
             int count_in_turn = 0;
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
                 if(count_in_turn == human_turn){
