@@ -15,6 +15,8 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
 void HumanPlayer::buy_slot(){
     Casella* temp = &(table_p -> table[position]);
 
+    //basta il controllo sulla casella angolare nel buy_slot() poichè gli altri metodi possono essere chiamati solo 
+    //se il terreno è già stato comprato
     if(position % 7 == 0 || position == 0){
         std::cout << "non posso fare nulla!\n";
         return;

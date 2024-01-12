@@ -15,7 +15,7 @@ RobotPlayer::RobotPlayer(GameTable* p_game){
 
 }
 
-//non è necessario controllare che la casella sia di proprietà del giocatore perchè quando il metodo viene
+//non è necessario controllare che la casella sia di proprietà o acquistabile dal giocatore perchè quando il metodo viene
 //richiamato dagli altri metodi il controllo è già stato fatto
 bool RobotPlayer::can_buy(Casella* temp){
 
@@ -23,7 +23,7 @@ bool RobotPlayer::can_buy(Casella* temp){
     //non è possibile comprare la casella
     if(temp -> get_cost() > balance) return false;
 
-    //se il numero random è minore di 25 posso comprare il terreno/casa/albergo
+    //se il numero random da 0 a 100 è minore di 25 posso comprare il terreno/casa/albergo
     std::srand(std::time(0) + rand());
 
     bool probability = (std::rand() % 100) < 25;
@@ -54,7 +54,7 @@ void RobotPlayer::auto_turn(){
         //puntatore alla casella in cui si trova il giocatore
         Casella* temp = &(table_p -> table[position]);
 
-        //se il giocatore può comprare il terreno
+        //controllo se il giocatore può comprare il terreno utilizzando il metodo player_buyable fornito dalla classe casella
         if(temp -> player_buyable(player) == 1){
 
             buy_slot();
@@ -81,7 +81,6 @@ void RobotPlayer::auto_turn(){
 
 
 void RobotPlayer::buy_slot(){
-    
     //accede alla casella su cui si trova attualmente il giocatore sulla tabella
     Casella* temp = &(table_p -> table[position]);
 
@@ -102,7 +101,6 @@ void RobotPlayer::buy_slot(){
     }
 }
 
-//funzione richiamata dalla funzione buy slot nel caso in cui lo slot è già in possesso del giocatore
 void RobotPlayer::buy_house(){
 
     Casella* temp = &(table_p -> table[position]);
