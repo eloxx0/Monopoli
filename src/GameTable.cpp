@@ -1,6 +1,5 @@
 #include "../include/GameTable.h"
 #include "../include/Casella.h"
-#include <fstream>
 
 
 void genTable(Casella *table)

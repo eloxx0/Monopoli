@@ -11,7 +11,9 @@ std::vector<int> ordine_giocatori;
 //dopo di questo, se il gioco non è ancora terminato, viene dichiarato un vincitore(o più vincitori, in caso di pareggio) in base al bilancio
 int turns = 0;
 
-//funzione che riordina i giocatori in base all'array contenente i risultati ottenuti dal lancio dei dadi
+//funzione che riordina i giocatori in base all'array contenente i risultati ottenuti dal lancio dei dadi.
+//Viene dato per scontato che il valore in posizione 0 rappresenta il numero ottenuto dal lacio del dado del
+//player numero 1, quello in posizione 1 dal lancio del dado del player numero 2 e così via
 void player_order(int disordered_results[4]){
     int ordered_results[4] = {disordered_results[0], disordered_results[1], disordered_results[2], disordered_results[3]};
     std::sort(ordered_results, ordered_results + 4, std::greater<int>());
@@ -178,6 +180,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
 
 }
 
+//funzione che dati i 4 giocatori restituisce un vettore che contiene i numeri dei giocatori che hanno vinto
 std::vector<int> winner(Player* a, Player* b, Player* c, Player* d){
 
     std::vector<int> winners;
@@ -218,6 +221,9 @@ std::vector<int> winner(Player* a, Player* b, Player* c, Player* d){
 
 }
 
+
+
+
 int main(int argc, char* argv[]){
 
     if(argc != 2){
@@ -231,6 +237,7 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
+    //creazione del file di log su cui vado a stampare la partita
     std::ofstream file;
     file.open("log.txt", std::ios::out);
     GameTable game;
@@ -256,6 +263,7 @@ int main(int argc, char* argv[]){
         }
        
 
+        //la partita termina quando rimane un unico giocatore oppure terminano i turni
         while(turns < 60 && Player::num_player != 1){
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
                 in_order[i] -> auto_turn();
