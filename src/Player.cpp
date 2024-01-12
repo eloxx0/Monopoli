@@ -10,7 +10,7 @@ void Player::advance(){
     int new_pos = position + a;
     if(new_pos > 27){
         std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
-        edit_balance(0);
+        edit_balance(20);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }
@@ -22,13 +22,17 @@ void Player::advance(){
 }
 
 bool Player::pay_player(){
+
     Casella* temp = &(table_p -> table[position]);
 
     //controlla che la casella sia di proprietà di un altro player, e che ci sia una casa o un hotel, altrimenti non è
     //necessario pagare nulla
     if(temp -> number_player() != player && temp -> number_player() !=0 && temp -> get_belongings() > 1){
         int price = temp -> get_price();
+
+        //gestisco l'eliminazione del giocatore nel caso in cui non può pagare il pernottamento nel suo totale
         if(price > balance){
+
             std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
                 << " Giocatore " << player << " eliminato\n";
             
@@ -39,15 +43,19 @@ bool Player::pay_player(){
             temp -> get_propriety() -> edit_balance(price);
             
             delete_player();
+            //ritorna true poichè il pagamento è stato fatto con i soldi rimanenti nel bilancio del giocatore
             return true;
         }
+
         std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
+
         return true;
     }
     //Se il terreno non è di proprietà del player ma non ha nè una casa nè un albergo
     else if(temp -> number_player() != player && temp -> number_player() != 0 && temp -> get_belongings() == 1){
+
         std::cout << "il terreno è di proprietà di " << temp -> number_player() << ". Non devo pagare nulla\n";
         //ritorna true poichè il terreno è già di qualcuno, ma non è necessario effettuare il pagamento al giocatore
         return true;

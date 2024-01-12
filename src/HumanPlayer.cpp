@@ -1,8 +1,6 @@
 #include "../include/HumanPlayer.h"
 
-/* Per gestire il turno del giocatore umano è possibile chiamare la funzione buy() che compra in automatico il 
-* possedimento o la casa o l'albergo se possibile, oppure utilizzare separatamente le funzioni di acquisto 
-* in base al volere del giocatore*/
+/* Per gestire il turno del giocatore umano è necessario chiamare le funzioni apposite dopo aver verificato cosa è possibile comprare*/
 
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
@@ -14,33 +12,10 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
 
 }
 
-/* void HumanPlayer::buy(){ */
-
-/*     Casella* temp = &(table_p -> table[position]); */
-    
-/*     //se il giocatore si trova in una casella angolare non è possibile fare nulla */
-/*     if(position % 7 == 0 && position == 0){ */
-/*         std::cout << "non posso fare nulla!\n"; */
-/*         return; */
-/*     } */
-/*     if(temp -> player_buyable(player) == 1){ */
-/*         buy_slot(); */
-/*     } */
-/*     else if(temp -> player_buyable(player) == 2){ */
-/*         buy_house(); */
-/*     } */
-/*     else if(temp -> player_buyable(player) == 3){ */
-/*         buy_hotel(); */
-/*     } */
-/*     else{ */
-/*         std::cout << "impossibile comprare\n"; */
-/*     } */
-/* } */
-
 void HumanPlayer::buy_slot(){
     Casella* temp = &(table_p -> table[position]);
 
-    if(position % 7 == 0 && position == 0){
+    if(position % 7 == 0 || position == 0){
         std::cout << "non posso fare nulla!\n";
         return;
     }

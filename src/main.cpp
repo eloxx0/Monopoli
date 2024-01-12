@@ -22,142 +22,136 @@ void player_order(int disordered_results[4]){
     }
 
 }
+void show(GameTable* game, HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
+    game -> printTable();  //visualizzare il tabellone
+    if(a -> get_player() != 0) a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(b -> get_player() != 0) b -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(c -> get_player() != 0) c -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(d -> get_player() != 0) d -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    game->print_legenda(1);
+    game->print_legenda(2);
+    game->print_legenda(3);
+    game->print_legenda(4);
+
+}
 
 void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, GameTable* game){
     int a_pos = a -> get_position();
 
-    //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
     //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
     if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
-    
+        std::cout << "Non posso fare nulla in questo turno.\n";
+        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
         std::string request;
         std::cin>>request;
-        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
         if(request.compare("show")==0){
-            game -> printTable();  //visualizzare il tabellone
-            a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-            b -> show_balance();
-            c->show_balance();
-            d->show_balance();  
-            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-            game->print_legenda(2);
-            game->print_legenda(3);
-            game->print_legenda(4);  
+            show(game, a, b, c, d);
         }
+        std::cout <<"turno terminato\n";
     
     }
     else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
         //se il giocatore si trova in una casella angolare non è possibile fare nulla
-        if(a->get_position() % 7 == 0 && a->get_position() == 0){
+        if(a->get_position() % 7 == 0 || a->get_position() == 0){
             std::cout << "non posso fare nulla!\n";
         }
          
         else{
-            std::cout<< "Desidera comprare questa casella? Rispondere S per sì e N per no";
+        command:
+            std::cout<< "Desidera comprare questa casella? Rispondere S per sì, N per no e show per mostrare lo status\n";
             std::string r1;
-            std::cin>>r1;
-            if(r1.compare("S")==0){
-        
+            std::cin.clear();
+            std::getline(std::cin>>std::ws, r1);
+            if(r1.compare("show")==0){
+                show(game, a, b, c, d);
+                goto command;
+            }
+            else if(r1.compare("S")==0 || r1.compare("s") == 0){
+            
                 a->buy_slot();
+            
             }
-        
-        
-            else if(r1.compare("N")==0){
-        
-            std::string request;
-            std::cin>>request;
-            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-            if(request.compare("show")==0){
-                game->printTable();  //visualizzare il tabellone
-                a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                b->show_balance();
-                c->show_balance();
-                d->show_balance();  
-                game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-                game->print_legenda(2);
-                game->print_legenda(3);
-                game->print_legenda(4);  
+            else if(r1.compare("N")==0 || r1.compare("n") == 0){
+            
+                std::cout << "Ok, hai terminato il turno\n";
             }
-        
+            else{
+                std::cout << "comando invalido\n";
+                goto command;
             }
         }
     }
     
     else if(game->table[a_pos].player_buyable(a->get_player())==2){ //si può comprare la casa
     
-        std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì e N per no";
+    command1:
+        std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì, N per no e show per mostrare lo status\n";
         std::string r1;
-        std::cin>>r1;
-        if(r1.compare("S")==0){
+        std::cin.clear();
+        std::getline(std::cin>>std::ws, r1);
+        if(r1.compare("show")==0){
+            show(game, a, b, c, d);
+            goto command1;
+        }
+        else if(r1.compare("S")==0 || r1.compare("s") == 0){
         
             a->buy_house();
         
         }
+        else if(r1.compare("N")==0 || r1.compare("n") == 0){
         
-        else if(r1.compare("N")==0){
-        
-            std::string request;
-            std::cin>>request;
-            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-            if(request.compare("show")==0){
-            game->printTable();  //visualizzare il tabellone
-            a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-            b->show_balance();
-            c->show_balance();
-            d->show_balance();  
-            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-            game->print_legenda(2);
-            game->print_legenda(3);
-            game->print_legenda(4);  
-          }
-        
+            std::cout << "Ok, hai terminato il turno\n";
+        }
+        else{
+            std::cout << "comando invalido\n";
+            goto command1;
         }
     
     }
     
     else if(game->table[a_pos].player_buyable(a->get_player())==3){ //si può comprare l'albergo
-    
-       std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì e N per no";
+    command2:
+       std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì, N per no e show per mostrare lo status\n";
         std::string r1;
-        std::cin>>r1;
-        if(r1.compare("S")==0){
-        
+        std::cin.clear();
+        std::getline(std::cin>>std::ws, r1);
+        if(r1.compare("S")==0 || r1.compare("s") == 0){
             a->buy_hotel();
         
         }
-        
-        else if(r1.compare("N")==0){
-        
-            std::string request;
-            std::cin>>request;
+        else if(r1.compare("show") == 0 || r1.compare("Show") == 0){
+
             std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-            if(request.compare("show")==0){
-            game->printTable();  //visualizzare il tabellone
-            a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-            b->show_balance();
-            c->show_balance();
-            d->show_balance();  
-            game->print_legenda(1);
-            game->print_legenda(2);
-            game->print_legenda(3);
-            game->print_legenda(4);  
-          }
-        
+            if(r1.compare("show")==0 || r1.compare("Show")){
+                show(game, a, b, c, d);
+            }
+            goto command2;
+        }
+        else if(r1.compare("N")==0 || r1.compare("n") == 0){
+            std::cout << "Ok, hai terminato il turno\n";
+        }
+        else{
+            std::cout << "comando invalido\n";
+            goto command2;
         }
     }
 
 }
 
 std::vector<int> winner(Player* a, Player* b, Player* c, Player* d){
+
     std::vector<int> winners;
+
     int a_bal = a -> show_balance();
     int b_bal = b -> show_balance();
     int c_bal = c -> show_balance();
     int d_bal = d -> show_balance();
+
     winners.push_back(a_bal);
     winners.push_back(b_bal);
     winners.push_back(c_bal);
     winners.push_back(d_bal);
+
     std::sort(winners.begin(), winners.end(), std::greater<int>());
 
     for(int i = 3; i >= 0; i--){
@@ -265,10 +259,6 @@ int main(int argc, char* argv[]){
                 if(in_order[i] -> get_player() == 0){
 
                     ordine_giocatori.erase(ordine_giocatori.begin() + i);
-                    /* int temp = ordine_giocatori[ordine_giocatori.size() -1]; */
-                    /* ordine_giocatori[i] = temp; */
-                    /* ordine_giocatori.pop_back(); */
-                    /* sort(ordine_giocatori.begin(), ordine_giocatori.end(), std::greater<int>()); */
                     in_order.erase(in_order.begin() + i);
 
                     for(int i = 0; i < ordine_giocatori.size(); i++){
@@ -282,9 +272,8 @@ int main(int argc, char* argv[]){
                     }
                 }
             }
+            game.printTable();
             turns++;
-            std::cout << "number players " << Player::num_player << "\n";
-            std::cout << "turno " << turns << "\n";
         }
         std::cout << a.show_balance() << "\n";
         std::cout << b.show_balance() << "\n";
@@ -342,8 +331,7 @@ int main(int argc, char* argv[]){
         
         int human_turn;
         auto find = std::find(ordine_giocatori.begin(), ordine_giocatori.end(), 1);
-        //inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori a 
-        //partire da 0
+        //inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori
         human_turn = find - ordine_giocatori.begin();
         std::cout << "Giochi come turno " << human_turn + 1 << "\n";
 
@@ -387,27 +375,24 @@ int main(int argc, char* argv[]){
                             else if(ordine_giocatori[i] == d.get_player()) in_order[i] = &d;
                         }
                         for(int j = 0; j < ordine_giocatori.size(); j++){
-                            std::cout << "giocatore rimasto: " << in_order[j] -> get_player() << ", ";
+                            std::cout << "giocatori rimasti: " << in_order[j] -> get_player() << ", ";
                         }
                     }
                     count_in_turn++;
                 }
             }
             turns++;
-            std::cout << "number players " << Player::num_player << "\n";
-            std::cout << "turno " << turns << "\n";
         }
+
         std::cout << a.show_balance() << "\n";
         std::cout << b.show_balance() << "\n";
         std::cout << c.show_balance() << "\n";
         std::cout << d.show_balance() << "\n";
         std::vector<int> winners = winner(&a, &b, &c, &d);
+
         for(int i = 0; i < winners.size(); i++){
             std::cout << "Ha vinto il giocatore: " << winners[i] << "\n";
         }
-        return 0;
-        
-               
     }
 
     game.printTable();
