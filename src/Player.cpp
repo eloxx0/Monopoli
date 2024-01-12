@@ -57,25 +57,25 @@ bool Player::pay_player(){
 
 void Player::delete_player(){
 
-            //posizione nella tabella settata a -1 in modo che il valore non valido indichi al tabellone che il 
-            //giocatore è stato eliminato
-            table_p -> set_player_pos(player, -1);
+    //posizione nella tabella settata a -1 in modo che il valore non valido indichi al tabellone che il 
+    //giocatore è stato eliminato
+    table_p -> set_player_pos(player, -1);
 
-            //vado a controllare tutte le proprietà del player e le setto a 0
-            for(int i =0 ; i < 28; i++){
+    //vado a controllare tutte le proprietà del player e le setto a 0
+    for(int i =0 ; i < 28; i++){
 
-                if(table_p -> table[i].number_player() == player){
+        if(table_p -> table[i].number_player() == player){
 
-                    table_p -> table[i].set_propriety(nullptr);
-                }
-            }
+            table_p -> table[i].set_propriety(nullptr);
+        }
+    }
 
-            //settato il puntatore nella casella che possiede a nullptr
-            player = 0;
+    //settato il puntatore nella casella che possiede a nullptr
+    player = 0;
 
-            //viene decrementata la variabile che indica il numero di player: quando il 
-            //numero di player scende sotto il 2, il giocatore rimasto ha vinto
-            Player::num_player--;
+    //viene decrementata la variabile che indica il numero di player: quando il 
+    //numero di player scende sotto il 2, il giocatore rimasto ha vinto
+    Player::num_player--;
 
 }
 

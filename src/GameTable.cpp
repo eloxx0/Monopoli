@@ -166,7 +166,11 @@ std::string s="";
     //sistemare con la conversione
     }
     
+<<<<<<< Updated upstream
 std::string x="Il giocatore possiede "+ player + s;  
+=======
+std::string x="Il giocatore "+ std::to_string(player) + s;  
+>>>>>>> Stashed changes
   
     return x;
 }
