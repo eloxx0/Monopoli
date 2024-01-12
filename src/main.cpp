@@ -11,6 +11,7 @@ std::vector<int> ordine_giocatori;
 //viene dichiarato un vincitore in base al bilancio
 int turns = 0;
 
+//funzione che riordina i giocatori in base all'array contenente i risultati ottenuti dal lancio dei dadi
 void player_order(int disordered_results[4]){
     int ordered_results[4] = {disordered_results[0], disordered_results[1], disordered_results[2], disordered_results[3]};
     std::sort(ordered_results, ordered_results + 4, std::greater<int>());
@@ -22,16 +23,59 @@ void player_order(int disordered_results[4]){
     }
 
 }
+
+//funzione che permette di iniziare il gioco facendo lanciare i dadi ai giocatori e decidendo i turni. Viene dato per 
+//scontato che il primo valore(a_val) viene ottenuto dal giocatore 1, il secondo(b_val) dal giocatore 2 e così via.
+void start_game(){
+
+    int a_val = throw_dice();
+    int b_val = throw_dice();
+    int c_val = throw_dice();
+    int d_val = throw_dice();
+    //faccio ritirare i dadi finchè non sono diversi tutti i valori
+    int results[4] = {a_val, b_val, c_val, d_val};
+
+    test:
+    for(int i = 0; i < 3; i++){
+        for(int j = i + 1; j < 4; j++){
+            if(results[i] == results[j]){
+                results[j] = throw_dice();
+                //se deve ritirare i dadi, rieffettua il controllo sul nuovo array ottenuto
+                goto test;
+            }
+        }
+    }
+    //copio i nuovi valori nelle variabili
+    a_val = results[0];
+    b_val = results[1];
+    c_val = results[2];
+    d_val = results[3];
+
+    std::cout << "il giocatore 1 tira il dado ed esce " << a_val << "\n";
+    std::cout << "il giocatore 2 tira il dado ed esce " << b_val << "\n";
+    std::cout << "il giocatore 3 tira il dado ed esce " << c_val << "\n";
+    std::cout << "il giocatore 4 tira il dado ed esce " << d_val << "\n";
+
+    player_order(results);
+
+    std::cout << "ordine dei giocatori: ";
+    for(int i = 0; i < ordine_giocatori.size(); i++){
+        std::cout << ordine_giocatori[i];
+        if(i!=ordine_giocatori.size()-1) std::cout<<", ";
+        else std::cout<<std::endl;
+    }
+}
+
 void show(GameTable* game, HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
     game -> printTable();  //visualizzare il tabellone
-    if(a -> get_player() != 0) a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-    if(b -> get_player() != 0) b -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-    if(c -> get_player() != 0) c -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-    if(d -> get_player() != 0) d -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-    game->print_legenda(1);
-    game->print_legenda(2);
-    game->print_legenda(3);
-    game->print_legenda(4);
+    if(a -> get_player() != 0) a -> show_balance();
+    if(b -> get_player() != 0) b -> show_balance();
+    if(c -> get_player() != 0) c -> show_balance();
+    if(d -> get_player() != 0) d -> show_balance();
+    game->print_legenda(a -> get_player());
+    game->print_legenda(b -> get_player());
+    game->print_legenda(c -> get_player());
+    game->print_legenda(d -> get_player());
 
 }
 
@@ -192,10 +236,11 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
+    std::ofstream file;
+    file.open("log.txt", std::ios::out);
     GameTable game;
 
     //GESTIONE 4 COMPUTER
-
     if(command.compare("computer") == 0){
     
         RobotPlayer a(&game);
@@ -203,43 +248,10 @@ int main(int argc, char* argv[]){
         RobotPlayer c(&game);
         RobotPlayer d(&game);
 
-        int a_val = throw_dice();
-        int b_val = throw_dice();
-        int c_val = throw_dice();
-        int d_val = throw_dice();
-        //faccio ritirare i dadi finchè non sono diversi tutti i valori
-        int results[4] = {a_val, b_val, c_val, d_val};
+        start_game();
 
-        test:
-        for(int i = 0; i < 3; i++){
-            for(int j = i + 1; j < 4; j++){
-                if(results[i] == results[j]){
-                    results[j] = throw_dice();
-                    //se deve ritirare i dadi, rieffettua il controllo sul nuovo array
-                    goto test;
-                }
-            }
-        }
-        //copio i nuovi valori nelle variabili
-        a_val = results[0];
-        b_val = results[1];
-        c_val = results[2];
-        d_val = results[3];
-
-        std::cout << "il giocatore 1 tira il dado ed esce " << a_val << "\n";
-        std::cout << "il giocatore 2 tira il dado ed esce " << b_val << "\n";
-        std::cout << "il giocatore 3 tira il dado ed esce " << c_val << "\n";
-        std::cout << "il giocatore 4 tira il dado ed esce " << d_val << "\n";
-
-        player_order(results);
-
-        std::cout << "ordine dei giocatori: ";
-        for(int i = 0; i < ordine_giocatori.size(); i++){
-            std::cout << ordine_giocatori[i];
-            if(i!=ordine_giocatori.size()-1) std::cout<<", ";
-            else    std::cout<<std::endl;
-        }
-
+        //creato il vettore con i puntatori dei giocatori in ordine in base al turno di gioco. Viene utilizzato il fatto
+        //che il vettore ordine_giocatori contiene il numero identificativo del giocatore nell'ordine in cui devono giocare
         std::vector<RobotPlayer*> in_order;
         for(int i = 0; i < ordine_giocatori.size(); i++){
             if(ordine_giocatori[i] == a.get_player()) in_order.push_back(&a);
@@ -269,15 +281,19 @@ int main(int argc, char* argv[]){
                 }
             }
             game.printTable();
+            game.print_legenda(a.get_player());
+            game.print_legenda(b.get_player());
+            game.print_legenda(c.get_player());
+            game.print_legenda(d.get_player());
             turns++;
         }
-        std::cout << a.show_balance() << "\n";
-        std::cout << b.show_balance() << "\n";
-        std::cout << c.show_balance() << "\n";
-        std::cout << d.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 1: " << a.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 2: " <<b.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 3: " <<c.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 4: " <<d.show_balance() << "\n";
         std::vector<int> winners = winner(&a, &b, &c, &d);
         for(int i = 0; i < winners.size(); i++){
-            std::cout << "Ha vinto il giocatore: " << winners[i] << "\n";
+            print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");
         }
     }
     else{
@@ -287,41 +303,7 @@ int main(int argc, char* argv[]){
         RobotPlayer c(&game);
         RobotPlayer d(&game);
 
-        int a_val = throw_dice();
-        int b_val = throw_dice();
-        int c_val = throw_dice();
-        int d_val = throw_dice();
-        //faccio ritirare i dadi finchè non sono diversi tutti i valori
-        int results[4] = {a_val, b_val, c_val, d_val};
-        testhuman:
-        for(int i = 0; i < 3; i++){
-            for(int j = i + 1; j < 4; j++){
-                if(results[i] == results[j]){
-                    results[j] = throw_dice();
-                    //se deve ritirare i dadi, rieffettua il controllo sul nuovo array
-                    goto testhuman;
-                }
-            }
-        }
-        //copio i nuovi valori nelle variabili
-        a_val = results[0];
-        b_val = results[1];
-        c_val = results[2];
-        d_val = results[3];
-
-        std::cout << "il giocatore 1 tira il dado ed esce " << a_val << "\n";
-        std::cout << "il giocatore 2 tira il dado ed esce " << b_val << "\n";
-        std::cout << "il giocatore 3 tira il dado ed esce " << c_val << "\n";
-        std::cout << "il giocatore 4 tira il dado ed esce " << d_val << "\n";
-
-        player_order(results);
-
-        std::cout << "ordine dei giocatori: ";
-        for(int i = 0; i < ordine_giocatori.size(); i++){
-            std::cout << ordine_giocatori[i];
-            if(i!=ordine_giocatori.size()-1) std::cout<<", ";
-            else std::cout<<std::endl;
-        }
+        start_game();
 
         //****attenzione alla differenza tra il turno di gioco e il turno del giocatore all'interno del turno!!****
         
@@ -329,7 +311,7 @@ int main(int argc, char* argv[]){
         auto find = std::find(ordine_giocatori.begin(), ordine_giocatori.end(), 1);
         //inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori
         human_turn = find - ordine_giocatori.begin();
-        std::cout << "Giochi come turno " << human_turn + 1 << "\n";
+        print_double("Giochi come giocatore 1 nel turno " + std::to_string(human_turn + 1) + "\n");
 
         //inserisce nel vettore solo i giocatori Robot
         std::vector<RobotPlayer*> in_order;
@@ -344,6 +326,7 @@ int main(int argc, char* argv[]){
 
         while(turns < 20 && Player::num_player != 1){
 
+            //viene reimpostat a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
             int count_in_turn = 0;
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
                 if(count_in_turn == human_turn){
@@ -358,13 +341,8 @@ int main(int argc, char* argv[]){
                     in_order[i] -> auto_turn();
                     if(in_order[i] -> get_player() == 0){
 
-                        //non posso usare erase() per il vettore di puntatori poichè mi va a deallocare la memoria a cui punta il puntatore
-                        /* ordine_giocatori.erase(ordine_giocatori.begin() + i); */
-                        int temp = ordine_giocatori[ordine_giocatori.size() -1];
-                        ordine_giocatori[i] = temp;
-                        ordine_giocatori.pop_back();
-                        sort(ordine_giocatori.begin(), ordine_giocatori.end(), std::greater<int>());
-
+                        ordine_giocatori.erase(ordine_giocatori.begin() + i);
+                        in_order.erase(in_order.begin() + i);
                         for(int i = 0; i < ordine_giocatori.size(); i++){
                             if(ordine_giocatori[i] == b.get_player()) in_order[i] = &b;
                             else if(ordine_giocatori[i] == c.get_player()) in_order[i] = &c;
@@ -380,23 +358,16 @@ int main(int argc, char* argv[]){
             turns++;
         }
 
-        std::cout << a.show_balance() << "\n";
-        std::cout << b.show_balance() << "\n";
-        std::cout << c.show_balance() << "\n";
-        std::cout << d.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 1: " << a.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 2: " <<b.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 3: " <<c.show_balance() << "\n";
+        std::cout << "Bilancio giocatore 4: " <<d.show_balance() << "\n";
         std::vector<int> winners = winner(&a, &b, &c, &d);
-
         for(int i = 0; i < winners.size(); i++){
-            std::cout << "Ha vinto il giocatore: " << winners[i] << "\n";
+            print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");
         }
     }
 
     game.printTable();
-    game.print_legenda(1);
-    game.print_legenda(2);
-    game.print_legenda(3);
-    game.print_legenda(4);
-    
-    //std::ofstream fout.close();   //chiusura stream file di log problemi compilazione
-    /* game.printTable(); */
+    file.close();
 }

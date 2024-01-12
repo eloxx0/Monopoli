@@ -27,7 +27,7 @@ void HumanPlayer::buy_slot(){
         temp -> set_belongings(1);
 
         edit_balance(-cost);
-        std::cout << "terreno acquistato!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato il terreno in posizione " + conversion_table(position) + "\n");
     }
     else{
 
@@ -43,7 +43,7 @@ void HumanPlayer::buy_house(){
         int cost = temp -> get_cost();
         temp -> set_belongings(2);
         edit_balance(-cost);
-        std::cout << "casa acquistata!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato la casa in posizione " + conversion_table(position) + "\n");
     }
     else{
 
@@ -60,7 +60,7 @@ void HumanPlayer::buy_hotel(){
         int cost = temp -> get_cost();
         temp -> set_belongings(3);
         edit_balance(-cost);
-        std::cout << "hotel acquistato!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato l'hotel in posizione " + conversion_table(position) + "\n");
     }
     else{
 

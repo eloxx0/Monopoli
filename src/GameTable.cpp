@@ -1,5 +1,6 @@
 #include "../include/GameTable.h"
 #include "../include/Casella.h"
+#include <fstream>
 
 
 void genTable(Casella *table)
@@ -36,18 +37,10 @@ void genTable(Casella *table)
 
     }
 
-    /*i=0;
-    while(i<28){
-        std::cout<<i<<table[i].get_status()<<" ";
-        i++;
-    }
-    std::cout<<"\n";*/
-
 }
 
 GameTable::GameTable(){
     genTable(table);
-    gen_filelog();
     for(int i = 0; i < 4; i++){
         player_pos[i] = 0;
     }
@@ -91,7 +84,7 @@ void GameTable::printTable(){
             if(isPlayer(t).size()>0 || isBuilt(t).size()>0) //Da modificare ma funziona
             {
                 space_holder.resize(space_holder.size()-isPlayer(t).size()-isBuilt(t).size());
-                space_holder.shrink_to_fit();
+                /* space_holder.shrink_to_fit(); */
                 //std::cout<<space_holder.size();
             } 
             /* line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|"; */
@@ -127,6 +120,10 @@ std::string GameTable::isBuilt(int pos)
 void GameTable::print_legenda(int player)
 {
 
+    if(player == 0){
+        return;
+    }
+
     std::string s="";
 
     for(int i=0; i<28; i++){
@@ -135,15 +132,11 @@ void GameTable::print_legenda(int player)
             if(table[i].get_belongings() == 2) s+=" ha una casa in " + conversion_table(i)+",";
             else if(table[i].get_belongings() == 3) s+=" ha un'albergo in " + conversion_table(i)+",";
         }
-        
-       // if(table[i].get_belongings()==2 && table[i].number_player() == player) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
-       // else if(table[i].get_belongings()==3 && table[i].number_player() == player) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
-    //sistemare
     }
     std::cout << "Il player "+ std::to_string(player) + s<<std::endl;
 }
 
-std::string GameTable::conversion_table(int i){
+std::string conversion_table(int i){
     if (i < 8) return "H"+std::to_string(8-i);// i è nella riga H
     else if (i < 15) return std::string(1, char(79-i))+"1";       
     else if (i < 23) return "A"+std::to_string(i-13);
@@ -151,9 +144,12 @@ std::string GameTable::conversion_table(int i){
     else return std::string(1, char(i+44)) + "8";
 } 
 
-//creare un file log
-void gen_filelog(){
-
-   // std::ofstream("Log.txt"); //generazione file
-
+void print_double(std::string a){
+    std::ofstream file("log.txt", std::ios::app);
+    if(file.is_open()){
+        file << a;
+        std::cout << a;
+    }
 }
+
+

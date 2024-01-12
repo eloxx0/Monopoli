@@ -4,18 +4,18 @@ int Player::num_player = 0;
 
 void Player::advance(){
     int a = throw_dice();
-    std::cout << "Giocatore " << player << " avanza di " << a << " posizioni!" << std::endl;
+    print_double("Giocatore " + std::to_string(player) + " ha tirato i dadi ottenendo un valore di " + std::to_string(a) + "\n");
     
     //incrementa la posizione attuale di a
     int new_pos = position + a;
     if(new_pos > 27){
-        std::cout << "Passato per il via! Ritira 20 fiorini" << std::endl;
+        print_double("Giocatore " + std::to_string(player) + " passato per il via! Ritira 20 fiorini\n");
         edit_balance(20);
         //se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }
     set_position(new_pos);
-    std::cout << "Giocatore " << player << " arriva in posizione " << position << std::endl;
+    print_double("Giocatore " + std::to_string(player) + " arriva in posizione " + conversion_table(position) + "\n");
     //setta la nuova posizione del giocatore nell'array del tabellone che gestisce le posizioni
     table_p -> set_player_pos(player, position);
 
@@ -33,12 +33,11 @@ bool Player::pay_player(){
         //gestisco l'eliminazione del giocatore nel caso in cui non può pagare il pernottamento nel suo totale
         if(price > balance){
 
-            std::cout << "impossibile pagare pernottamento: saldo troppo basso!"
-                << " Giocatore " << player << " eliminato\n";
+            print_double( "Impossibile pagare pernottamento: saldo troppo basso! Giocatore " + std::to_string(player) + " eliminato\n");
             
             //paga tutti i soldi rimanenti all'altro giocatore
             price = balance;
-            std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
+            print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " a " + std::to_string(temp -> number_player()) + "\n");
             edit_balance(-price);
             temp -> get_propriety() -> edit_balance(price);
             
@@ -47,7 +46,8 @@ bool Player::pay_player(){
             return true;
         }
 
-        std::cout << "giocatore " << player << " paga il prezzo di " << price << " a " << temp -> number_player() << "\n";
+        print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " a " + std::to_string(temp -> number_player()));
+        print_double(" per il pernottamento nella casella " + conversion_table(position) + "\n");
         edit_balance(-price);
         temp -> get_propriety() -> edit_balance(price);
 

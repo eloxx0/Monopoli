@@ -73,6 +73,10 @@ void RobotPlayer::auto_turn(){
         }
     }
 
+    print_double("Giocatore " + std::to_string(player) + " ha finito il turno\n");
+
+
+
 }
 
 
@@ -90,7 +94,7 @@ void RobotPlayer::buy_slot(){
         temp -> set_belongings(1);
 
         edit_balance(-cost);
-        std::cout << "terreno acquistato!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato il terreno in posizione " + conversion_table(position) + "\n");
     }
     else{
 
@@ -110,7 +114,7 @@ void RobotPlayer::buy_house(){
         //setta a 2 la variabile belongings che indica che sul terreno c'è una casa
         temp -> set_belongings(2);
         edit_balance(-cost);
-        std::cout << "casa acquistata!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato la casa in posizione " + conversion_table(position) + "\n");
     }
     else{
 
@@ -130,7 +134,7 @@ void RobotPlayer::buy_hotel(){
 
         edit_balance(-cost);
 
-        std::cout << "hotel acquistato!\n";
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato l'hotel in posizione " + conversion_table(position) + "\n");
     }
     else{
         std::cout << "non succede nulla\n";

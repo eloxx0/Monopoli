@@ -24,10 +24,12 @@ class GameTable{
     }
     
     void print_legenda(int player);
-    std::string conversion_table(int i);//che argomento?
    
 };
-void gen_filelog(); //generare file log
+//ritorna le coordinate corrispondenti alla posizione all'interno dell'array della tabella
+std::string conversion_table(int i);
+//funzione che printa la stringa sia su file che su terminale
+void print_double(std::string a);
 
 
 #endif //GAMETABLE_H
