@@ -60,7 +60,7 @@ void GameTable::printTable(){
     std::string line;
 
 
-    int t{0}, k{13}; //Variabile ausiliaria per gestire l'indice dell'array
+    int t{0}, k{13}; //Variabile ausiliaria per gestire l'i dell'array
 
     for(int j=0; j<9;j++)
     {
@@ -161,34 +161,26 @@ void GameTable::print_legenda(int player)
 
     for(int i=0; i<28; i++){
     
-        if(table[i].get_belongings()==2) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
-        else if(table[i].get_belongings()==3) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
+        if(table[i].get_belongings()==2 && table[i].number_player() == player) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
+        else if(table[i].get_belongings()==3 && table[i].number_player() == player) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
     //sistemare
     }
     
-    std::cout<<"Il giocatore "+ std::to_string(player) + s;  
+    std::cout<<"Il giocatore "+ std::to_string(player) + s<<std::endl;  
 }
 
 std::string GameTable::conversion_table(int i){
-    std::cout<<std::to_string(i)<<" ";
-    if(i<8) // i sta nell'ultima riga
-    {
-        return char(72-i/8)+std::to_string(i);
-    }
-    else if(i<16)// i sta nella colonna di sinistra
-    {
-        return char(72-(i/8))+"1";
-    }
-    else if(i<24) // i sta nella prima riga
-    {
-        return "A"+std::to_string(i-23);
-    }
-    else  // i sta nell'ultima colonna
-    {
-        return char(65+(i/8))+"8";
-    }
     
-    } // i//8 -> riga; i%8 colonna
+    if (i < 8) return "H"+std::to_string(8-i);// i è nella riga H
+        
+    else if (i < 15) return char(14-i)+"1";
+        
+    else if (i < 23) return "A"+std::to_string(i-13);
+
+    else  return char(i-21) + "8";
+        
+
+} 
 
 //creare un file log
 void gen_filelog(){
