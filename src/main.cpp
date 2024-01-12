@@ -41,11 +41,14 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
     //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
     if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
         std::cout << "Non posso fare nulla in questo turno.\n";
-        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+        command0:
+        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita, qualsiasi altra cosa per terminare il turno \n" << std::endl; 
         std::string request;
-        std::cin>>request;
+        std::cin.clear();
+        std::getline(std::cin>>std::ws, request);
         if(request.compare("show")==0){
             show(game, a, b, c, d);
+            goto command0;
         }
         std::cout <<"turno terminato\n";
     
