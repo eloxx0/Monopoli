@@ -181,8 +181,8 @@ std::string GameTable::conversion_table(int i){
 } 
 
 //creare un file log
-void gen_filelog(){
+/*void gen_filelog(){
 
     std::ofstream("Log.txt"); //generazione file
 
-}
+}*/
