@@ -161,12 +161,12 @@ std::string s="";
 
     for(int i=0; i<28; i++){
     
-        if(table[i].get_belongings()==2) s+=" possiede una casa nella casella "+ std::to_string(i)+", ";
-        else if(table[i].get_belongings()==3) s+= " possiede un'albergo nella casella "+ std::to_string(i)+", ";
-    //sistemare
+        if(table[i].get_belongings()==2) s+=" una casa nella casella "+ std::to_string(i)+", ";
+        else if(table[i].get_belongings()==3) s+= " un'albergo nella casella "+ std::to_string(i)+", ";
+    //sistemare con la conversione
     }
     
-std::string x="Il giocatore "+ player + s;  
+std::string x="Il giocatore possiede "+ player + s;  
   
     return x;
 }
