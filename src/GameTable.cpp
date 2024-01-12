@@ -160,24 +160,25 @@ void GameTable::print_legenda(int player)
     std::string s="";
 
     for(int i=0; i<28; i++){
-    
-        if(table[i].get_belongings()==2 && table[i].number_player() == player) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
-        else if(table[i].get_belongings()==3 && table[i].number_player() == player) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
+        if(table[i].number_player() == player)
+        {
+            if(table[i].get_belongings() == 2) s+=" ha una casa in " + conversion_table(i)+",";
+            else if(table[i].get_belongings() == 3) s+=" ha un'albergo in " + conversion_table(i)+",";
+        }
+        
+       // if(table[i].get_belongings()==2 && table[i].number_player() == player) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
+       // else if(table[i].get_belongings()==3 && table[i].number_player() == player) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
     //sistemare
     }
-    
-    std::cout<<"Il giocatore "+ std::to_string(player) + s<<std::endl;  
+    std::cout << "Il player "+ std::to_string(player) + s<<std::endl;
 }
 
 std::string GameTable::conversion_table(int i){
-    
     if (i < 8) return "H"+std::to_string(8-i);// i è nella riga H
-        
-    else if (i < 15) return char(14-i)+"1";
-        
+    else if (i < 15) return char(79-i)+"1";       
     else if (i < 23) return "A"+std::to_string(i-13);
 
-    else  return char(i-21) + "8";
+    else return static_cast<char>(i+44) + "8";
 } 
 
 //creare un file log
