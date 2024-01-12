@@ -129,6 +129,7 @@ void GameTable::print_legenda(int player)
         {
             if(table[i].get_belongings() == 2) s+=" ha una casa in " + conversion_table(i)+",";
             else if(table[i].get_belongings() == 3) s+=" ha un'albergo in " + conversion_table(i)+",";
+            else if(table[i].get_belongings() == 1) s+=" ha un terreno in " + conversion_table(i)+",";
         }
     }
     std::cout << "Il player "+ std::to_string(player) + s<<std::endl;
@@ -149,5 +150,4 @@ void print_double(std::string a){
         std::cout << a;
     }
 }
-
 
