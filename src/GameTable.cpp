@@ -178,8 +178,6 @@ std::string GameTable::conversion_table(int i){
     else if (i < 23) return "A"+std::to_string(i-13);
 
     else  return char(i-21) + "8";
-        
-
 } 
 
 //creare un file log
