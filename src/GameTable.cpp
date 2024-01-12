@@ -171,7 +171,13 @@ std::string x="Il giocatore possiede "+ player + s;
     return x;
 }
 
-std::string GameTable::conversion_table(){return "da fare";} //che argomento metto converte in coordinate 
+std::string GameTable::conversion_table(){
+
+ /*   for(int i=0; i<28; i++){
+        
+    }*/
+
+return "da fare";} //che argomento metto converte in coordinate 
 
 //creare un file log
 void gen_filelog(){
