@@ -83,12 +83,11 @@ void GameTable::printTable(){
             if(isPlayer(t).size()>0 || isBuilt(t).size()>0) //Da modificare ma funziona
             {
                 space_holder.resize(space_holder.size()-isPlayer(t).size()-isBuilt(t).size());
-                /* space_holder.shrink_to_fit(); */
-                //std::cout<<space_holder.size();
+
             } 
-            /* line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|"; */
             line+=space_holder+"|"+print_casella(table[t])+isPlayer(t)+"|";
             t++;
+            space_holder.clear();
         } 
         std::cout<<line<<std::endl;
         line.clear();
