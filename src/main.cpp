@@ -22,6 +22,18 @@ void player_order(int disordered_results[4]){
     }
 
 }
+void show(GameTable* game, HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
+    game -> printTable();  //visualizzare il tabellone
+    if(a -> get_player() != 0) a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(b -> get_player() != 0) b -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(c -> get_player() != 0) c -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    if(d -> get_player() != 0) d -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+    std::cout << game->print_legenda(1) << "\n";
+    std::cout << game->print_legenda(2)<< "\n";
+    std::cout << game->print_legenda(3)<< "\n";
+    std::cout << game->print_legenda(4)<< "\n";  
+
+}
 
 void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, GameTable* game){
     int a_pos = a -> get_position();
@@ -33,16 +45,9 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
         std::string request;
         std::cin>>request;
         if(request.compare("show")==0){
-            game -> printTable();  //visualizzare il tabellone
-            a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-            b -> show_balance();
-            c->show_balance();
-            d->show_balance();  
-            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-            game->print_legenda(2);
-            game->print_legenda(3);
-            game->print_legenda(4);  
+            show(game, a, b, c, d);
         }
+        std::cout <<"turno terminato\n";
     
     }
     else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
@@ -58,15 +63,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
             std::cin.clear();
             std::getline(std::cin>>std::ws, r1);
             if(r1.compare("show")==0){
-                game->printTable();  //visualizzare il tabellone
-                a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                b->show_balance();
-                c->show_balance();
-                d->show_balance();  
-                game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-                game->print_legenda(2);
-                game->print_legenda(3);
-                game->print_legenda(4);  
+                show(game, a, b, c, d);
                 goto command;
             }
             else if(r1.compare("S")==0 || r1.compare("s") == 0){
@@ -93,15 +90,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
         std::cin.clear();
         std::getline(std::cin>>std::ws, r1);
         if(r1.compare("show")==0){
-            game->printTable();  //visualizzare il tabellone
-            a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-            b->show_balance();
-            c->show_balance();
-            d->show_balance();  
-            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-            game->print_legenda(2);
-            game->print_legenda(3);
-            game->print_legenda(4);  
+            show(game, a, b, c, d);
             goto command1;
         }
         else if(r1.compare("S")==0 || r1.compare("s") == 0){
@@ -134,15 +123,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
 
             std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
             if(r1.compare("show")==0 || r1.compare("Show")){
-                game->printTable();  //visualizzare il tabellone
-                a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                b->show_balance();
-                c->show_balance();
-                d->show_balance();  
-                game->print_legenda(1);
-                game->print_legenda(2);
-                game->print_legenda(3);
-                game->print_legenda(4);  
+                show(game, a, b, c, d);
             }
             goto command2;
         }

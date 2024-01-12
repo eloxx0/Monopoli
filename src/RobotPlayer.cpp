@@ -29,6 +29,7 @@ bool RobotPlayer::can_buy(Casella* temp){
     bool probability = (std::rand() % 100) < 25;
 
     return probability;
+
 }
 
 void RobotPlayer::auto_turn(){
@@ -134,6 +135,5 @@ void RobotPlayer::buy_hotel(){
     else{
         std::cout << "non succede nulla\n";
     }
-
 }
 
