@@ -130,7 +130,7 @@ void GameTable::print_legenda(int player)
         if(table[i].number_player() == player)
         {
             if(table[i].get_belongings() == 2) s+=" ha una casa in " + conversion_table(i)+",";
-            else if(table[i].get_belongings() == 3) s+=" ha un'albergo in " + conversion_table(i)+",";
+            else if(table[i].get_belongings() == 3) s+=" ha un albergo in " + conversion_table(i)+",";
             else if(table[i].get_belongings() == 1) s+=" ha un terreno in " + conversion_table(i)+",";
         }
     }
