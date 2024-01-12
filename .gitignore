@@ -9,4 +9,4 @@ Makefile
 CMakeCache.txt
 *.cmake
 *.txt
-
+*.ninja
