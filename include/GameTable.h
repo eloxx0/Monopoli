@@ -27,7 +27,6 @@ class GameTable{
     std::string conversion_table(int i);//che argomento?
    
 };
-
 void gen_filelog(); //generare file log
 
 
