@@ -156,7 +156,7 @@ std::string GameTable::isBuilt(int pos)
 //FINIRE QUESTI METODI
 std::string GameTable::print_legenda(int player){
 
-std::string s="";
+    std::string s="";
 
     for(int i=0; i<28; i++){
     
@@ -164,10 +164,10 @@ std::string s="";
         else if(table[i].get_belongings()==3) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
     //sistemare
     }
-    
-std::string x="Il giocatore "+ std::to_string(player) + s;  
-  
-    return x;
+        
+    std::string x="Il giocatore "+ std::to_string(player) + s;  
+      
+        return x;
 }
 
 std::string GameTable::conversion_table(int i){

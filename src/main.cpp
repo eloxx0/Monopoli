@@ -279,10 +279,6 @@ int main(int argc, char* argv[]){
                 if(in_order[i] -> get_player() == 0){
 
                     ordine_giocatori.erase(ordine_giocatori.begin() + i);
-                    /* int temp = ordine_giocatori[ordine_giocatori.size() -1]; */
-                    /* ordine_giocatori[i] = temp; */
-                    /* ordine_giocatori.pop_back(); */
-                    /* sort(ordine_giocatori.begin(), ordine_giocatori.end(), std::greater<int>()); */
                     in_order.erase(in_order.begin() + i);
 
                     for(int i = 0; i < ordine_giocatori.size(); i++){
@@ -296,6 +292,7 @@ int main(int argc, char* argv[]){
                     }
                 }
             }
+            game.printTable();
             turns++;
         }
         std::cout << a.show_balance() << "\n";

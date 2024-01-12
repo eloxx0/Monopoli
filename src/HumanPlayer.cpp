@@ -1,8 +1,6 @@
 #include "../include/HumanPlayer.h"
 
-/* Per gestire il turno del giocatore umano è possibile chiamare la funzione buy() che compra in automatico il 
-* possedimento o la casa o l'albergo se possibile, oppure utilizzare separatamente le funzioni di acquisto 
-* in base al volere del giocatore*/
+/* Per gestire il turno del giocatore umano è necessario chiamare le funzioni apposite dopo aver verificato cosa è possibile comprare*/
 
 
 HumanPlayer::HumanPlayer(GameTable* p_game){
