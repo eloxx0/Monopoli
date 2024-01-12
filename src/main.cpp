@@ -7,7 +7,7 @@
 //l'identificativo dei giocatori nell'ordine in cui devono procedere a giocare
 std::vector<int> ordine_giocatori;
 
-//variabile che indica i turni giocati. Il numero di turni massimi è 100: dopo di questo, se il gioco non è ancora terminato,
+//variabile che indica i turni giocati. Il numero di turni massimi è 60: dopo di questo, se il gioco non è ancora terminato,
 //viene dichiarato un vincitore in base al bilancio
 int turns = 0;
 
@@ -19,6 +19,131 @@ void player_order(int disordered_results[4]){
         else if(ordered_results[i] == disordered_results[1]) ordine_giocatori.push_back(2);
         else if(ordered_results[i] == disordered_results[2]) ordine_giocatori.push_back(3);
         else if(ordered_results[i] == disordered_results[3]) ordine_giocatori.push_back(4);
+    }
+
+}
+
+void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, GameTable* game){
+    int a_pos = a -> get_position();
+
+    //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
+    //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
+    if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
+    
+        std::string request;
+        std::cin>>request;
+        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+        if(request.compare("show")==0){
+            game -> printTable();  //visualizzare il tabellone
+            a -> show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+            b -> show_balance();
+            c->show_balance();
+            d->show_balance();  
+            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
+            game->print_legenda(2);
+            game->print_legenda(3);
+            game->print_legenda(4);  
+        }
+    
+    }
+    else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
+        //se il giocatore si trova in una casella angolare non è possibile fare nulla
+        if(a->get_position() % 7 == 0 && a->get_position() == 0){
+            std::cout << "non posso fare nulla!\n";
+        }
+         
+        else{
+            std::cout<< "Desidera comprare questa casella? Rispondere S per sì e N per no";
+            std::string r1;
+            std::cin>>r1;
+            if(r1.compare("S")==0){
+        
+                a->buy_slot();
+            }
+        
+        
+            else if(r1.compare("N")==0){
+        
+            std::string request;
+            std::cin>>request;
+            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+            if(request.compare("show")==0){
+                game->printTable();  //visualizzare il tabellone
+                a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+                b->show_balance();
+                c->show_balance();
+                d->show_balance();  
+                game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
+                game->print_legenda(2);
+                game->print_legenda(3);
+                game->print_legenda(4);  
+            }
+        
+            }
+        }
+    }
+    
+    else if(game->table[a_pos].player_buyable(a->get_player())==2){ //si può comprare la casa
+    
+        std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì e N per no";
+        std::string r1;
+        std::cin>>r1;
+        if(r1.compare("S")==0){
+        
+            a->buy_house();
+        
+        }
+        
+        else if(r1.compare("N")==0){
+        
+            std::string request;
+            std::cin>>request;
+            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+            if(request.compare("show")==0){
+            game->printTable();  //visualizzare il tabellone
+            a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+            b->show_balance();
+            c->show_balance();
+            d->show_balance();  
+            game->print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
+            game->print_legenda(2);
+            game->print_legenda(3);
+            game->print_legenda(4);  
+          }
+        
+        }
+    
+    }
+    
+    else if(game->table[a_pos].player_buyable(a->get_player())==3){ //si può comprare l'albergo
+    
+       std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì e N per no";
+        std::string r1;
+        std::cin>>r1;
+        if(r1.compare("S")==0){
+        
+            a->buy_hotel();
+        
+        }
+        
+        else if(r1.compare("N")==0){
+        
+            std::string request;
+            std::cin>>request;
+            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
+            if(request.compare("show")==0){
+            game->printTable();  //visualizzare il tabellone
+            a->show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
+            b->show_balance();
+            c->show_balance();
+            d->show_balance();  
+            game->print_legenda(1);
+            game->print_legenda(2);
+            game->print_legenda(3);
+            game->print_legenda(4);  
+          }
+        
+        }
     }
 
 }
@@ -94,6 +219,7 @@ int main(int argc, char* argv[]){
         int d_val = throw_dice();
         //faccio ritirare i dadi finchè non sono diversi tutti i valori
         int results[4] = {a_val, b_val, c_val, d_val};
+
         test:
         for(int i = 0; i < 3; i++){
             for(int j = i + 1; j < 4; j++){
@@ -133,7 +259,7 @@ int main(int argc, char* argv[]){
         }
        
 
-        while(turns < 70 && Player::num_player != 1){
+        while(turns < 60 && Player::num_player != 1){
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
                 in_order[i] -> auto_turn();
                 if(in_order[i] -> get_player() == 0){
@@ -209,15 +335,17 @@ int main(int argc, char* argv[]){
         for(int i = 0; i < ordine_giocatori.size(); i++){
             std::cout << ordine_giocatori[i];
             if(i!=ordine_giocatori.size()-1) std::cout<<", ";
-            else    std::cout<<std::endl;
+            else std::cout<<std::endl;
         }
 
+        //****attenzione alla differenza tra il turno di gioco e il turno del giocatore all'interno del turno!!****
+        
         int human_turn;
         auto find = std::find(ordine_giocatori.begin(), ordine_giocatori.end(), 1);
         //inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori a 
         //partire da 0
         human_turn = find - ordine_giocatori.begin();
-        std::cout << "Giochi come turno " << human_turn << "\n";
+        std::cout << "Giochi come turno " << human_turn + 1 << "\n";
 
         //inserisce nel vettore solo i giocatori Robot
         std::vector<RobotPlayer*> in_order;
@@ -237,127 +365,8 @@ int main(int argc, char* argv[]){
                 if(count_in_turn == human_turn){
                     a.advance();
 
-                    int a_pos = a.get_position();
+                    human_play(&a, &b, &c, &d, &game);
 
-                    //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
-                    //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
-                    if(game.table[a_pos].player_buyable(a.get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
-                    
-                        std::string request;
-                        std::cin>>request;
-                        std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-                        if(request.compare("show")==0){
-                        game.printTable();  //visualizzare il tabellone
-                        a.show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                        b.show_balance();
-                        c.show_balance();
-                        d.show_balance();  
-                        game.print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-                        game.print_legenda(2);
-                        game.print_legenda(3);
-                        game.print_legenda(4);  
-                        }
-                    
-                    }
-                    else if(game.table[a_pos].player_buyable(a.get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
-                        //se il giocatore si trova in una casella angolare non è possibile fare nulla
-                        if(a.get_position() % 7 == 0 && a.get_position() == 0){
-                            std::cout << "non posso fare nulla!\n";
-                        }
-                         
-                        else{
-                            std::cout<< "Desidera comprare questa casella? Rispondere S per sì e N per no";
-                            std::string r1;
-                            std::cin>>r1;
-                            if(r1.compare("S")==0){
-                        
-                                a.buy_slot();
-                            }
-                        
-                        
-                            else if(r1.compare("N")==0){
-                        
-                            std::string request;
-                            std::cin>>request;
-                            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-                            if(request.compare("show")==0){
-                                game.printTable();  //visualizzare il tabellone
-                                a.show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                                b.show_balance();
-                                c.show_balance();
-                                d.show_balance();  
-                                game.print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-                                game.print_legenda(2);
-                                game.print_legenda(3);
-                                game.print_legenda(4);  
-                            }
-                        
-                            }
-                        }
-                    }
-                    
-                    else if(game.table[a_pos].player_buyable(a.get_player())==2){ //si può comprare la casa
-                    
-                        std::cout<< "Desidera costruire una casa in questo terreno? Rispondere S per sì e N per no";
-                        std::string r1;
-                        std::cin>>r1;
-                        if(r1.compare("S")==0){
-                        
-                            a.buy_house();
-                        
-                        }
-                        
-                        else if(r1.compare("N")==0){
-                        
-                            std::string request;
-                            std::cin>>request;
-                            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-                            if(request.compare("show")==0){
-                            game.printTable();  //visualizzare il tabellone
-                            a.show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                            b.show_balance();
-                            c.show_balance();
-                            d.show_balance();  
-                            game.print_legenda(1);   //visualizzare lista terreni/case/alberghi posseduti da ogni giocatore NON MI STAMPA I TERRENI PERCHÉ NON É RICHIESTO IN LEGENDA CHE CAZZO
-                            game.print_legenda(2);
-                            game.print_legenda(3);
-                            game.print_legenda(4);  
-                          }
-                        
-                        }
-                    
-                    }
-                    
-                    else if(game.table[a_pos].player_buyable(a.get_player())==3){ //si può comprare l'albergo
-                    
-                       std::cout<< "Desidera migliorare questa casa in un albergo? Rispondere S per sì e N per no";
-                        std::string r1;
-                        std::cin>>r1;
-                        if(r1.compare("S")==0){
-                        
-                            a.buy_hotel();
-                        
-                        }
-                        
-                        else if(r1.compare("N")==0){
-                        
-                            std::string request;
-                            std::cin>>request;
-                            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-                            if(request.compare("show")==0){
-                            game.printTable();  //visualizzare il tabellone
-                            a.show_balance();   //visualizzare l’ammontare di fiorini posseduto da tutti i giocatori
-                            b.show_balance();
-                            c.show_balance();
-                            d.show_balance();  
-                            game.print_legenda(1);
-                            game.print_legenda(2);
-                            game.print_legenda(3);
-                            game.print_legenda(4);  
-                          }
-                        
-                        }
-                    }
                     count_in_turn++;
                 }
                 else{
