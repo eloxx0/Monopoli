@@ -85,7 +85,7 @@ void GameTable::printTable(){
             }
         }
         else{
-            space_holder="                         ";
+            space_holder="                          ";
             line+=" |"+print_casella(table[k])+isPlayer(t)+"|";
             k--;
             if(isPlayer(t).size()>0 || isBuilt(t).size()>0) //Da modificare ma funziona
@@ -131,7 +131,6 @@ void GameTable::printTable(){
         line.clear();
         space_holder.clear();
     } */
-    
 }
 
 std::string GameTable::isPlayer(int pos)
@@ -161,27 +160,34 @@ std::string s="";
 
     for(int i=0; i<28; i++){
     
-        if(table[i].get_belongings()==2) s+=" una casa nella casella "+ std::to_string(i)+", ";
-        else if(table[i].get_belongings()==3) s+= " un'albergo nella casella "+ std::to_string(i)+", ";
-    //sistemare con la conversione
+        if(table[i].get_belongings()==2) s+=" possiede una casa nella casella "+ conversion_table(i)+", ";
+        else if(table[i].get_belongings()==3) s+= " possiede un'albergo nella casella "+ conversion_table(i)+", ";
+    //sistemare
     }
     
-<<<<<<< Updated upstream
-std::string x="Il giocatore possiede "+ player + s;  
-=======
 std::string x="Il giocatore "+ std::to_string(player) + s;  
->>>>>>> Stashed changes
   
     return x;
 }
 
-std::string GameTable::conversion_table(){
-
- /*   for(int i=0; i<28; i++){
-        
-    }*/
-
-return "da fare";} //che argomento metto converte in coordinate 
+std::string GameTable::conversion_table(int i){
+    if(i<8) // i sta nell'ultima riga
+    {
+        return char(72-i/8)+std::to_string(i);
+    }
+    else if(i<16)// i sta nella colonna di sinistra
+    {
+        return char(72-(i/8))+"1";
+    }
+    else if(i<24) // i sta nella prima riga
+    {
+        return "A"+std::to_string(i-23);
+    }
+    else  // i sta nell'ultima colonna
+    {
+        return char(65+(i/8))+"8";
+    }
+    } // i//8 -> riga; i%8 colonna
 
 //creare un file log
 void gen_filelog(){
