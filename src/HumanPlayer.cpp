@@ -64,7 +64,7 @@ void HumanPlayer::buy_hotel(){
         int cost = temp -> get_cost();
         temp -> set_belongings(3);
         edit_balance(-cost);
-        print_double("Il giocatore " + std::to_string(player) + " ha acquistato l'hotel in posizione " + conversion_table(position) + "\n");
+        print_double("Il giocatore " + std::to_string(player) + " ha acquistato l'albergo in posizione " + conversion_table(position) + "\n");
     }
     else{
 
