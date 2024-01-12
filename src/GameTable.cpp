@@ -66,7 +66,7 @@ void GameTable::printTable(){
     {
         if(j>0)line+=char(j+64);
         if(j==0) line+="   1   2   3   4   5   6   7   8";
-        else if(j==1)
+        else if(j==1)       //Prima riga
         {
             t=14;
             for(int i=0; i<8;i++)
@@ -75,7 +75,7 @@ void GameTable::printTable(){
                 t++;
             }
         }
-        else if(j==8)
+        else if(j==8)   //Ultima riga 
         {
             t=7;
             for(int i=0; i<8; i++)
@@ -86,7 +86,7 @@ void GameTable::printTable(){
         }
         else{
             space_holder="                          ";
-            line+=" |"+print_casella(table[k])+isPlayer(t)+"|";
+            line+=" |"+print_casella(table[k])+isPlayer(k)+"|";
             k--;
             if(isPlayer(t).size()>0 || isBuilt(t).size()>0) //Da modificare ma funziona
             {
@@ -154,9 +154,10 @@ std::string GameTable::isBuilt(int pos)
 
 //stampa i possedimenti del player tramite il numero identificativo del player
 //FINIRE QUESTI METODI
-std::string GameTable::print_legenda(int player){
+void GameTable::print_legenda(int player)
+{
 
-std::string s="";
+    std::string s="";
 
     for(int i=0; i<28; i++){
     
@@ -165,12 +166,11 @@ std::string s="";
     //sistemare
     }
     
-std::string x="Il giocatore "+ std::to_string(player) + s;  
-  
-    return x;
+    std::cout<<"Il giocatore "+ std::to_string(player) + s;  
 }
 
 std::string GameTable::conversion_table(int i){
+    std::cout<<std::to_string(i)<<" ";
     if(i<8) // i sta nell'ultima riga
     {
         return char(72-i/8)+std::to_string(i);
@@ -187,6 +187,7 @@ std::string GameTable::conversion_table(int i){
     {
         return char(65+(i/8))+"8";
     }
+    
     } // i//8 -> riga; i%8 colonna
 
 //creare un file log

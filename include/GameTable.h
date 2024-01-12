@@ -23,7 +23,7 @@ class GameTable{
         player_pos[i - 1]=pos;
     }
     
-    std::string print_legenda(int player);
+    void print_legenda(int player);
     std::string conversion_table(int i);//che argomento?
    
 };
