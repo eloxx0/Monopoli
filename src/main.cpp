@@ -7,8 +7,8 @@
 //l'identificativo dei giocatori nell'ordine in cui devono procedere a giocare
 std::vector<int> ordine_giocatori;
 
-//variabile che indica i turni giocati. Il numero di turni massimi è 60: dopo di questo, se il gioco non è ancora terminato,
-//viene dichiarato un vincitore in base al bilancio
+//variabile che indica i turni giocati. Il numero di turni massimi è 60 per i computer, 20 con il player umano:
+//dopo di questo, se il gioco non è ancora terminato, viene dichiarato un vincitore(o più vincitori, in caso di pareggio) in base al bilancio
 int turns = 0;
 
 //funzione che riordina i giocatori in base all'array contenente i risultati ottenuti dal lancio dei dadi
@@ -200,11 +200,6 @@ std::vector<int> winner(Player* a, Player* b, Player* c, Player* d){
     int size = winners.size();
     for(int i = size - 1 ; i>0; i--){
         if(winners[i] < winners[i - 1]) winners.pop_back();
-        else if(i >= 2 && winners[i] == winners[i -1] && winners[i] < winners[i-2]){
-            winners.pop_back();
-            winners.pop_back();
-            i = i - 1;
-        }
     }
     std::vector<int> number_winners;
     if(std::binary_search(winners.begin(), winners.end(), a_bal)){
@@ -291,6 +286,7 @@ int main(int argc, char* argv[]){
         std::cout << "Bilancio giocatore 2: " <<b.show_balance() << "\n";
         std::cout << "Bilancio giocatore 3: " <<c.show_balance() << "\n";
         std::cout << "Bilancio giocatore 4: " <<d.show_balance() << "\n";
+
         std::vector<int> winners = winner(&a, &b, &c, &d);
         for(int i = 0; i < winners.size(); i++){
             print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");
