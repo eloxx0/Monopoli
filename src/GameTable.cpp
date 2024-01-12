@@ -101,36 +101,6 @@ void GameTable::printTable(){
         std::cout<<line<<std::endl;
         line.clear();
     }
-    /*for(int j=0; j<9;j++) //Linee
-    {
-        if(j>0)line+=char(j+64); //Carattere ad inzio riga
-
-        if(j==0) line+="   1   2   3   4   5   6   7   8"; //Riga di numeri
-        else if(j==1 || j==8)
-        {
-            for(int i=0; i<8;i++){           
-               line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|"; //Riga con il centro pieno
-               t--;
-            }
-        }
-        else //Riga con il centro vuoto
-        {
-            space_holder="                         ";
-            line+=" |"+std::string(1, table[t].get_status())+isPlayer(t)+"|";
-            if(isPlayer(t).size()>0)
-            {
-                space_holder.resize(space_holder.size()-isPlayer(t).size());
-                space_holder.shrink_to_fit();
-                //std::cout<<space_holder.size();
-            } 
-            t--;
-            line+=space_holder+"|"+std::string(1,table[t].get_status())+isPlayer(t)+"|";
-            t--;
-        } 
-        std::cout<<line<<std::endl;
-        line.clear();
-        space_holder.clear();
-    } */
 }
 
 std::string GameTable::isPlayer(int pos)
@@ -175,10 +145,10 @@ void GameTable::print_legenda(int player)
 
 std::string GameTable::conversion_table(int i){
     if (i < 8) return "H"+std::to_string(8-i);// i è nella riga H
-    else if (i < 15) return char(79-i)+"1";       
+    else if (i < 15) return std::string(1, char(79-i))+"1";       
     else if (i < 23) return "A"+std::to_string(i-13);
 
-    else return static_cast<char>(i+44) + "8";
+    else return std::string(1, char(i+44)) + "8";
 } 
 
 //creare un file log

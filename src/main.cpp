@@ -48,7 +48,6 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
             show(game, a, b, c, d);
         }
         std::cout <<"turno terminato\n";
-    
     }
     else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
         //se il giocatore si trova in una casella angolare non è possibile fare nulla
@@ -121,10 +120,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
         }
         else if(r1.compare("show") == 0 || r1.compare("Show") == 0){
 
-            std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
-            if(r1.compare("show")==0 || r1.compare("Show")){
-                show(game, a, b, c, d);
-            }
+            show(game, a, b, c, d);
             goto command2;
         }
         else if(r1.compare("N")==0 || r1.compare("n") == 0){
