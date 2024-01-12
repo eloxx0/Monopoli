@@ -36,7 +36,7 @@ void RobotPlayer::auto_turn(){
     advance();
     
     //Se il giocatore arriva sulla partenza oppure su una casella angolare, il turno termina
-    if(position % 7 == 0 && position == 0){
+    if(position % 7 == 0 || position == 0){
 
         std::cout << "non posso fare nulla!\n";
         return;

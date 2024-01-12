@@ -26,7 +26,6 @@ void player_order(int disordered_results[4]){
 void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, GameTable* game){
     int a_pos = a -> get_position();
 
-    //DEVO METTERLO FUORI DEVE ESSERE ACCESSIBILE IN QUALSIASI MOMENTO
     //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
     if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //il problema di usare buyable è che gli devo passare l'int del giocatore uso get player
         std::cout << "Non posso fare nulla in questo turno.\n";
@@ -48,7 +47,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
     }
     else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno, non mi riconosce ovviamente i ma non sapevo come riferirmi alla casella dove si trova in quel momento
         //se il giocatore si trova in una casella angolare non è possibile fare nulla
-        if(a->get_position() % 7 == 0 && a->get_position() == 0){
+        if(a->get_position() % 7 == 0 || a->get_position() == 0){
             std::cout << "non posso fare nulla!\n";
         }
          

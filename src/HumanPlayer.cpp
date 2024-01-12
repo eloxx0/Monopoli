@@ -38,7 +38,7 @@ HumanPlayer::HumanPlayer(GameTable* p_game){
 void HumanPlayer::buy_slot(){
     Casella* temp = &(table_p -> table[position]);
 
-    if(position % 7 == 0 && position == 0){
+    if(position % 7 == 0 || position == 0){
         std::cout << "non posso fare nulla!\n";
         return;
     }
