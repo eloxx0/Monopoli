@@ -1,3 +1,5 @@
+//ELOISA PAGANI
+
 #include "../include/RobotPlayer.h"
 
 /* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn(),

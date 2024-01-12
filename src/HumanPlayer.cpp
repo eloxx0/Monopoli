@@ -1,3 +1,5 @@
+//ELOISA PAGANI
+
 #include "../include/HumanPlayer.h"
 
 /* Per gestire il turno del giocatore umano è necessario chiamare le funzioni apposite dopo aver verificato cosa è possibile comprare*/
