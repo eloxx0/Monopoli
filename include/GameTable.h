@@ -1,3 +1,5 @@
+//DANTE GERETTO
+
 #ifndef GAMETABLE_H
 #define GAMETABLE_H
 
