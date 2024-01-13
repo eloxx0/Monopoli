@@ -2,6 +2,7 @@
 
 #include "../include/Player.h"
 
+//variabile statica che indica il numero di giocatori presenti nella partita, inizializzata a 0 a inizio del gioco
 int Player::num_player = 0;
 
 void Player::advance(){
