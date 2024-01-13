@@ -225,7 +225,7 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
 
     endturn:
         std::cout << "Non posso più fare nulla in questo turno.\n";
-        std::cout << "Inserire il comando show se si vuol visualizzare lo status della partita, qualsiasi altra cosa "
+        std::cout << "Inserire il comando show se si vuol visualizzare lo status della partita, qualsiasi altra lettera "
             << " per terminare il turno\n";
         std::string request;
         std::cin.clear();
