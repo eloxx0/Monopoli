@@ -91,51 +91,6 @@ void GameTable::printTable()
         std::cout << line << std::endl;
     }
 
-    /* |E|       |F|
-     */
-
-    /*int t{0}, k{13}; //Variabile ausiliaria per gestire l'i dell'array
-
-    for(int j=0; j<9;j++)   //Per le righe usare uno switch per la prima e l'8va, il resto va in default
-                            //Tenere gli spazi a 6 (vedi prima riga) e poi ridurre dinamicamente gli spazi tra una riga e l'altra (tenere la prima riga di lunghezza fissa)
-                            //Finire facendo diminuzioni sugli spazi centrali da un max
-    {
-        if(j>0)line+=char(j+64);
-        if(j==0) line+="   1   2   3   4   5   6   7   8";
-        else if(j==1)       //Prima riga
-        {
-            t=14;
-            for(int i=0; i<8;i++)
-            {
-
-                line+="      |"+print_casella(table[t])+isPlayer(t)+"|";
-                t++;
-            }
-        }
-        else if(j==8)   //Ultima riga
-        {
-            t=7;
-            for(int i=0; i<8; i++)
-            {
-                line+=" |"+print_casella(table[t])+isPlayer(t)+"|";
-                t--;
-            }
-        }
-        else{
-            space_holder="                          ";
-            line+=" |"+print_casella(table[k])+isPlayer(k)+"|";
-            k--;
-
-            space_holder.resize(space_holder.size()-isPlayer(t).size()-isBuilt(t).size());
-            space_holder.shrink_to_fit();
-
-            line+=space_holder+"|"+print_casella(table[t])+isPlayer(t)+"|";
-            t++;
-            space_holder.clear();
-        }
-        std::cout<<line<<std::endl;
-        line.clear();
-    }*/
 }
 
 std::string GameTable::isPlayer(int pos)
@@ -161,7 +116,6 @@ std::string GameTable::isBuilt(int pos)
 }
 
 // stampa i possedimenti del player tramite il numero identificativo del player
-// FINIRE QUESTI METODI
 void GameTable::print_legenda(int player)
 {
 
