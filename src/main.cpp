@@ -331,7 +331,7 @@ int main(int argc, char* argv[]){
             else in_order.push_back(0);
         }
 
-        while(turns < 60 && Player::num_player != 1){
+        while(turns < 20 && Player::num_player != 1){
 
             //viene reimpostato a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
             int count_in_turn = 0;
