@@ -241,7 +241,7 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
 void winner(Player *a, Player *b, Player *c, Player *d)
 {
 
-    print_double("Partita teriminata!\n");
+    print_double("Partita terminata!\n");
 
     print_double("Bilancio finale del giocatore 1: " + std::to_string(a->show_balance()) + "\n");
     print_double("Bilancio finale del giocatore 2: " + std::to_string(b->show_balance()) + "\n");
