@@ -3,6 +3,14 @@
 #include "../include/GameTable.h"
 #include "../include/Casella.h"
 
+/*
+genTable() permette di creare un array di caselle con status random e secondo specifiche:
+case Lusso: 6;
+case Economiche: 8;
+case Standard 10; 
+
+*/
+
 void genTable(Casella *table)
 {
     table[0].set_status('P');
@@ -16,7 +24,7 @@ void genTable(Casella *table)
             table[i].set_status(' ');
             i++;
         }
-        if (rnd_status == 1 && countE < 8)
+        else if (rnd_status == 1 && countE < 8)
         {
             table[i].set_status('E');
             i++;
@@ -32,11 +40,11 @@ void genTable(Casella *table)
         {
             table[i].set_status('L');
             i++;
-            countS++;
+            countL++;
         }
     }
 }
-
+//Costruttore di GameTable che inizializza tutti i player all partenza.
 GameTable::GameTable()
 {
     genTable(table);
@@ -45,7 +53,7 @@ GameTable::GameTable()
         player_pos[i] = 0;
     }
 }
-
+/*In questa funzione*/
 void GameTable::printTable()
 {
     int space{0};
