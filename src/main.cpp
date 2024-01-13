@@ -87,13 +87,13 @@ void show(GameTable *game, HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, Robot
     game->printTable(); // visualizzare il tabellone
     // printa il bilancio di ogni giocatore ancora valido
     if (a->get_player() != 0)
-        std::cout << a->show_balance() << "\n";
+        std::cout <<"Il giocatore 1 possiede: "<< a->show_balance() << " fiorini\n";
     if (b->get_player() != 0)
-        std::cout << b->show_balance() << "\n";
+        std::cout <<"Il giocatore 2 possiede: "<< b->show_balance() << " fiorini\n";
     if (c->get_player() != 0)
-        std::cout << c->show_balance() << "\n";
+        std::cout <<"Il giocatore 3 possiede: "<< c->show_balance() << " fiorini\n";
     if (d->get_player() != 0)
-        std::cout << d->show_balance() << "\n";
+        std::cout <<"Il giocatore 4 possiede: "<< d->show_balance() << " fiorini\n";
     // printa i possedimenti associati ad ogni player
     game->print_legenda(a->get_player());
     game->print_legenda(b->get_player());
