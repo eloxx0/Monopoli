@@ -44,7 +44,7 @@ void genTable(Casella *table)
         }
     }
 }
-//Costruttore di GameTable che inizializza tutti i player nella casa di partenza.
+//Costruttore di GameTable che inizializza tutti i player nella casa dipartenza.
 GameTable::GameTable()
 {
     genTable(table);
