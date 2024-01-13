@@ -13,7 +13,7 @@ class GameTable
     // Salva la posizione (int) del player. Il player viene riconosciuto tramite l'indice della posizione: la posizione del P1 viene salvata in [0], P2 in [1]...
     int player_pos[4];
     std::string isPlayer(int);
-    std::string isBuilt(int);
+    int isBuilt(int);
 
 public:
     // Costruttore

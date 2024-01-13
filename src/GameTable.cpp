@@ -44,7 +44,7 @@ void genTable(Casella *table)
         }
     }
 }
-//Costruttore di GameTable che inizializza tutti i player all partenza.
+//Costruttore di GameTable che inizializza tutti i player nella casa di partenza.
 GameTable::GameTable()
 {
     genTable(table);
@@ -53,7 +53,7 @@ GameTable::GameTable()
         player_pos[i] = 0;
     }
 }
-/*In questa funzione*/
+/*In questa funzione si crea il tabellone stampando i dati in table[] e le relative posizioni dei player nel gioco*/
 void GameTable::printTable()
 {
     int space{0};
@@ -73,7 +73,7 @@ void GameTable::printTable()
         {
             for (int i = 14; i <= 21; i++)
             {
-                space = 7 - (isPlayer(i).size() + isBuilt(i).size());
+                space = 7 - (isPlayer(i).size() + isBuilt(i));
                 space_holder = std::string(space, ' ');
                 line += " |" + print_casella(table[i]) + isPlayer(i) + "|" + space_holder;
             }
@@ -83,7 +83,7 @@ void GameTable::printTable()
         {
             for (int i = 7; i >= 0; i--)
             {
-                space = 7 - (isPlayer(i).size() + isBuilt(i).size());
+                space = 7 - (isPlayer(i).size() + isBuilt(i));
                 space_holder = std::string(space, ' ');
                 line += " |" + print_casella(table[i]) + isPlayer(i) + "|" + space_holder;
             }
@@ -91,7 +91,7 @@ void GameTable::printTable()
         }
         else
         {
-            space = 74 - (isPlayer(14 - j).size() + isBuilt(14 - j).size());
+            space = 74 - (isPlayer(14 - j).size() + isBuilt(14 - j));
             space_holder = std::string(space, ' ');
             line += " |" + print_casella(table[14 - j]) + isPlayer(14 - j) + "|" + space_holder + "|" + print_casella(table[21 + j]) + isPlayer(21 + j) + "|";
             space_holder.clear();
@@ -101,6 +101,7 @@ void GameTable::printTable()
 
 }
 
+//controlla che un player si trovi su una casa
 std::string GameTable::isPlayer(int pos)
 {
     std::string p = "";
@@ -113,14 +114,12 @@ std::string GameTable::isPlayer(int pos)
     }
     return p;
 }
-
-std::string GameTable::isBuilt(int pos)
+//Funzione ausiliaria per la gestione dinamica degli spazi
+int GameTable::isBuilt(int pos)
 {
-    if (table[pos].get_belongings() == 3)
-        return "^";
-    else if (table[pos].get_belongings() == 2)
-        return "*";
-    return "";
+    if (table[pos].get_belongings() == 3 || table[pos].get_belongings() == 2)
+        return 1;
+    return 0;
 }
 
 // stampa i possedimenti del player tramite il numero identificativo del player
@@ -149,6 +148,7 @@ void GameTable::print_legenda(int player)
     std::cout << "Il player " + std::to_string(player) + s << std::endl;
 }
 
+//Converte una posizione nell'array nella coppia di coordinate nella tabella 
 std::string conversion_table(int i)
 {
     if (i < 8)
@@ -162,6 +162,7 @@ std::string conversion_table(int i)
         return std::string(1, char(i + 44)) + "8";
 }
 
+//Permette di stamapre sia nello std output che su file
 void print_double(std::string a)
 {
     std::ofstream file("log.txt", std::ios::app);
