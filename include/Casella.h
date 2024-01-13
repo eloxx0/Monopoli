@@ -38,10 +38,10 @@ public:
     }
 
     // ritorna il costo della casella da comprare
-    int get_cost();
+    int get_cost() const;
 
     // ritorna il costo del pernottamento se la casella presenta una casa o un albergo
-    int get_price();
+    int get_price() const;
 
     // ritorna il numero del giocatore che possiede la casella
     int number_player();
