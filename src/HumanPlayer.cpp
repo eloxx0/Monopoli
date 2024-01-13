@@ -23,6 +23,10 @@ void HumanPlayer::buy_slot(){
         std::cout << "non posso fare nulla!\n";
         return;
     }
+    if(temp -> get_cost() > balance){
+        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare il terreno\n");
+        return;
+    }
 
     if(temp -> player_buyable(player) == 1){
 
@@ -42,6 +46,10 @@ void HumanPlayer::buy_slot(){
 void HumanPlayer::buy_house(){
     Casella* temp = &(table_p -> table[position]);
 
+    if(temp -> get_cost() > balance){
+        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare il terreno\n");
+        return;
+    }
     if(temp -> player_buyable(player) == 2){
 
         int cost = temp -> get_cost();
@@ -58,6 +66,11 @@ void HumanPlayer::buy_house(){
 
 void HumanPlayer::buy_hotel(){
     Casella* temp = &(table_p -> table[position]);
+
+    if(temp -> get_cost() > balance){
+        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare il terreno\n");
+        return;
+    }
 
     if(temp -> player_buyable(player) == 3){
 

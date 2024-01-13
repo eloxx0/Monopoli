@@ -72,10 +72,12 @@ void start_game(){
 
 void show(GameTable* game, HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
     game -> printTable();  //visualizzare il tabellone
-    if(a -> get_player() != 0) a -> show_balance();
-    if(b -> get_player() != 0) b -> show_balance();
-    if(c -> get_player() != 0) c -> show_balance();
-    if(d -> get_player() != 0) d -> show_balance();
+    //printa il bilancio di ogni giocatore ancora valido
+    if(a -> get_player() != 0) std::cout << a -> show_balance()<< "\n";
+    if(b -> get_player() != 0) std::cout << b -> show_balance()<< "\n";
+    if(c -> get_player() != 0) std::cout << c -> show_balance()<< "\n";
+    if(d -> get_player() != 0) std::cout << d -> show_balance()<< "\n";
+    //printa i possedimenti associati ad ogni player
     game->print_legenda(a -> get_player());
     game->print_legenda(b -> get_player());
     game->print_legenda(c -> get_player());
@@ -88,6 +90,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
 
     //considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
     if(game -> table[a_pos].player_buyable(a -> get_player())==0){ //usare buyable, devo passare l'int del giocatore, uso get_player
+    nobuyturn:
         std::cout << "Non posso fare nulla in questo turno.\n";
         std::cout<< "Inserire il comando show se si vuol visualizzare lo status della partita: \n" << std::endl; 
         std::string request;
@@ -100,7 +103,7 @@ void human_play(HumanPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d, 
     else if(game -> table[a_pos].player_buyable(a->get_player())==1){ //si può comprare il terreno
         //se il giocatore si trova in una casella angolare non è possibile fare nulla
         if(a->get_position() % 7 == 0 || a->get_position() == 0){
-            std::cout << "non posso fare nulla!\n";
+            goto nobuyturn;
         }
          
         else{
@@ -291,10 +294,10 @@ int main(int argc, char* argv[]){
             game.print_legenda(d.get_player());
             turns++;
         }
-        std::cout << "Bilancio giocatore 1: " << a.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 2: " <<b.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 3: " <<c.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 4: " <<d.show_balance() << "\n";
+        print_double("Bilancio finale del giocatore 1: "+std::to_string(a.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 2: "+std::to_string(b.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 3: "+std::to_string(c.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 4: "+std::to_string(d.show_balance())+ "\n");
 
         std::vector<int> winners = winner(&a, &b, &c, &d);
         for(int i = 0; i < winners.size(); i++){
@@ -328,16 +331,29 @@ int main(int argc, char* argv[]){
             else in_order.push_back(0);
         }
 
-
-        while(turns < 20 && Player::num_player != 1){
+        while(turns < 60 && Player::num_player != 1){
 
             //viene reimpostato a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
             int count_in_turn = 0;
             for(int i = 0 ; i < ordine_giocatori.size(); i++){
                 if(count_in_turn == human_turn){
                     a.advance();
-
-                    human_play(&a, &b, &c, &d, &game);
+                    //tenta il pagamento se la casella appartiene a qualcuno
+                    bool payment = a.pay_player();
+                    //gestione caso in cui il giocatore viene eliminato
+                    if(payment && a.get_player() == 0){
+                        human_turn = -1;
+                        ordine_giocatori.erase(ordine_giocatori.begin() + i);
+                        in_order.erase(in_order.begin() + i);
+                        for(int i = 0; i < ordine_giocatori.size(); i++){
+                            if(ordine_giocatori[i] == b.get_player()) in_order[i] = &b;
+                            else if(ordine_giocatori[i] == c.get_player()) in_order[i] = &c;
+                            else if(ordine_giocatori[i] == d.get_player()) in_order[i] = &d;
+                        }
+                    }
+                    else{
+                        human_play(&a, &b, &c, &d, &game);
+                    }
 
                     count_in_turn++;
                 }
@@ -349,7 +365,8 @@ int main(int argc, char* argv[]){
                         ordine_giocatori.erase(ordine_giocatori.begin() + i);
                         in_order.erase(in_order.begin() + i);
                         for(int i = 0; i < ordine_giocatori.size(); i++){
-                            if(ordine_giocatori[i] == b.get_player()) in_order[i] = &b;
+                            if(ordine_giocatori[i] == a.get_player()) in_order[i] = 0;
+                            else if(ordine_giocatori[i] == b.get_player()) in_order[i] = &b;
                             else if(ordine_giocatori[i] == c.get_player()) in_order[i] = &c;
                             else if(ordine_giocatori[i] == d.get_player()) in_order[i] = &d;
                         }
@@ -363,10 +380,10 @@ int main(int argc, char* argv[]){
             turns++;
         }
 
-        std::cout << "Bilancio giocatore 1: " << a.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 2: " <<b.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 3: " <<c.show_balance() << "\n";
-        std::cout << "Bilancio giocatore 4: " <<d.show_balance() << "\n";
+        print_double("Bilancio finale del giocatore 1: "+std::to_string(a.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 2: "+std::to_string(b.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 3: "+std::to_string(c.show_balance())+ "\n");
+        print_double("Bilancio finale del giocatore 4: "+std::to_string(d.show_balance())+ "\n");
         std::vector<int> winners = winner(&a, &b, &c, &d);
         for(int i = 0; i < winners.size(); i++){
             print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");

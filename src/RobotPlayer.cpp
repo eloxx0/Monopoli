@@ -75,7 +75,7 @@ void RobotPlayer::auto_turn(){
         }
     }
 
-    print_double("Giocatore " + std::to_string(player) + " ha finito il turno\n");
+    if(player != 0) print_double("Giocatore " + std::to_string(player) + " ha finito il turno\n");
 
 
 

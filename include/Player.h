@@ -34,8 +34,6 @@ class Casella;
 
 //non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
 
-
-
 class Player{
 
     //protected in modo che le classi derivate ereditino i dati membro
@@ -44,7 +42,7 @@ class Player{
         //puntatore alla tabella di gioco associata al giocatore
         GameTable* table_p;
 
-        //saldo iniziale di 100 fiorini per ogni giocatore
+        //indica il saldo di ogni giocatore. Il saldo iniziale è settato a 100 fiorini per ogni giocatore
         int balance = 100;
 
         //per ogni giocatore viene identificata la posizione all'interno della

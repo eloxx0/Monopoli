@@ -119,7 +119,6 @@ std::string GameTable::isBuilt(int pos)
 //FINIRE QUESTI METODI
 void GameTable::print_legenda(int player)
 {
-
     if(player == 0){
         return;
     }
@@ -149,7 +148,7 @@ void print_double(std::string a){
     std::ofstream file("log.txt", std::ios::app);
     if(file.is_open()){
         file << a;
-        std::cout << a;
     }
+    std::cout << a;
 }
 
