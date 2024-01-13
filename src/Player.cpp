@@ -44,7 +44,7 @@ bool Player::pay_player()
 
             // paga tutti i soldi rimanenti all'altro giocatore
             price = balance;
-            print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " a " + std::to_string(temp->number_player()) + "\n");
+            print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " fiorini al giocatore " + std::to_string(temp->number_player()) + "\n");
             edit_balance(-price);
             temp->get_propriety()->edit_balance(price);
 
