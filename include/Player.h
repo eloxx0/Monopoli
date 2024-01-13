@@ -91,7 +91,7 @@ public:
     }
 
     // ritorna il numero identificativo del player
-    int get_player const()
+    int get_player() const
     {
         return player;
     }
