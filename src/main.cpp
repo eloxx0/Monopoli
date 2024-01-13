@@ -184,7 +184,7 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
             }
             else if (r1.compare("S") == 0 || r1.compare("s") == 0)
             {
-                a->buy_slot();
+                a->buy_house();
             }
             else if (r1.compare("N") == 0 || r1.compare("n") == 0)
             {
@@ -209,7 +209,7 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
             }
             else if (r1.compare("S") == 0 || r1.compare("s") == 0)
             {
-                a->buy_slot();
+                a->buy_hotel();
             }
             else if (r1.compare("N") == 0 || r1.compare("n") == 0)
             {
