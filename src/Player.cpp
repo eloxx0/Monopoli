@@ -53,7 +53,7 @@ bool Player::pay_player()
             return true;
         }
 
-        print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " a " + std::to_string(temp->number_player()));
+        print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " fiorini al giocatore " + std::to_string(temp->number_player()));
         print_double(" per il pernottamento nella casella " + conversion_table(position) + "\n");
         edit_balance(-price);
         temp->get_propriety()->edit_balance(price);
