@@ -18,7 +18,7 @@ int Casella::number_player()
     return 0;
 }
 
-int Casella::get_cost()
+int Casella::get_cost() const
 {
 
     if (get_status() == 'L')
@@ -120,7 +120,7 @@ int Casella::get_cost()
     return 0;
 }
 
-int Casella::get_price()
+int Casella::get_price() const
 {
 
     if (get_belongings() == 2)
