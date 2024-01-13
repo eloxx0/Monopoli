@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 11)
 set(PACKAGE Monopoli)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS_RELISE "-O2")
+
 ##creo il progetto
 project(${PACKAGE} VERSION 1.0)
 
