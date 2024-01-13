@@ -3,8 +3,8 @@
 #include "../include/RobotPlayer.h"
 
 /* Per il RobotPlayer il turno viene gestito in automatico tramite la chiamata della funzione auto_turn(),
- * oppure si può chiamare uno ad uno i metodi per comprare separatamente quando il giocatore
- * si trova sopra ad una casella*/
+* oppure si può chiamare uno ad uno i metodi per comprare separatamente quando il giocatore
+* si trova sopra ad una casella*/
 
 RobotPlayer::RobotPlayer(GameTable *p_game)
 {
@@ -47,7 +47,7 @@ void RobotPlayer::auto_turn()
         std::cout << "non posso fare nulla!\n";
         return;
     }
-
+    
     // tenta di pagare il giocatore se la casella è già posseduta da qualcuno:
     // la variabile viene settata a true se il pagamento è andato a buon fine o il giocatore
     // è stato eliminato. In questo caso il turno termina

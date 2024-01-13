@@ -5,8 +5,7 @@
 
 #include "Player.h"
 
-class HumanPlayer : public Player
-{
+class HumanPlayer : public Player{
     // i dati membro vengono ereditati direttamente dalla classe di base Player
 public:
     // costruttore del giocatore umano. Gli deve essere passato il puntatore al tabellone di gioco

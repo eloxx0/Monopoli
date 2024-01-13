@@ -19,25 +19,14 @@ class Casella;
 // casella di gioco in cui si trova
 // La posizione nel tabellone viene salvata nel giocatore, e viene aggiornata
 // ad ogni turno.
-// Ad ogni giocatore viene assegnato un numero identificativo da 1 a 4 in base
-// al lancio iniziale dei dadi, che permetterà di identificare i turni di gioco
-// e l'appartenenza delle caselle ad un determinato giocatore
-// Decidere se è meglio definire in un vettore appartenente ad ogni giocatore
-// le caselle possedute o se identificare il numero del giocatore
-// all'interno della casella. Il secondo caso potrebbe risultare meno
-// complesso poichè per identificare a chi appartiene una determinata
-// casella basta andare a guardare nella casella stessa
-//
-//
 // il giocatore deve avere accesso diretto alle caselle del tabellone tramite la sua posizione definita,
 // che indica la casella corrispondente nell'array che forma il tabellone
 
 // non è possibile instanziare oggetti Player, necessario specificare HumanPlayer o RobotPlayer
 
-class Player
-{
+class Player{
 
-    // protected in modo che le classi derivate ereditino i dati membro
+// protected in modo che le classi derivate ereditino i dati membro
 protected:
     // puntatore alla tabella di gioco associata al giocatore
     GameTable *table_p;
@@ -54,9 +43,8 @@ protected:
     int position = 0;
 
     // per ogni giocatore viene definito il numero identificativo univocamente e
-    // in modo sequenziale in base all'ordine di creazione/in base al
-    // lancio del dado?. Ad ogni giocatore viene
-    // assegnata una pedina?
+    // in modo sequenziale in base all'ordine di creazione dell'oggetto e in based a quanti
+    // altri oggetti sono già stati creati
     int player;
 
     // funzione chiamata quando un player viene eliminato da una determinata partita
@@ -90,11 +78,13 @@ public:
         balance += bal;
     }
 
+    //ritorna la posizione del giocatore nell'array della tabella, non le coordinate
     int get_position() const
     {
         return position;
     }
 
+    //imposta la posizione del giocatore nell'array
     void set_position(int pos)
     {
         position = pos;

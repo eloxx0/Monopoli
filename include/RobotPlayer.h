@@ -5,8 +5,7 @@
 
 #include "Player.h"
 
-class RobotPlayer : public Player
-{
+class RobotPlayer : public Player{
 private:
     // metodo che restituisce true con una probabilità del 25% se è possibile comprare un
     // terreno, una casa o un albergo
