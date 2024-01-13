@@ -54,7 +54,7 @@ void HumanPlayer::buy_house()
 
     if (temp->get_cost() > balance)
     {
-        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare case\n");
+        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare la casa\n");
         return;
     }
     if (temp->player_buyable(player) == 2)
@@ -78,7 +78,7 @@ void HumanPlayer::buy_hotel()
 
     if (temp->get_cost() > balance)
     {
-        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare il albergo\n");
+        print_double("Giocatore " + std::to_string(player) + " ha un saldo insufficiente per comprare l'albergo\n");
         return;
     }
 
