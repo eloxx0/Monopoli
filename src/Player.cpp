@@ -15,7 +15,7 @@ void Player::advance()
     if (new_pos > 27)
     {
         print_double("Giocatore " + std::to_string(player) + " passato per il via! Ritira 20 fiorini\n");
-        edit_balance(0);
+        edit_balance(20);
         // se si trova sulla posizione 28, cioè sullo start, diventa posizione 0
         new_pos = new_pos % 28;
     }

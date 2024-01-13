@@ -2,7 +2,8 @@
 
 #include "../include/HumanPlayer.h"
 
-/* Per gestire il turno del giocatore umano è necessario chiamare le funzioni apposite dopo aver verificato cosa è possibile comprare*/
+/* Per gestire il turno del giocatore umano è necessario chiamare le funzioni apposite dopo aver verificato cosa è possibile comprare. Poichè il turno del giocatore umano non viene gestito totalmente
+* da un metodo specifico il caso in cui è necessario pagare il pernottamento deve essere gestito a parte*/
 
 HumanPlayer::HumanPlayer(GameTable *p_game)
 {

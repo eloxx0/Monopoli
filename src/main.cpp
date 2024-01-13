@@ -9,6 +9,8 @@
 // l'identificativo dei giocatori nell'ordine in cui devono procedere a giocare
 std::vector<int> ordine_giocatori;
 
+std::vector<RobotPlayer *> in_order;
+
 // variabile che indica i turni giocati. Il numero di turni massimi è 60 per i computer, 20 con il player umano:
 // dopo di questo, se il gioco non è ancora terminato, viene dichiarato un vincitore(o più vincitori, in caso di pareggio) in base al bilancio
 int turns = 0;
@@ -33,6 +35,38 @@ void player_order(int disordered_results[4])
     }
 }
 
+//funzione che riempie il vettore in_order con i puntatori dei robotplayer in ordine di gioco
+//(0 se il player è umano)
+void robot_vector_order(RobotPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
+
+    for (int i = 0; i < ordine_giocatori.size(); i++)
+    {
+        //poichè il giocatore umano è sempre il primo giocatore, e al posto di passare il giocatore umano
+        //al metodo passo 0, vado a controllare che a sia diverso da 0
+        if (a != 0 && ordine_giocatori[i] == a -> get_player()){
+            in_order.push_back(a);
+        }
+        else if (ordine_giocatori[i] == b -> get_player()){
+            in_order.push_back(b);
+        }
+        else if (ordine_giocatori[i] == c -> get_player()){
+            in_order.push_back(c);
+        }
+        else if (ordine_giocatori[i] == d -> get_player()){
+            in_order.push_back(d);
+        }
+        else{
+            in_order.push_back(0);
+        }
+    }
+}
+
+//funzione che gestisce l'eliminazione di un player dalla partita
+void delete_player(int pos, RobotPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
+
+    ordine_giocatori.erase(ordine_giocatori.begin() + pos);
+    in_order.erase(in_order.begin() + pos);
+}
 // funzione che permette di iniziare il gioco facendo lanciare i dadi ai giocatori e decidendo i turni. Viene dato per
 // scontato che il primo valore(a_val) viene ottenuto dal giocatore 1, il secondo(b_val) dal giocatore 2 e così via.
 void start_game()
@@ -45,19 +79,19 @@ void start_game()
     // faccio ritirare i dadi finchè non sono diversi tutti i valori
     int results[4] = {a_val, b_val, c_val, d_val};
 
-test:
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = i + 1; j < 4; j++)
+    test:
+        for (int i = 0; i < 3; i++)
         {
-            if (results[i] == results[j])
+            for (int j = i + 1; j < 4; j++)
             {
-                results[j] = throw_dice();
-                // se deve ritirare i dadi, rieffettua il controllo sul nuovo array ottenuto
-                goto test;
+                if (results[i] == results[j])
+                {
+                    results[j] = throw_dice();
+                    // se deve ritirare i dadi, rieffettua il controllo sul nuovo array ottenuto
+                    goto test;
+                }
             }
         }
-    }
     // copio i nuovi valori nelle variabili
     a_val = results[0];
     b_val = results[1];
@@ -104,33 +138,16 @@ void show(GameTable *game, HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, Robot
 void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, GameTable *game)
 {
     int a_pos = a->get_position();
-
-    // considero ora il turno solo di humanplayer a,verifico dalla casella che è sua come controllare la cosa
-    if (game->table[a_pos].player_buyable(a->get_player()) == 0)
-    { // usare buyable, devo passare l'int del giocatore, uso get_player
-    nobuyturn:
-        std::cout << "Non posso fare nulla in questo turno.\n";
-        std::cout << "Inserire il comando show se si vuol visualizzare lo status della partita: \n"
-                  << std::endl;
-        std::string request;
-        std::cin >> request;
-        if (request.compare("show") == 0)
-        {
-            show(game, a, b, c, d);
-        }
-        std::cout << "turno terminato\n";
+    int buy;
+    //caso in cui non posso comprare la casella (o perchè è un albergo, o perchè è di proprietà di altri)
+    if(game -> table[a_pos].player_buyable(a -> get_player()) == 0 || a_pos % 7 == 0 || a_pos == 0){
+        goto endturn;
     }
-    else if (game->table[a_pos].player_buyable(a->get_player()) == 1)
-    { // si può comprare il terreno
-        // se il giocatore si trova in una casella angolare non è possibile fare nulla
-        if (a->get_position() % 7 == 0 || a->get_position() == 0)
-        {
-            goto nobuyturn;
-        }
-
-        else
-        {
+    else if(game -> table[a_pos].player_buyable(a -> get_player()) != 0){
+        buy = game -> table[a_pos].player_buyable(a -> get_player());
+        //se può comprare il terreno
         command:
+        if(buy == 1){
             std::cout << "Desidera comprare questa casella? Rispondere S per sì, N per no e show per mostrare lo status\n";
             std::string r1;
             std::cin.clear();
@@ -142,13 +159,61 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
             }
             else if (r1.compare("S") == 0 || r1.compare("s") == 0)
             {
-
                 a->buy_slot();
             }
             else if (r1.compare("N") == 0 || r1.compare("n") == 0)
             {
-
-                std::cout << "Ok, hai terminato il turno\n";
+                std::cout << "Ok, non compri il terreno\n";
+            }
+            else
+            {
+                std::cout << "comando invalido\n";
+                goto command;
+            }
+        }
+        //se può comprare la casa
+        else if(buy == 2){
+            std::cout << "Desidera comprare questa casa? Rispondere S per sì, N per no e show per mostrare lo status\n";
+            std::string r1;
+            std::cin.clear();
+            std::getline(std::cin >> std::ws, r1);
+            if (r1.compare("show") == 0)
+            {
+                show(game, a, b, c, d);
+                goto command;
+            }
+            else if (r1.compare("S") == 0 || r1.compare("s") == 0)
+            {
+                a->buy_slot();
+            }
+            else if (r1.compare("N") == 0 || r1.compare("n") == 0)
+            {
+                std::cout << "Ok, non compri la casa\n";
+            }
+            else
+            {
+                std::cout << "comando invalido\n";
+                goto command;
+            }
+        }
+        //se può comprare l'hotel
+        else if(buy == 3){
+            std::cout << "Desidera comprare questo hotel? Rispondere S per sì, N per no e show per mostrare lo status\n";
+            std::string r1;
+            std::cin.clear();
+            std::getline(std::cin >> std::ws, r1);
+            if (r1.compare("show") == 0)
+            {
+                show(game, a, b, c, d);
+                goto command;
+            }
+            else if (r1.compare("S") == 0 || r1.compare("s") == 0)
+            {
+                a->buy_slot();
+            }
+            else if (r1.compare("N") == 0 || r1.compare("n") == 0)
+            {
+                std::cout << "Ok, non compri l'hotel\n";
             }
             else
             {
@@ -158,69 +223,30 @@ void human_play(HumanPlayer *a, RobotPlayer *b, RobotPlayer *c, RobotPlayer *d, 
         }
     }
 
-    else if (game->table[a_pos].player_buyable(a->get_player()) == 2)
-    { // si può comprare la casa
-
-    command1:
-        std::cout << "Desidera costruire una casa in questo terreno? Rispondere S per sì, N per no e show per mostrare lo status\n";
-        std::string r1;
+    endturn:
+        std::cout << "Non posso più fare nulla in questo turno.\n";
+        std::cout << "Inserire il comando show se si vuol visualizzare lo status della partita, qualsiasi altra cosa "
+            << " per terminare il turno\n";
+        std::string request;
         std::cin.clear();
-        std::getline(std::cin >> std::ws, r1);
-        if (r1.compare("show") == 0)
+        std::getline(std::cin >> std::ws, request);
+        if (request.compare("show") == 0)
         {
             show(game, a, b, c, d);
-            goto command1;
         }
-        else if (r1.compare("S") == 0 || r1.compare("s") == 0)
-        {
-
-            a->buy_house();
-        }
-        else if (r1.compare("N") == 0 || r1.compare("n") == 0)
-        {
-
-            std::cout << "Ok, hai terminato il turno\n";
-        }
-        else
-        {
-            std::cout << "comando invalido\n";
-            goto command1;
-        }
-    }
-
-    else if (game->table[a_pos].player_buyable(a->get_player()) == 3)
-    { // si può comprare l'albergo
-    command2:
-        std::cout << "Desidera migliorare questa casa in un albergo? Rispondere S per sì, N per no e show per mostrare lo status\n";
-        std::string r1;
-        std::cin.clear();
-        std::getline(std::cin >> std::ws, r1);
-        if (r1.compare("S") == 0 || r1.compare("s") == 0)
-        {
-            a->buy_hotel();
-        }
-        else if (r1.compare("show") == 0 || r1.compare("Show") == 0)
-        {
-
-            show(game, a, b, c, d);
-            goto command2;
-        }
-        else if (r1.compare("N") == 0 || r1.compare("n") == 0)
-        {
-            std::cout << "Ok, hai terminato il turno\n";
-        }
-        else
-        {
-            std::cout << "comando invalido\n";
-            goto command2;
-        }
-    }
+        std::cout << "turno terminato\n";
 }
 
-// funzione che dati i 4 giocatori restituisce un vettore che contiene i numeri dei giocatori che hanno vinto
-std::vector<int> winner(Player *a, Player *b, Player *c, Player *d)
+//funzione che determina i vincitori della partita e li stampa sia su log.txt che su terminale
+void winner(Player *a, Player *b, Player *c, Player *d)
 {
 
+    print_double("Partita teriminata!\n");
+
+    print_double("Bilancio finale del giocatore 1: " + std::to_string(a->show_balance()) + "\n");
+    print_double("Bilancio finale del giocatore 2: " + std::to_string(b->show_balance()) + "\n");
+    print_double("Bilancio finale del giocatore 3: " + std::to_string(c->show_balance()) + "\n");
+    print_double("Bilancio finale del giocatore 4: " + std::to_string(d->show_balance()) + "\n");
     std::vector<int> winners;
 
     int a_bal = a->show_balance();
@@ -228,23 +254,22 @@ std::vector<int> winner(Player *a, Player *b, Player *c, Player *d)
     int c_bal = c->show_balance();
     int d_bal = d->show_balance();
 
+    //inserisco tutti i bilanci nel vettore
     winners.push_back(a_bal);
     winners.push_back(b_bal);
     winners.push_back(c_bal);
     winners.push_back(d_bal);
+    int max = *max_element(winners.begin(), winners.end());
 
+    //li metto in ordine decrescente
     std::sort(winners.begin(), winners.end(), std::greater<int>());
 
-    for (int i = 3; i >= 0; i--)
-    {
-        if (winners[i] == 0)
-            winners.pop_back();
-    }
     int size = winners.size();
     for (int i = size - 1; i > 0; i--)
     {
-        if (winners[i] < winners[i - 1])
+        if (winners[i] < max){
             winners.pop_back();
+        }
     }
     std::vector<int> number_winners;
     if (std::binary_search(winners.begin(), winners.end(), a_bal))
@@ -263,8 +288,14 @@ std::vector<int> winner(Player *a, Player *b, Player *c, Player *d)
     {
         number_winners.push_back(4);
     }
-    return number_winners;
+    for (int i = 0; i < number_winners.size(); i++)
+    {
+        print_double("Ha vinto il giocatore: " + std::to_string(number_winners[i]) + " in " + std::to_string(turns) + " turni\n");
+    }
 }
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -300,18 +331,7 @@ int main(int argc, char *argv[])
 
         // creato il vettore con i puntatori dei giocatori in ordine in base al turno di gioco. Viene utilizzato il fatto
         // che il vettore ordine_giocatori contiene il numero identificativo del giocatore nell'ordine in cui devono giocare
-        std::vector<RobotPlayer *> in_order;
-        for (int i = 0; i < ordine_giocatori.size(); i++)
-        {
-            if (ordine_giocatori[i] == a.get_player())
-                in_order.push_back(&a);
-            else if (ordine_giocatori[i] == b.get_player())
-                in_order.push_back(&b);
-            else if (ordine_giocatori[i] == c.get_player())
-                in_order.push_back(&c);
-            else if (ordine_giocatori[i] == d.get_player())
-                in_order.push_back(&d);
-        }
+        robot_vector_order(&a, &b, &c, &d);
 
         // la partita termina quando rimane un unico giocatore oppure terminano i turni
         while (turns < 60 && Player::num_player != 1)
@@ -319,27 +339,12 @@ int main(int argc, char *argv[])
             for (int i = 0; i < ordine_giocatori.size(); i++)
             {
                 in_order[i]->auto_turn();
+                //se il giocatore robot durante l'autoturn è stato eliminato(cioè il suo numero giocatore
+                //è stato settato a 0) viene eliminato dal vettore di puntatori mantenendo inalterato 
+                //l'ordine di gioco
                 if (in_order[i]->get_player() == 0)
                 {
-
-                    ordine_giocatori.erase(ordine_giocatori.begin() + i);
-                    in_order.erase(in_order.begin() + i);
-
-                    for (int i = 0; i < ordine_giocatori.size(); i++)
-                    {
-                        if (ordine_giocatori[i] == a.get_player())
-                            in_order[i] = &a;
-                        else if (ordine_giocatori[i] == b.get_player())
-                            in_order[i] = &b;
-                        else if (ordine_giocatori[i] == c.get_player())
-                            in_order[i] = &c;
-                        else if (ordine_giocatori[i] == d.get_player())
-                            in_order[i] = &d;
-                    }
-                    for (int j = 0; j < ordine_giocatori.size(); j++)
-                    {
-                        std::cout << "giocatore rimasto: " << in_order[j]->get_player() << ", ";
-                    }
+                    delete_player(i, &a, &b, &c, &d);
                 }
             }
             game.printTable();
@@ -349,16 +354,8 @@ int main(int argc, char *argv[])
             game.print_legenda(d.get_player());
             turns++;
         }
-        print_double("Bilancio finale del giocatore 1: " + std::to_string(a.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 2: " + std::to_string(b.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 3: " + std::to_string(c.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 4: " + std::to_string(d.show_balance()) + "\n");
 
-        std::vector<int> winners = winner(&a, &b, &c, &d);
-        for (int i = 0; i < winners.size(); i++)
-        {
-            print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");
-        }
+        winner(&a, &b, &c, &d);
     }
     else
     {
@@ -371,31 +368,18 @@ int main(int argc, char *argv[])
         start_game();
 
         //****attenzione alla differenza tra il turno di gioco e il turno del giocatore all'interno del turno!!****
-
         int human_turn;
         auto find = std::find(ordine_giocatori.begin(), ordine_giocatori.end(), 1);
-        // inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori
         human_turn = find - ordine_giocatori.begin();
+        // inserisce in human_turn il numero di turno del giocatore in ordine rispetto agli altri giocatori
         print_double("Giochi come giocatore 1 nel turno " + std::to_string(human_turn + 1) + "\n");
-
-        // inserisce nel vettore solo i giocatori Robot
-        std::vector<RobotPlayer *> in_order;
-        for (int i = 0; i < ordine_giocatori.size(); i++)
-        {
-            if (ordine_giocatori[i] == b.get_player())
-                in_order.push_back(&b);
-            else if (ordine_giocatori[i] == c.get_player())
-                in_order.push_back(&c);
-            else if (ordine_giocatori[i] == d.get_player())
-                in_order.push_back(&d);
-            // pusho 0 al posto del giocatore umano
-            else
-                in_order.push_back(0);
-        }
+        
+        // inserisce nel vettore solo i giocatori Robot, 0 al posto del giocatore umano:
+        // il turno del giocatore umano viene gestito a parte
+        robot_vector_order(0, &b, &c, &d);
 
         while (turns < 20 && Player::num_player != 1)
         {
-
             // viene reimpostato a 0 all'inizio di ogni turno poichè serve per indicare a che fase del turno ci troviamo
             int count_in_turn = 0;
             for (int i = 0; i < ordine_giocatori.size(); i++)
@@ -404,70 +388,33 @@ int main(int argc, char *argv[])
                 {
                     a.advance();
                     // tenta il pagamento se la casella appartiene a qualcuno
-                    bool payment = a.pay_player();
+                    a.pay_player();
                     // gestione caso in cui il giocatore viene eliminato
-                    if (payment && a.get_player() == 0)
+                    if (a.get_player() == 0)
                     {
+                        //settato human_turn a -1 in modo che non sia più possibile giocare con il giocatore umano
                         human_turn = -1;
-                        ordine_giocatori.erase(ordine_giocatori.begin() + i);
-                        in_order.erase(in_order.begin() + i);
-                        for (int i = 0; i < ordine_giocatori.size(); i++)
-                        {
-                            if (ordine_giocatori[i] == b.get_player())
-                                in_order[i] = &b;
-                            else if (ordine_giocatori[i] == c.get_player())
-                                in_order[i] = &c;
-                            else if (ordine_giocatori[i] == d.get_player())
-                                in_order[i] = &d;
-                        }
+                        delete_player(i, 0, &b, &c, &d);
                     }
                     else
                     {
                         human_play(&a, &b, &c, &d, &game);
                     }
-
                     count_in_turn++;
                 }
                 else
                 {
-
                     in_order[i]->auto_turn();
                     if (in_order[i]->get_player() == 0)
                     {
-
-                        ordine_giocatori.erase(ordine_giocatori.begin() + i);
-                        in_order.erase(in_order.begin() + i);
-                        for (int i = 0; i < ordine_giocatori.size(); i++)
-                        {
-                            if (ordine_giocatori[i] == a.get_player())
-                                in_order[i] = 0;
-                            else if (ordine_giocatori[i] == b.get_player())
-                                in_order[i] = &b;
-                            else if (ordine_giocatori[i] == c.get_player())
-                                in_order[i] = &c;
-                            else if (ordine_giocatori[i] == d.get_player())
-                                in_order[i] = &d;
-                        }
-                        for (int j = 0; j < ordine_giocatori.size(); j++)
-                        {
-                            std::cout << "giocatori rimasti: " << in_order[j]->get_player() << ", ";
-                        }
+                        delete_player(i, 0, &b, &c, &d);
                     }
                     count_in_turn++;
                 }
             }
             turns++;
         }
-
-        print_double("Bilancio finale del giocatore 1: " + std::to_string(a.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 2: " + std::to_string(b.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 3: " + std::to_string(c.show_balance()) + "\n");
-        print_double("Bilancio finale del giocatore 4: " + std::to_string(d.show_balance()) + "\n");
-        std::vector<int> winners = winner(&a, &b, &c, &d);
-        for (int i = 0; i < winners.size(); i++)
-        {
-            print_double("Ha vinto il giocatore: " + std::to_string(winners[i]) + "\n");
-        }
+        winner(&a, &b, &c, &d);
     }
 
     game.printTable();
