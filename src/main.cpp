@@ -11,7 +11,7 @@ std::vector<int> ordine_giocatori;
 
 std::vector<RobotPlayer *> in_order;
 
-// variabile che indica i turni giocati. Il numero di turni massimi è 60 per i computer, 20 con il player umano:
+// variabile che indica i turni giocati. Il numero di turni massimi è 80 per i computer, 20 con il player umano:
 // dopo di questo, se il gioco non è ancora terminato, viene dichiarato un vincitore(o più vincitori, in caso di pareggio) in base al bilancio
 int turns = 0;
 
@@ -43,6 +43,7 @@ void robot_vector_order(RobotPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPla
     {
         //poichè il giocatore umano è sempre il primo giocatore, e al posto di passare il giocatore umano
         //al metodo passo 0, vado a controllare che a sia diverso da 0
+        //
         if (a != 0 && ordine_giocatori[i] == a -> get_player()){
             in_order.push_back(a);
         }
@@ -65,7 +66,26 @@ void robot_vector_order(RobotPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPla
 void delete_player(int pos, RobotPlayer* a, RobotPlayer* b, RobotPlayer* c, RobotPlayer* d){
 
     ordine_giocatori.erase(ordine_giocatori.begin() + pos);
-    in_order.erase(in_order.begin() + pos);
+    for (int i = 0; i < ordine_giocatori.size(); i++)
+    {
+        //riordino il vettore di puntatori senza considerare il giocatore eliminato
+        if (a != 0 && ordine_giocatori[i] == a -> get_player()){
+            in_order[i] = a;
+        }
+        else if (ordine_giocatori[i] == b -> get_player()){
+            in_order[i] = b;
+        }
+        else if (ordine_giocatori[i] == c -> get_player()){
+            in_order[i] = c;
+        }
+        else if (ordine_giocatori[i] == d -> get_player()){
+            in_order[i] = d;
+        }
+        else{
+            in_order[i] = 0;
+        }
+    }
+    in_order.pop_back();
 }
 // funzione che permette di iniziare il gioco facendo lanciare i dadi ai giocatori e decidendo i turni. Viene dato per
 // scontato che il primo valore(a_val) viene ottenuto dal giocatore 1, il secondo(b_val) dal giocatore 2 e così via.
@@ -334,7 +354,7 @@ int main(int argc, char *argv[])
         robot_vector_order(&a, &b, &c, &d);
 
         // la partita termina quando rimane un unico giocatore oppure terminano i turni
-        while (turns < 60 && Player::num_player != 1)
+        while (turns < 80 && Player::num_player != 1)
         {
             for (int i = 0; i < ordine_giocatori.size(); i++)
             {
@@ -357,9 +377,9 @@ int main(int argc, char *argv[])
 
         winner(&a, &b, &c, &d);
     }
+    // GESTIONE 1 UTENTE 3 COMPUTER
     else
     {
-        // GESTIONE 1 UTENTE 3 COMPUTER
         HumanPlayer a(&game);
         RobotPlayer b(&game);
         RobotPlayer c(&game);

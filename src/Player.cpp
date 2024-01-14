@@ -45,7 +45,8 @@ bool Player::pay_player()
             // paga tutti i soldi rimanenti all'altro giocatore
             price = balance;
             print_double("Giocatore " + std::to_string(player) + " paga il prezzo di " + std::to_string(price) + " fiorini al giocatore " + std::to_string(temp->number_player()) + "\n");
-            edit_balance(-price);
+            //giocatore eliminato rimane con saldo negativo a -1
+            edit_balance(-price -1);
             temp->get_propriety()->edit_balance(price);
 
             delete_player();
@@ -85,11 +86,11 @@ void Player::delete_player()
         if (table_p->table[i].number_player() == player)
         {
 
+            // settato il puntatore nella casella che possiede a nullptr
             table_p->table[i].set_propriety(nullptr);
         }
     }
 
-    // settato il puntatore nella casella che possiede a nullptr
     player = 0;
 
     // viene decrementata la variabile che indica il numero di player: quando il
