@@ -21,3 +21,5 @@ To visualize the log text you need to execute in your terminal with any editor:
 ```
 <name_editor> log.txt
 ```
+the log file will be created inside the project folder (if program is executed using bin/main command), otherwise
+it will be created in bin folder if program is execute inside the bin folder using ./main command
