@@ -11,8 +11,13 @@ cmake .
 make
 ```
 ## Usage
-In your terminal execute one of the two
+In your terminal execute the first command if you want to play a computer only match, use the latter to play a mixed human/computer match:
 ```
 bin/main computer
 bin/main human
+```
+## Visualize
+To visualize the log text you need to execute in your terminal with any text reader or editor:
+```
+<name_editor> log.txt
 ```
