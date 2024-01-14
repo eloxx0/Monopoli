@@ -17,9 +17,8 @@ bin/main computer
 bin/main human
 ```
 ## Visualize
-To visualize the log text you need to execute in your terminal with any editor:
+To visualize the log text you need to execute in your terminal with your preferred editor:
 ```
 <name_editor> log.txt
 ```
-the log file will be created inside the project folder (if program is executed using bin/main command), otherwise
-it will be created in bin folder if program is execute inside the bin folder using ./main command
+the log file will be created inside the folder from where you execute the program.
