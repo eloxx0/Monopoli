@@ -17,7 +17,7 @@ bin/main computer
 bin/main human
 ```
 ## Visualize
-To visualize the log text you need to execute in your terminal with any text reader or editor:
+To visualize the log text you need to execute in your terminal with any editor:
 ```
 <name_editor> log.txt
 ```
