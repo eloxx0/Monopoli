@@ -21,4 +21,4 @@ To visualize the log text you need to execute in your terminal with your preferr
 ```
 <name_editor> log.txt
 ```
-the log file will be created inside the folder from where you execute the program.
+The log file will be created in the folder where the program is executed.
